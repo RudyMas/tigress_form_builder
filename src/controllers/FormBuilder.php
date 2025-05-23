@@ -26,6 +26,18 @@ class FormBuilder
     }
 
     /**
+     * @param string $currentClass
+     * @param string $defaultClass
+     * @return string
+     */
+    private function addClass(string $currentClass, string $defaultClass): string
+    {
+        // Voeg de default class toe tenzij deze al aanwezig is
+        if (empty($currentClass)) return $defaultClass;
+        return (strpos($currentClass, $defaultClass) === false) ? "$currentClass $defaultClass" : $currentClass;
+    }
+
+    /**
      * @param string $accept_charset
      * @param string $action
      * @param string $autocomplete
@@ -72,6 +84,7 @@ class FormBuilder
      * @param string $aria_valuemin
      * @param string $aria_valuemax
      * @param string $aria_valuetext
+     * @param string $text
      * @return void
      */
     public function addButton(
@@ -91,8 +104,10 @@ class FormBuilder
         string $aria_valuemin = '',
         string $aria_valuemax = '',
         string $aria_valuetext = '',
+        string $text = 'Submit'
     ): void
     {
+        $buttonClass = $this->addClass($class, 'btn btn-primary');
         $this->form .= '<button';
         if (!empty($autofocus)) $this->form .= ' autofocus="' . htmlspecialchars($autofocus) . '"';
         if (!empty($disabled)) $this->form .= ' disabled="' . htmlspecialchars($disabled) . '"';
@@ -101,7 +116,7 @@ class FormBuilder
         if (!empty($type)) $this->form .= ' type="' . htmlspecialchars($type) . '"';
         if (!empty($value)) $this->form .= ' value="' . htmlspecialchars($value) . '"';
         if (!empty($id)) $this->form .= ' id="' . htmlspecialchars($id) . '"';
-        if (!empty($class)) $this->form .= ' class="' . htmlspecialchars($class) . '"';
+        if (!empty($buttonClass)) $this->form .= ' class="' . htmlspecialchars(trim($buttonClass)) . '"';
         if (!empty($aria_label)) $this->form .= ' aria-label="' . htmlspecialchars($aria_label) . '"';
         if (!empty($aria_describedby)) $this->form .= ' aria-describedby="' . htmlspecialchars($aria_describedby) . '"';
         if (!empty($aria_required)) $this->form .= ' aria-required="' . htmlspecialchars($aria_required) . '"';
@@ -110,7 +125,7 @@ class FormBuilder
         if (!empty($aria_valuemin)) $this->form .= ' aria-valuemin="' . htmlspecialchars($aria_valuemin) . '"';
         if (!empty($aria_valuemax)) $this->form .= ' aria-valuemax="' . htmlspecialchars($aria_valuemax) . '"';
         if (!empty($aria_valuetext)) $this->form .= ' aria-valuetext="' . htmlspecialchars($aria_valuetext) . '"';
-        $this->form .= '>' . htmlspecialchars('Submit') . '</button>';
+        $this->form .= '>' . htmlspecialchars($text) . '</button>';
     }
 
     /**
@@ -173,7 +188,6 @@ class FormBuilder
      * @return void
      */
     public function addInput(
-        string $label = '',
         string $type = 'text',
         string $name = '',
         string $id = '',
@@ -602,11 +616,12 @@ class FormBuilder
         string $aria_describedby = '',
     ): void
     {
-        if (!empty($label)) $this->form .= '<label for="' . htmlspecialchars($id) . '">' . htmlspecialchars($label) . '</label>';
+        if (!empty($label)) $this->form .= '<label for="' . htmlspecialchars($id) . '" class="form-label">' . htmlspecialchars($label) . '</label>';
+        $selectClass = $this->addClass($class, 'form-select');
         $this->form .= '<select';
         if (!empty($name)) $this->form .= ' name="' . htmlspecialchars($name) . '"';
         if (!empty($id)) $this->form .= ' id="' . htmlspecialchars($id) . '"';
-        if (!empty($class)) $this->form .= ' class="' . htmlspecialchars($class) . '"';
+        if (!empty($selectClass)) $this->form .= ' class="' . htmlspecialchars(trim($selectClass)) . '"';
         if (!empty($autofocus)) $this->form .= ' autofocus="' . htmlspecialchars($autofocus) . '"';
         if (!empty($form)) $this->form .= ' form="' . htmlspecialchars($form) . '"';
         if (!empty($multiple)) $this->form .= ' multiple="' . htmlspecialchars($multiple) . '"';
@@ -633,48 +648,6 @@ class FormBuilder
         $this->form .= '</form>';
     }
 
-    /**
-     * @param string $label
-     * @param string $type
-     * @param string $name
-     * @param string $id
-     * @param string $class
-     * @param string $value
-     * @param string $accept
-     * @param string $alt
-     * @param string $autocomplete
-     * @param string $autofocus
-     * @param string $checked
-     * @param string $files
-     * @param string $form
-     * @param string $height
-     * @param string $list
-     * @param string $max
-     * @param string $maxlength
-     * @param string $min
-     * @param string $minlength
-     * @param string $multiple
-     * @param string $pattern
-     * @param string $placeholder
-     * @param string $size
-     * @param string $src
-     * @param string $step
-     * @param string $title
-     * @param string $width
-     * @param string $aria_label
-     * @param string $aria_describedby
-     * @param string $aria_required
-     * @param string $aria_invalid
-     * @param string $aria_valuenow
-     * @param string $aria_valuemin
-     * @param string $aria_valuemax
-     * @param string $aria_valuetext
-     * @param string $extra_attributes
-     * @param bool $required
-     * @param bool $disabled
-     * @param bool $readonly
-     * @return void
-     */
     private function addInputRaw(
         string $label = '',
         string $type = 'text',
@@ -717,11 +690,34 @@ class FormBuilder
         bool   $readonly = false,
     ): void
     {
-        if (!empty($label)) $this->form .= '<label for="' . htmlspecialchars($name) . '">' . htmlspecialchars($label) . '</label>';
+        $isCheck = in_array($type, ['checkbox', 'radio']);
+        $inputClass = $class;
+        $labelClass = 'form-label';
+
+        if ($isCheck) {
+            $inputClass = $this->addClass($class, 'form-check-input');
+            $labelClass = 'form-check-label';
+            $this->form .= '<div class="form-check">';
+        } elseif ($type === 'file') {
+            $inputClass = $this->addClass($class, 'form-control');
+        } elseif (in_array($type, ['submit', 'reset', 'button'])) {
+            $inputClass = $this->addClass($class, 'btn btn-success');
+        } elseif (in_array($type, ['reset'])) {
+            $inputClass = $this->addClass($class, 'btn btn-danger');
+        } else {
+            $inputClass = $this->addClass($class, 'form-control');
+        }
+
+        // Label
+        if (!empty($label)) {
+            $for = !empty($id) ? $id : $name;
+            $this->form .= '<label for="' . htmlspecialchars($for) . '" class="' . $labelClass . '">' . htmlspecialchars($label) . '</label>';
+        }
+
         $this->form .= '<input type="' . htmlspecialchars($type) . '"';
         if (!empty($name)) $this->form .= ' name="' . htmlspecialchars($name) . '"';
         if (!empty($id)) $this->form .= ' id="' . htmlspecialchars($id) . '"';
-        if (!empty($class)) $this->form .= ' class="' . htmlspecialchars($class) . '"';
+        if (!empty($inputClass)) $this->form .= ' class="' . htmlspecialchars(trim($inputClass)) . '"';
         if (!empty($value)) $this->form .= ' value="' . htmlspecialchars($value) . '"';
         if (!empty($accept)) $this->form .= ' accept="' . htmlspecialchars($accept) . '"';
         if (!empty($alt)) $this->form .= ' alt="' . htmlspecialchars($alt) . '"';
@@ -757,5 +753,17 @@ class FormBuilder
         if ($disabled) $this->form .= ' disabled';
         if ($readonly) $this->form .= ' readonly';
         $this->form .= '>';
+
+        if ($isCheck) {
+            $this->form .= '</div>';
+        }
+    }
+
+    /**
+     * @return string
+     */
+    public function getForm(): string
+    {
+        return $this->form;
     }
 }
