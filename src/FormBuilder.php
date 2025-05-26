@@ -8,7 +8,7 @@ namespace Tigress;
  * @author Rudy Mas <rudy.mas@rudymas.be>
  * @copyright 2025 Rudy Mas (https://rudymas.be)
  * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
- * @version 2025.05.23.0
+ * @version 2025.05.26.0
  * @package Tigress\FormBuilder
  */
 class FormBuilder
@@ -22,7 +22,7 @@ class FormBuilder
      */
     public static function version(): string
     {
-        return '2025.05.23';
+        return '2025.05.26';
     }
 
     /**
@@ -188,6 +188,7 @@ class FormBuilder
      * @return void
      */
     public function addInput(
+        string $label = '',
         string $type = 'text',
         string $name = '',
         string $id = '',
@@ -214,6 +215,7 @@ class FormBuilder
         string $step = '',
         string $title = '',
         string $width = '',
+        array  $options = [],
         string $aria_label = '',
         string $aria_describedby = '',
         string $aria_required = '',
@@ -241,6 +243,7 @@ class FormBuilder
                 break;
             case 'checkbox':
                 $this->addInputRaw(
+                    label: $label,
                     type: 'checkbox',
                     name: $name,
                     id: $id,
@@ -255,6 +258,7 @@ class FormBuilder
                 break;
             case 'color':
                 $this->addInputRaw(
+                    label: $label,
                     type: 'color',
                     name: $name,
                     id: $id,
@@ -269,6 +273,7 @@ class FormBuilder
                 break;
             case 'date':
                 $this->addInputRaw(
+                    label: $label,
                     type: 'date',
                     name: $name,
                     id: $id,
@@ -287,6 +292,7 @@ class FormBuilder
                 break;
             case 'datetime':
                 $this->addInputRaw(
+                    label: $label,
                     type: 'datetime',
                     name: $name,
                     id: $id,
@@ -305,6 +311,7 @@ class FormBuilder
                 break;
             case 'datetime-local':
                 $this->addInputRaw(
+                    label: $label,
                     type: 'datetime-local',
                     name: $name,
                     id: $id,
@@ -323,6 +330,7 @@ class FormBuilder
                 break;
             case 'email':
                 $this->addInputRaw(
+                    label: $label,
                     type: 'email',
                     name: $name,
                     id: $id,
@@ -342,6 +350,7 @@ class FormBuilder
                 break;
             case 'file':
                 $this->addInputRaw(
+                    label: $label,
                     type: 'file',
                     name: $name,
                     id: $id,
@@ -366,6 +375,7 @@ class FormBuilder
                 break;
             case 'image':
                 $this->addInputRaw(
+                    label: $label,
                     type: 'image',
                     name: $name,
                     id: $id,
@@ -383,6 +393,7 @@ class FormBuilder
                 break;
             case 'month':
                 $this->addInputRaw(
+                    label: $label,
                     type: 'month',
                     name: $name,
                     id: $id,
@@ -401,6 +412,7 @@ class FormBuilder
                 break;
             case 'number':
                 $this->addInputRaw(
+                    label: $label,
                     type: 'number',
                     name: $name,
                     id: $id,
@@ -420,6 +432,7 @@ class FormBuilder
                 break;
             case 'password':
                 $this->addInputRaw(
+                    label: $label,
                     type: 'password',
                     name: $name,
                     id: $id,
@@ -437,6 +450,7 @@ class FormBuilder
                 break;
             case 'radio':
                 $this->addInputRaw(
+                    label: $label,
                     type: 'radio',
                     name: $name,
                     id: $id,
@@ -451,6 +465,7 @@ class FormBuilder
                 break;
             case 'range':
                 $this->addInputRaw(
+                    label: $label,
                     type: 'range',
                     name: $name,
                     id: $id,
@@ -481,6 +496,7 @@ class FormBuilder
                 break;
             case 'search':
                 $this->addInputRaw(
+                    label: $label,
                     type: 'search',
                     name: $name,
                     id: $id,
@@ -511,6 +527,7 @@ class FormBuilder
                 break;
             case 'tel':
                 $this->addInputRaw(
+                    label: $label,
                     type: 'tel',
                     name: $name,
                     id: $id,
@@ -526,7 +543,7 @@ class FormBuilder
                 break;
             case 'text':
                 $this->addInputRaw(
-                    type: 'text',
+                    label: $label,
                     name: $name,
                     id: $id,
                     class: $class,
@@ -544,6 +561,7 @@ class FormBuilder
                 break;
             case 'time':
                 $this->addInputRaw(
+                    label: $label,
                     type: 'time',
                     name: $name,
                     id: $id,
@@ -562,6 +580,7 @@ class FormBuilder
                 break;
             case 'url':
                 $this->addInputRaw(
+                    label: $label,
                     type: 'url',
                     name: $name,
                     id: $id,
@@ -580,6 +599,7 @@ class FormBuilder
                 break;
             case 'week':
                 $this->addInputRaw(
+                    label: $label,
                     type: 'week',
                     name: $name,
                     id: $id,
@@ -596,6 +616,26 @@ class FormBuilder
                     disabled: $disabled,
                 );
                 break;
+            case 'select':
+                $this->addSelect(
+                    label: $label,
+                    name: $name,
+                    id: $id,
+                    class: $class,
+                    options: $options,
+                    selected: $value,
+                    autofocus: $autofocus,
+                    form: $form,
+                    multiple: $multiple,
+                    size: $size,
+                    disabled: $disabled,
+                    required: $required,
+                );
+            case 'datalist':
+                $this->addDatalist(
+                    id: $id,
+                    options: $options,
+                );
         }
     }
 
