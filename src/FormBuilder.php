@@ -8,12 +8,13 @@ namespace Tigress;
  * @author Rudy Mas <rudy.mas@rudymas.be>
  * @copyright 2025 Rudy Mas (https://rudymas.be)
  * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
- * @version 2025.05.28.1
+ * @version 2025.05.28.2
  * @package Tigress\FormBuilder
  */
 class FormBuilder
 {
     private string $form;
+    private int $steps = 0;
 
     /**
      * Get the version of the DisplayHelper
@@ -690,8 +691,9 @@ class FormBuilder
         $this->form .= '</select>';
     }
 
-    public function addSteps(int $steps = 1): void
+    public function addStepsLine(int $steps = 1): void
     {
+        $this->steps = $steps;
         $this->form .= '<div class="steps mb-3">';
         $this->form .= '<div class="step current"></div>';
         for ($i = 2; $i <= $steps; $i++) {
@@ -703,6 +705,45 @@ class FormBuilder
     public function closeForm(): void
     {
         $this->form .= '</form>';
+    }
+
+    public function startStep(
+        string $id = '',
+        string $class = '',
+        bool $current = false,
+        bool $display = true,
+        int $data_step = 0,
+    ): void
+    {
+        $this->form .= '<div class="step-content';
+        $this->form .= $current ? ' current"' : '"';
+        if (!empty($id)) $this->form .= ' id="' . htmlspecialchars($id) . '"';
+        if (!empty($class)) $this->form .= ' class="' . htmlspecialchars($class) . '"';
+        if (!$display) $this->form .= ' style="display: none;"';
+        if ($data_step > 0) $this->form .= ' data-step="' . htmlspecialchars($data_step) . '"';
+        $this->form .= '>';
+    }
+
+    public function addStepButtons(
+        string $labelNext = 'Next',
+        string $labelPrevious = 'Previous',
+        string $class = 'btn btn-info',
+        int $step = 1,
+    ): void
+    {
+        $this->form .= '<div class="d-flex justify-content-between mt-3">';
+        if ($step > 1) {
+            $this->form .= '<a href="#" class="' . htmlspecialchars($class) . '" data-set-step="' . htmlspecialchars($step - 1) . '">' . htmlspecialchars($labelPrevious) . '</a>';
+        }
+        if ($step < $this->steps) {
+            $this->form .= '<a href="#" class="' . htmlspecialchars($class) . '" data-set-step="' . htmlspecialchars($step + 1) . '">' . htmlspecialchars($labelNext) . '</a>';
+        }
+        $this->form .= '</div>';
+    }
+
+    public function stopStep(): void
+    {
+        $this->form .= '</div>'; // Close step-content
     }
 
     private function addInputRaw(
