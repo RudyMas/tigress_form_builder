@@ -8,7 +8,7 @@ namespace Tigress;
  * @author Rudy Mas <rudy.mas@rudymas.be>
  * @copyright 2025 Rudy Mas (https://rudymas.be)
  * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
- * @version 2025.05.26.0
+ * @version 2025.05.28.1
  * @package Tigress\FormBuilder
  */
 class FormBuilder
@@ -22,26 +22,16 @@ class FormBuilder
      */
     public static function version(): string
     {
-        return '2025.05.26';
-    }
-
-    /**
-     * @param string $currentClass
-     * @param string $defaultClass
-     * @return string
-     */
-    private function addClass(string $currentClass, string $defaultClass): string
-    {
-        // Voeg de default class toe tenzij deze al aanwezig is
-        if (empty($currentClass)) return $defaultClass;
-        return (strpos($currentClass, $defaultClass) === false) ? "$currentClass $defaultClass" : $currentClass;
+        return '2025.05.28';
     }
 
     /**
      * @param string $accept_charset
      * @param string $action
      * @param string $autocomplete
+     * @param string $class
      * @param string $enctype
+     * @param string $id
      * @param string $method
      * @param string $name
      * @param string $target
@@ -50,7 +40,9 @@ class FormBuilder
         string $accept_charset = 'UTF-8',
         string $action = '',
         string $autocomplete = 'on',
+        string $class = '',
         string $enctype = 'application/x-www-form-urlencoded',
+        string $id = '',
         string $method = 'POST',
         string $name = '',
         string $target = '',
@@ -60,7 +52,9 @@ class FormBuilder
         if (!empty($accept_charset)) $this->form .= ' accept-charset="' . htmlspecialchars($accept_charset) . '"';
         if (!empty($action)) $this->form .= ' action="' . htmlspecialchars($action) . '"';
         if (!empty($autocomplete)) $this->form .= ' autocomplete="' . htmlspecialchars($autocomplete) . '"';
+        if (!empty($class)) $this->form .= ' class="' . htmlspecialchars(trim($class)) . '"';
         if (!empty($enctype)) $this->form .= ' enctype="' . htmlspecialchars($enctype) . '"';
+        if (!empty($id)) $this->form .= ' id="' . htmlspecialchars($id) . '"';
         if (!empty($method)) $this->form .= ' method="' . htmlspecialchars($method) . '"';
         if (!empty($name)) $this->form .= ' name="' . htmlspecialchars($name) . '"';
         if (!empty($target)) $this->form .= ' target="' . htmlspecialchars($target) . '"';
@@ -129,6 +123,18 @@ class FormBuilder
     }
 
     /**
+     * @param string $currentClass
+     * @param string $defaultClass
+     * @return string
+     */
+    private function addClass(string $currentClass, string $defaultClass): string
+    {
+        // Voeg de default class toe tenzij deze al aanwezig is
+        if (empty($currentClass)) return $defaultClass;
+        return (!str_contains($currentClass, $defaultClass)) ? "$currentClass $defaultClass" : $currentClass;
+    }
+
+    /**
      * @param string $id
      * @param array $options
      * @return void
@@ -173,6 +179,7 @@ class FormBuilder
      * @param string $step
      * @param string $title
      * @param string $width
+     * @param array $options
      * @param string $aria_label
      * @param string $aria_describedby
      * @param string $aria_required
@@ -681,6 +688,16 @@ class FormBuilder
         }
 
         $this->form .= '</select>';
+    }
+
+    public function addSteps(int $steps = 1): void
+    {
+        $this->form .= '<div class="steps mb-3">';
+        $this->form .= '<div class="step current"></div>';
+        for ($i = 2; $i <= $steps; $i++) {
+            $this->form .= '<div class="step"></div>';
+        }
+        $this->form .= '</div>';
     }
 
     public function closeForm(): void
