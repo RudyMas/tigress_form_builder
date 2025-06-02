@@ -14,6 +14,8 @@ class FormBuilderFieldTypesRepo extends DataRepository
      */
     public function __construct()
     {
+        TWIG->addPath('vendor/tigress/form-builder/src/views');
+
         $this->dbName = null;
         $this->primaryKey = ['id'];
         $this->model = 'DefaultModel';
@@ -87,7 +89,7 @@ class FormBuilderFieldTypesRepo extends DataRepository
             ],
             [
                 'id' => 7,
-                'input_type' => 'datatime',
+                'input_type' => 'datetime',
                 'name' => 'Date + Time',
                 'naam' => 'Datum + Tijd',
                 'nom' => 'Date + Heure',
@@ -149,5 +151,16 @@ class FormBuilderFieldTypesRepo extends DataRepository
                 'nom' => "Curseur de plage",
             ],
         ]);
+    }
+
+    /**
+     * Get the input type by ID.
+     *
+     * @param int $id
+     * @return string
+     */
+    public function getInputType(int $id): string
+    {
+        return $this->get($id)->input_type ?? false;
     }
 }
