@@ -178,6 +178,27 @@ class FormBuilderFieldTypesRepo extends DataRepository
                 'naam' => 'Zoeken',
                 'nom' => 'Recherche',
             ],
+            [
+                'id' => 20,
+                'input_type' => 'hidden',
+                'name' => 'Hidden',
+                'naam' => 'Verborgen veld',
+                'nom' => 'Champ caché',
+            ],
+            [
+                'id' => 100,
+                'input_type' => 'hr',
+                'name' => 'Layout: Horizontal line',
+                'naam' => 'Indeling: Horizontale lijn',
+                'nom' => 'Disposition : Ligne horizontale',
+            ],
+            [
+                'id' => 101,
+                'input_type' => 'p',
+                'name' => 'Layout: Text section',
+                'naam' => 'Indeling: Tekstsectie',
+                'nom' => 'Disposition : Section de texte',
+            ],
         ]);
     }
 
