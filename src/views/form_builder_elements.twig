@@ -82,6 +82,6 @@
     {% elseif data.field_type_id in [100] %}
         <hr {{ data.extra_input|raw }}>
     {% elseif data.field_type_id in [101] %}
-        <p {{ data.extra_input|raw }}>{{ data.extra_info|raw|nl2br }}</p>
+        <p {{ data.extra_input|raw }}>{{ strip_dangerous_tags(data.extra_info)|raw|nl2br }}</p>
     {% endif %}
 </div>
