@@ -13,8 +13,7 @@
   ],
   "minimum-stability": "stable",
   "require": {
-    "php": ">=8.4",
-    "ezyang/htmlpurifier": "^4.18"
+    "php": ">=8.4"
   },
   "require-dev": {
     "tigress/core": "^2025"
