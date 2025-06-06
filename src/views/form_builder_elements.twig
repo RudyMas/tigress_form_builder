@@ -1,3 +1,4 @@
+{# Form Builder Template version 2025.06.06 #}
 {% if mobile %}
     {% set col = 12 %}
 {% else %}
@@ -16,66 +17,71 @@
 
 <div class="col-sm-{{ col }} mt-4">
     {% if data.field_type_id in [1,3,4,6,8,9,10,16,17,18,19] %}
-    <label for="{{ data.id }}" class="form-label">{{ data.question }}</label>
-    <input type="{{ formBuilderFieldTypes.getInputType(data.field_type_id) }}" class="form-control"
-           id="{{ data.id }}" name="{{ data.id }}"{{ extraAttributes }} {{ data.extra_input|raw }}>
+        <label for="{{ data.id }}" class="form-label">{{ data.question }}</label>
+        <input type="{{ formBuilderFieldTypes.getInputType(data.field_type_id) }}" class="form-control"
+               id="{{ data.id }}" name="{{ data.id }}"{{ extraAttributes }} {{ data.extra_input|raw }}>
     {% elseif data.field_type_id in [2] %}
-    {% if data.extra_input is empty %}
-        {% set extra_input = 'rows="1"' %}
-    {% endif %}
-    <label for="{{ data.id }}" class="form-label">{{ data.question }}</label>
-    <textarea class="form-control auto-grow" id="{{ data.id }}" name="{{ data.id }}"{{ extraAttributes }} {{ extra_input|raw }}></textarea>
-    {% elseif data.field_type_id in [5] %}
-    {% if data.extra_info is empty %}
-        {% set extra_info = 'Format: +<country code>–<area code>–<telephone number>' %}
-    {% endif %}
-    {% if data.extra_input is empty %}
-        {% set extra_input = 'pattern="\\+\\d{1,4}-\\d{1,5}-\\d{4,10}"' %}
-    {% endif %}
-    <label for="{{ data.id }}" class="form-label">{{ data.question }}<br><small>{{ extra_info }}</small></label>
-    <input type="tel" class="form-control" id="{{ data.id }}" name="{{ data.id }}"{{ extraAttributes }} {{ extra_input|raw }}>
-    {% elseif data.field_type_id in [7] %}
-    <label for="{{ data.id }}" class="form-label">{{ data.question }}</label>
-    <select class="form-select" id="{{ data.id }}" name="{{ data.id }}"{{ extraAttributes }} {{ data.extra_input|raw }}>
-        <option value="">Make your choice</option>
-        {% for optie in data.extra_info|split('\n') %}
-            <option value="{{ optie|trim }}">{{ optie|trim }}</option>
-        {% endfor %}
-    </select>
-    {% elseif data.field_type_id in [11] %}
-    <div class="form-check">
-        <input type="checkbox" class="form-check-input" id="{{ data.id }}" name="{{ data.id }}"{{ extraAttributes }} {{ data.extra_input|raw }}>
-        <label class="form-check-label" for="{{ data.id }}">{{ data.question }}</label>
-    </div>
-    {% elseif data.field_type_id in [12] %}
-    <label class="form-label">{{ data.question }}</label>
-    {% for option in data.extra_info|split('\n') %}
-        <div class="form-check">
-            <input type="radio" class="form-check-input" id="{{ data.id }}_{{ option|trim }}"
-                   name="{{ data.id }}" value="{{ option|trim }}"{{ extraAttributes }} {{ data.extra_input|raw }}>
-            <label class="form-check-label" for="{{ data.id }}_{{ option|trim }}">{{ option|trim }}</label>
-        </div>
-    {% endfor %}
-    {% elseif data.field_type_id in [13] %}
-    <label for="{{ data.id }}" class="form-label">{{ data.question }}</label>
-    <input type="file" class="form-control" id="{{ data.id }}" name="{{ data.id }}"{{ extraAttributes }} {{ data.extra_input|raw }}>
-    {% elseif data.field_type_id in [14] %}
-    <label for="{{ data.id }}" class="form-label">{{ data.question }}</label>
-    <input type="color" class="form-control form-control-color" id="{{ data.id }}" name="{{ data.id }}"
-           value="#000000"{{ extraAttributes }} {{ data.extra_input|raw }}>
-    {% elseif data.field_type_id in [15] %}
-    <label for="{{ data.id }}" class="form-label">{{ data.question }}:
-        <i>
-            <output id="volumeOutput">{{ start }}</output>
-        </i>
-    </label>
-    <input type="range" class="form-range" id="{{ data.id }}" name="{{ data.id }}"
-           oninput="document.getElementById('volumeOutput').value = this.value" {{ extraAttributes }} {{ data.extra_input|raw }}>
-    {% elseif data.field_type_id in [20] %}
-    <input type="hidden" id="{{ data.id }}" name="{{ data.id }}" value="{{ data.extra_info|default('') }}">
-    {% elseif data.field_type_id in [100] %}
-    <hr {{ data.extra_input|raw }}>
-    {% elseif data.field_type_id in [101] %}
-    <p {{ data.extra_input|raw }}>
+        {% if data.extra_input is empty %}
+            {% set extra_input = 'rows="1"' %}
         {% endif %}
+        <label for="{{ data.id }}" class="form-label">{{ data.question }}</label>
+        <textarea class="form-control auto-grow" id="{{ data.id }}"
+                  name="{{ data.id }}"{{ extraAttributes }} {{ extra_input|raw }}></textarea>
+    {% elseif data.field_type_id in [5] %}
+        {% if data.extra_info is empty %}
+            {% set extra_info = 'Format: +<country code>–<area code>–<telephone number>' %}
+        {% endif %}
+        {% if data.extra_input is empty %}
+            {% set extra_input = 'pattern="\\+\\d{1,4}-\\d{1,5}-\\d{4,10}"' %}
+        {% endif %}
+        <label for="{{ data.id }}" class="form-label">{{ data.question }}<br><small>{{ extra_info }}</small></label>
+        <input type="tel" class="form-control" id="{{ data.id }}"
+               name="{{ data.id }}"{{ extraAttributes }} {{ extra_input|raw }}>
+    {% elseif data.field_type_id in [7] %}
+        <label for="{{ data.id }}" class="form-label">{{ data.question }}</label>
+        <select class="form-select" id="{{ data.id }}"
+                name="{{ data.id }}"{{ extraAttributes }} {{ data.extra_input|raw }}>
+            <option value="">Make your choice</option>
+            {% for optie in data.extra_info|split('\n') %}
+                <option value="{{ optie|trim }}">{{ optie|trim }}</option>
+            {% endfor %}
+        </select>
+    {% elseif data.field_type_id in [11] %}
+        <div class="form-check">
+            <input type="checkbox" class="form-check-input" id="{{ data.id }}"
+                   name="{{ data.id }}"{{ extraAttributes }} {{ data.extra_input|raw }}>
+            <label class="form-check-label" for="{{ data.id }}">{{ data.question }}</label>
+        </div>
+    {% elseif data.field_type_id in [12] %}
+        <label class="form-label">{{ data.question }}</label>
+        {% for option in data.extra_info|split('\n') %}
+            <div class="form-check">
+                <input type="radio" class="form-check-input" id="{{ data.id }}_{{ option|trim }}" name="{{ data.id }}"
+                       value="{{ option|trim }}"{{ extraAttributes }} {{ data.extra_input|raw }}>
+                <label class="form-check-label" for="{{ data.id }}_{{ option|trim }}">{{ option|trim }}</label>
+            </div>
+        {% endfor %}
+    {% elseif data.field_type_id in [13] %}
+        <label for="{{ data.id }}" class="form-label">{{ data.question }}</label>
+        <input type="file" class="form-control" id="{{ data.id }}"
+               name="{{ data.id }}"{{ extraAttributes }} {{ data.extra_input|raw }}>
+    {% elseif data.field_type_id in [14] %}
+        <label for="{{ data.id }}" class="form-label">{{ data.question }}</label>
+        <input type="color" class="form-control form-control-color" id="{{ data.id }}" name="{{ data.id }}"
+               value="#000000"{{ extraAttributes }} {{ data.extra_input|raw }}>
+    {% elseif data.field_type_id in [15] %}
+        <label for="{{ data.id }}" class="form-label">{{ data.question }}:
+            <i>
+                <output id="volumeOutput">{{ start }}</output>
+            </i>
+        </label>
+        <input type="range" class="form-range" id="{{ data.id }}" name="{{ data.id }}"
+               oninput="document.getElementById('volumeOutput').value = this.value" {{ extraAttributes }} {{ data.extra_input|raw }}>
+    {% elseif data.field_type_id in [20] %}
+        <input type="hidden" id="{{ data.id }}" name="{{ data.id }}" value="{{ data.extra_info|default('') }}">
+    {% elseif data.field_type_id in [100] %}
+        <hr {{ data.extra_input|raw }}>
+    {% elseif data.field_type_id in [101] %}
+        <p {{ data.extra_input|raw }}>{{ data.extra_info|raw|nl2br }}</p>
+    {% endif %}
 </div>
