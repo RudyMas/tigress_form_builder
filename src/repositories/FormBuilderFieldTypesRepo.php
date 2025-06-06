@@ -5,7 +5,7 @@ namespace Repository;
 use Tigress\DataRepository;
 
 /**
- * Class BevragingenRepo
+ * Class FormBuilderFieldTypesRepo
  */
 class FormBuilderFieldTypesRepo extends DataRepository
 {
@@ -81,6 +81,13 @@ class FormBuilderFieldTypesRepo extends DataRepository
                 'nom' => 'Téléphone',
             ],
             [
+                'id' => 16,
+                'input_type' => 'url',
+                'name' => 'Weblink',
+                'naam' => 'Weblink',
+                'nom' => 'Lien web',
+            ],
+            [
                 'id' => 6,
                 'input_type' => 'password',
                 'name' => 'Password',
@@ -107,6 +114,20 @@ class FormBuilderFieldTypesRepo extends DataRepository
                 'name' => 'Date',
                 'naam' => 'Datum',
                 'nom' => 'Date',
+            ],
+            [
+                'id' => 18,
+                'input_type' => 'month',
+                'name' => 'Month',
+                'naam' => 'Maand',
+                'nom' => 'Mois',
+            ],
+            [
+                'id' => 19,
+                'input_type' => 'week',
+                'name' => 'Week',
+                'naam' => 'Week',
+                'nom' => 'Semaine',
             ],
             [
                 'id' => 10,
@@ -149,6 +170,13 @@ class FormBuilderFieldTypesRepo extends DataRepository
                 'name' => 'Range slider',
                 'naam' => "Schaal",
                 'nom' => "Curseur de plage",
+            ],
+            [
+                'id' => 17,
+                'input_type' => 'search',
+                'name' => 'Search',
+                'naam' => 'Zoeken',
+                'nom' => 'Recherche',
             ],
         ]);
     }

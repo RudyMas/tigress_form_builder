@@ -8,7 +8,7 @@ namespace Tigress;
  * @author Rudy Mas <rudy.mas@rudymas.be>
  * @copyright 2025 Rudy Mas (https://rudymas.be)
  * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
- * @version 2025.06.02.1
+ * @version 2025.06.06.0
  * @package Tigress\FormBuilder
  */
 class FormBuilder
@@ -20,6 +20,6 @@ class FormBuilder
      */
     public static function version(): string
     {
-        return '2025.06.02';
+        return '2025.06.06';
     }
 }
