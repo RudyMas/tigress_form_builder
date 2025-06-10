@@ -14,8 +14,6 @@ class FormBuilderFieldTypesRepo extends DataRepository
      */
     public function __construct()
     {
-        TWIG->addPath('vendor/tigress/form-builder/src/views');
-
         $this->dbName = null;
         $this->primaryKey = ['id'];
         $this->model = 'DefaultModel';

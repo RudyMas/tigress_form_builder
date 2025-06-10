@@ -1,0 +1,65 @@
+{% extends 'base.twig' %}
+{% block title %}Form - {{ actionButton }}{% endblock %}
+{% block breadcrumb %}
+    <div class="row mb-2">
+        <div class="col-sm-12">
+            <nav aria-label="breadcrumb" data-bs-theme="dark">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{ BASE_URL }}/"><i class="fa fa-home"></i></a></li>
+                    <li class="breadcrumb-item"><a href="{{ BASE_URL }}/forms">Forms</a></li>
+                    <li class="breadcrumb-item active">{{ actionButton }}</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="row mb-2">
+            <div class="col-sm-12">
+                <h3>Forms - {{ actionButton }}</h3>
+            </div>
+        </div>
+        <div class="row mb-2">
+            <div class="col-sm-12">
+                <form action="{{ BASE_URL }}/forms/save" method="post" enctype="multipart/form-data"
+                      accept-charset="UTF-8" id="editForm">
+                    <fieldset>
+                        <div class="row mb-2">
+                            <div class="col-sm-12">
+                                <input type="hidden" name="id" value="{{ form.id }}">
+                                <label for="name" class="form-label"><b>Name of the form</b></label>
+                                <input type="text" class="form-control" id="name" name="name"
+                                       placeholder="Name of the form" value="{{ form.name }}" required>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-sm-3">
+                                <label for="type" class="form-label"><b>Screen type</b></label>
+                                <select class="form-control" id="type" name="type" required>
+                                    <option value="">Choose screen type</option>
+                                    <option value="1" {% if form.type == 1 %}selected{% endif %}>Mobile</option>
+                                    <option value="2" {% if form.type == 2 %}selected{% endif %}>Desktop</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-3">
+                                <label for="form_reference" class="form-label"><b>Form reference (for URL)</b></label>
+                                <input type="text" class="form-control" id="form_reference" name="form_reference"
+                                       placeholder="Form reference" value="{{ form.form_reference }}">
+                            </div>
+                        </div>
+                    </fieldset>
+                    <div class="row mb-2">
+                        <div class="col-sm-12">
+                            <button type="submit" class="btn btn-success" id="save_form"><i class="fa fa-save"></i>
+                                {{ actionButton }}
+                            </button>
+                            <a href="javascript:history.back()" class="btn btn-danger"><i class="fa fa-times"></i>
+                                Cancel</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

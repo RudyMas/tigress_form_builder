@@ -1,0 +1,118 @@
+<!-- Modal: Bevestiging, sectie-tabel verwijderen -->
+<div class="modal fade" id="confirm-delete-section-modal" tabindex="-1" aria-labelledby="confirmDeleteLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Confirm removing a section</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to delete this section table?
+            </div>
+            <div class="modal-footer">
+                <a href="#" class="btn btn-danger" id="confirm-delete-section-btn">Delete</a>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal: Bevestiging, extra sectie toevoegen -->
+<form id="confirm-add-extra-section-form" action="{{ BASE_URL }}/forms/add/section/{{ form.id }}"
+      method="post" enctype="multipart/form-data">
+    <div class="modal fade" id="confirm-add-extra-section-modal" tabindex="-1" aria-labelledby="confirmAddLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Confirm adding a section</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row mb-2 form-group">
+                        <div class="col-sm-12">
+                            <label for="name" class="form-label"><b>Naam of the extra section:</b></label>
+                            <input type="text" class="form-control" id="name" name="name" required>
+                        </div>
+                        <div class="col-sm-12 mt-2">
+                            <label for="description" class="form-label"><b>Description to show in the extra section:</b></label>
+                            <textarea class="form-control auto-grow" id="description" name="description" rows="1"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success" id="confirm-add-extra-section-btn">Add</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<!-- Modal: Bevestiging, vraag verwijderen -->
+<div class="modal fade" id="confirm-delete-question-modal" tabindex="-1" aria-labelledby="confirmDeleteLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Confirm removing a question</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to delete this question?
+            </div>
+            <div class="modal-footer">
+                <a href="#" class="btn btn-danger" id="confirm-delete-question-btn">Delete</a>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal: Bevestiging toevoegen vraag -->
+<div class="modal fade" id="confirm-add-question-modal" tabindex="-1" aria-labelledby="confirmAddLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Confirm adding a question</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to add a new question?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" id="confirm-add-question-btn">Add</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Dialog -->
+<form id="form-all" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
+    <div class="modal fade" id="confirm-submit" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Attention</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to save the changes?
+                </div>
+                <div class="modal-footer">
+                    <a href="#" id="submit-all" class="btn btn-success success">Yes</a>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">No</button>
+                </div>
+                <div class="row">
+                    <div class="form-actions col-md-12">
+                        <p class="message-error alert alert-danger mt-2" id="error-message"
+                           style="display: none"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

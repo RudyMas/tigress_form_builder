@@ -1,0 +1,79 @@
+{% extends 'datatable.twig' %}
+{% block js %}
+    {{ parent() }}
+    <script>
+        let variables = {
+            show: '{{ _GET.show }}',
+            access: '{{ rights.access }}',
+            write: '{{ rights.write }}',
+            read: '{{ rights.read }}',
+            delete: '{{ rights.delete }}',
+        }
+    </script>
+    <script src="{{ BASE_URL }}/vendor/tigress/form-builder/public/javascript/forms/index.js"></script>
+{% endblock %}
+{% block title %}Forms{% endblock %}
+{% block breadcrumb %}
+    <div class="row mb-2">
+        <div class="col-md-12">
+            <nav aria-label="breadcrumb" data-bs-theme="dark">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{ BASE_URL }}/"><i class="fa fa-home"></i></a></li>
+                    <li class="breadcrumb-item active">Forms</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="row mb-2">
+            <div class="col-sm-8">
+                <h3>Forms</h3>
+            </div>
+            <div class="col-sm-4 text-end">
+                {% if _GET.show == 'archive' %}
+                    <a href="{{ BASE_URL }}/forms" class="btn btn-warning"><i class="fa fa-archive"></i> Archive</a>
+                {% else %}
+                    <a href="{{ BASE_URL }}/forms?show=archive" class="btn btn-outline-warning"><i class="fa fa-archive"></i> Archive</a>
+                {% endif %}
+                {% if rights.write %}
+                    <a href="{{ BASE_URL }}/forms/edit/0" class="btn btn-success"><i class="fa-solid fa-plus"></i>
+                        Add</a>
+                {% endif %}
+            </div>
+        </div>
+        <div class="row mb-2">
+            <div class="col-md-12">
+                <fieldset class="mt-2">
+                    <div class="row mb-2">
+                        <div class="col-sm-12 table-responsive">
+                            <table id="dataTableForms" class="table table-striped table-bordered"></table>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+    </div>
+
+    {# Modal Remove Form #}
+    <form action="{{ BASE_URL }}/forms/delete" method="post" enctype="multipart/form-data">
+        <div class="modal fade" id="ModalFormDelete" tabindex="-1" aria-labelledby="ModalFormDeleteLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="ModalFormDeleteLabel">Archive form</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p id="modalContent">Are you sure you want to archive the form?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="RemoveForm" name="RemoveForm" value="" type="submit" class="btn btn-success">Yes</button>
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">No</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+{% endblock %}

@@ -16,11 +16,13 @@
     "php": ">=8.4"
   },
   "require-dev": {
-    "tigress/core": "^2025"
+    "tigress/core": "^2025",
+    "tigress/manipulator": "^2025"
   },
   "autoload": {
     "psr-4": {
       "Tigress\\": "src/",
+      "Controller\\": "src/controllers/",
       "Repository\\": "src/repositories/"
     }
   }

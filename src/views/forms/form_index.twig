@@ -1,0 +1,131 @@
+{% extends 'base.twig' %}
+{% block js %}
+    {{ parent() }}
+    <script src="{{ BASE_URL }}/vendor/tigress/form-builder/public/javascript/forms/form_index.js"></script>
+{% endblock %}
+{% block title %}Forms - {{ bevraging.name }}{% endblock %}
+{% block content %}
+    <div class="{% if form.type == 1 %}container-fluid{% else %}container{% endif %}">
+        <div class="row">
+            <div class="col-sm-12">
+                <h1>{{ form.name }}</h1>
+            </div>
+        </div>
+        <form accept-charset="UTF-8" autocomplete="on" class="survey-form" enctype="multipart/form-data"
+              id="form" method="POST">
+            <div class="row mb-2">
+                <div class="col-sm-12">
+                    {% if numberOfSections > 1 %}
+                        <div class="steps mb-3">
+                            <div class="step current"></div>
+                            {% for i in 2..numberOfSections %}
+                                <div class="step"></div>
+                            {% endfor %}
+                        </div>
+                        {% set step = 1 %}
+                        {% for formsSection in formSections %}
+                            <div class="step-content{% if step == 1 %} current{% endif %}"
+                                 data-step="{{ step }}"{% if step != 1 %} style="display: none;"{% endif %}>
+                                <fieldset>
+                                    <legend>{{ formsSection.name }}</legend>
+                                    {% if formsSection.description %}
+                                        <p><i>{{ formsSection.description|nl2br }}</i></p>
+                                    {% endif %}
+                                    <div class="row mb-2">
+                                        {% for data in formsQuestions %}
+                                            {% if data.forms_section_id == formsSection.id %}
+                                                {% if form.type == 1 %}
+                                                    {% include 'form_builder_elements.twig' with {
+                                                        data: data,
+                                                        mobile: true,
+                                                    } %}
+                                                {% else %}
+                                                    {% include 'form_builder_elements.twig' with {
+                                                        data: data,
+                                                        mobile: false,
+                                                    } %}
+                                                {% endif %}
+                                            {% endif %}
+                                        {% endfor %}
+                                    </div>
+                                </fieldset>
+                                <div class="d-flex justify-content-between">
+                                    {% if step == 1 %}
+                                        <button class="btn btn-info" data-set-step="0" disabled>Previous</button>
+                                        <a href="#" class="btn btn-info" data-set-step="{{ step + 1 }}">Next</a>
+                                    {% elseif step == numberOfSections %}
+                                        <a href="#" class="btn btn-info" data-set-step="{{ step - 1 }}">Previous</a>
+                                        <button type="button" name="btn" value="Submit" id="submitFrm"
+                                                class="btn btn-success" data-toggle="modal"
+                                                data-target="#confirm-submit">
+                                            Submit
+                                        </button>
+                                        <button class="btn btn-info" data-set-step="0" disabled>Next</button>
+                                    {% else %}
+                                        <a href="#" class="btn btn-info" data-set-step="{{ step - 1 }}">Previous</a>
+                                        <a href="#" class="btn btn-info" data-set-step="{{ step + 1 }}">Next</a>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            {% set step = step + 1 %}
+                        {% endfor %}
+                    {% else %}
+                        <fieldset>
+                            <legend>{{ formsSections[0].name }}</legend>
+                            {% if formsSections[0].description %}
+                                <p>{{ formsSections[0].description|nl2br }}</p>
+                            {% endif %}
+                            <div class="row mb-2">
+                                {% for data in formsQuestions %}
+                                    {% if data.forms_section_id == formsSections[0].id %}
+                                        {% if form.type == 1 %}
+                                            {% include 'form_builder_elements.twig' with {
+                                                data: data,
+                                                mobile: true,
+                                            } %}
+                                        {% else %}
+                                            {% include 'form_builder_elements.twig' with {
+                                                data: data,
+                                                mobile: false,
+                                            } %}
+                                        {% endif %}
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        </fieldset>
+                        <div class="d-flex justify-content-between">
+                            <button type="button" name="btn" value="Submit" id="submitFrm"
+                                    class="btn btn-success" data-toggle="modal"
+                                    data-target="#confirm-submit">
+                                Submit
+                            </button>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="form-actions col-md-12 text-center">
+                <p class="message-error alert alert-danger mt-2" id="error-message" style="display: none"></p>
+            </div>
+        </form>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="confirm-submit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Attention</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Do you want to submit the survey?
+                </div>
+                <div class="modal-footer">
+                    <a href="#" id="submit" class="btn btn-success success">Yes</a>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">No</button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

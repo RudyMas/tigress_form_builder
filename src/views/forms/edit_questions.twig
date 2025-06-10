@@ -1,0 +1,281 @@
+{% extends 'base.twig' %}
+{% block js %}
+    {{ parent() }}
+    <script>
+        let variables = {
+            access: '{{ rights.access }}',
+            write: '{{ rights.write }}',
+            read: '{{ rights.read }}',
+            delete: '{{ rights.delete }}',
+            formId: '{{ form.id }}',
+        }
+    </script>
+    <script src="{{ BASE_URL }}/vendor/tigress/form-builder/public/javascript/forms/edit_questions.js"></script>
+{% endblock %}
+{% block title %}Forms - {{ form.name }}{% endblock %}
+{% block breadcrumb %}
+    <div class="row mb-2">
+        <div class="col-sm-12">
+            <nav aria-label="breadcrumb" data-bs-theme="dark">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{ BASE_URL }}/"><i class="fa fa-home"></i></a></li>
+                    <li class="breadcrumb-item active"><a href="{{ BASE_URL }}/forms">Forms</a></li>
+                    <li class="breadcrumb-item active">{{ form.name }}</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+{% endblock %}
+{% block content %}
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-12">
+                <h3>Forms - {{ form.name }}</h3>
+            </div>
+        </div>
+        <div class="row mb-2">
+            <div class="col-sm-12">
+                <span id="bm-table1"></span>
+                {% for formsSection in formsSections %}
+                    <fieldset id="bm-table1-{{ formsSection.sort }}">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="table-responsive" id="bm-table1-{{ formsSection.sort }}-1">
+                                    <table class="table table-bordered w-100">
+                                        <thead>
+                                        <tr>
+                                            <th style="width: 4.1666%; background-color: lightblue !important; text-align: center; vertical-align: middle">
+                                                <i class="fa-solid fa-question"></i></th>
+                                            <th style="background-color: lightblue !important; vertical-align: middle">
+                                                <input type="text" class="form-control text-center"
+                                                       name="formsSections[{{ formsSection.id }}][name]"
+                                                       style="font-size: 1.5em; width: 100%; height: 1.7em"
+                                                       value="{{ formsSection.name }}" form="form-all"
+                                                       required>
+                                            </th>
+                                            <th style="width: 8.3332%; background-color: lightblue !important; text-align: center">
+                                                <table style="width: 100%">
+                                                    <tbody>
+                                                    <tr>
+                                                        <td style="text-align: center; vertical-align: middle; width: 75%">
+                                                            <input type="number" class="form-control text-center"
+                                                                   name="formsSections[{{ formsSection.id }}][sort]"
+                                                                   style="font-size: 1.5em; width: 3em; height: 1.7em"
+                                                                   value="{{ formsSection.sort }}" min="1"
+                                                                   form="form-all"
+                                                                   required>
+                                                        </td>
+                                                        <td style="text-align: center; vertical-align: middle; width: 25%">
+                                                            &nbsp;<a href="#" class="btn btn-danger btn-delete-sectie"
+                                                                     data-url="{{ BASE_URL }}/forms/delete/section/{{ form.id }}/{{ formsSection.id }}"
+                                                                     data-toggle="tooltip"
+                                                                     title="Delete section-tabel {{ formsSection.sort }}">
+                                                                <i class="fa-solid fa-trash"></i>
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td colspan="12">
+                                                <textarea rows="1" class="form-control auto-grow"
+                                                          name="formsSections[{{ formsSection.id }}][description]"
+                                                          form="form-all">{{ formsSection.description }}</textarea>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                    <table class="table table-bordered w-100">
+                                        <thead>
+                                        <tr>
+                                            <th style="width: 8.33%" class="text-center">Order</th>
+                                            <th style="width: 24.99%" class="text-center">Question</th>
+                                            <th style="width: 8.33%" class="text-center">Field type</th>
+                                            <th style="width: 8.33%" class="text-center">Length</th>
+                                            <th style="width: 8.33%" class="text-center">Required / Disabled</th>
+                                            <th style="width: 16.66%" class="text-center">Answer<br>(Selection list /
+                                                Checkbox / Radio button)
+                                            </th>
+                                            <th style="width: 16.66%" class="text-center">HTML-tag attributes</th>
+                                            <th style="width: 8.33%"></th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% set formsQuestionSort = 0 %}
+                                        {% for formsQuestion in formsQuestions %}
+                                            {% if (formsSection.id == formsQuestion.forms_section_id) %}
+                                                <tr>
+                                                    <td class="text-middle">
+                                                        {% set formsQuestionSort = formsQuestion.sort %}
+                                                        <input type="number"
+                                                               name="formsQuestions[{{ formsQuestion.id }}][sort]"
+                                                               class="form-control text-center"
+                                                               value="{{ formsQuestion.sort }}"
+                                                               form="form-all" min="1" required>
+                                                    </td>
+                                                    <td class="text-middle">
+                                                        <textarea rows="1" class="form-control auto-grow"
+                                                                  name="formsQuestions[{{ formsQuestion.id }}][question]"
+                                                                  form="form-all"
+                                                                  required>{{ formsQuestion.question }}</textarea>
+                                                    </td>
+                                                    <td class="text-middle">
+                                                        <select name="formsQuestions[{{ formsQuestion.id }}][field_type_id]"
+                                                                class="form-select" form="form-all" required>
+                                                            <option value="">Make your choice</option>
+                                                            {% for FieldType in formBuilderFieldTypes %}
+                                                                <option value="{{ FieldType.id }}"{% if formsQuestion.field_type_id == FieldType.id %} selected{% endif %}>
+                                                                    {{ FieldType.name }}
+                                                                </option>
+                                                            {% endfor %}
+                                                        </select>
+                                                    </td>
+                                                    <td class="text-middle">
+                                                        <input type="number"
+                                                               name="formsQuestions[{{ formsQuestion.id }}][length]"
+                                                               class="form-control text-center"
+                                                               value="{{ formsQuestion.length }}" min="1" max="12"
+                                                               form="form-all" required>
+                                                    </td>
+                                                    <td class="text-center text-middle">
+                                                        <input type="hidden" form="form-all"
+                                                               name="formsQuestions[{{ formsQuestion.id }}][required]"
+                                                               value="0">
+                                                        <input type="checkbox" value="1"
+                                                               name="formsQuestions[{{ formsQuestion.id }}][required]"
+                                                               form="form-all"{% if formsQuestion.required %} checked{% endif %}>
+                                                        /
+                                                        <input type="hidden" form="form-all"
+                                                               name="formsQuestions[{{ formsQuestion.id }}][disabled]"
+                                                               value="0">
+                                                        <input type="checkbox" value="1"
+                                                               name="formsQuestions[{{ formsQuestion.id }}][disabled]"
+                                                               form="form-all"{% if formsQuestion.required %} checked{% endif %}>
+                                                    </td>
+                                                    <td class="text-middle">
+                                                        <textarea rows="1" class="form-control auto-grow"
+                                                                  name="formsQuestions[{{ formsQuestion.id }}][extra_info]"
+                                                                  form="form-all">{{ formsQuestion.extra_info }}</textarea>
+                                                    </td>
+                                                    <td>
+                                                        <textarea rows="1" class="form-control auto-grow"
+                                                                  name="formsQuestions[{{ formsQuestion.id }}][extra_input]"
+                                                                  form="form-all">{{ formsQuestion.extra_input }}</textarea>
+                                                    </td>
+                                                    <td class="text-center text-middle">
+                                                        <a href="#" class="btn btn-danger btn-delete-question"
+                                                           data-url="{{ BASE_URL }}/forms/delete/question/{{ form.id }}/{{ formsQuestion.id }}"
+                                                           data-toggle="tooltip" title="Delete question">
+                                                            <i class="fa-solid fa-trash"></i>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            {% endif %}
+                                        {% endfor %}
+                                        </tbody>
+                                        <tfoot>
+                                        <tr>
+                                            <td colspan="8" style="background-color: lightyellow;">
+                                                <form id="form-table1-{{ formsSection.sort }}" method="post"
+                                                      action="{{ BASE_URL }}/forms/add/question/{{ form.id }}/{{ formsSection.id }}"
+                                                      enctype="multipart/form-data">
+                                                    <div class="row g-3">
+                                                        <div class="col-sm-1">
+                                                            <input type="number" name="sort"
+                                                                   value="{{ (formsQuestionSort + 1) }}"
+                                                                   class="form-control text-center" min="1"
+                                                                   form="form-table1-{{ formsSection.sort }}"
+                                                                   required>
+                                                        </div>
+                                                        <div class="col-sm-3">
+                                                            <textarea rows="1" class="form-control auto-grow"
+                                                                      name="question"
+                                                                      form="form-table1-{{ formsSection.sort }}"
+                                                                      required></textarea>
+                                                        </div>
+                                                        <div class="col-sm-1">
+                                                            <select name="field_type_id"
+                                                                    class="form-select"
+                                                                    form="form-table1-{{ formsSection.sort }}"
+                                                                    required>
+                                                                <option value="">Make your choice</option>
+                                                                {% for FieldType in formBuilderFieldTypes %}
+                                                                    <option value="{{ FieldType.id }}">
+                                                                        {{ FieldType.name }}
+                                                                    </option>
+                                                                {% endfor %}
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-sm-1">
+                                                            <input type="number"
+                                                                   name="length" value="12"
+                                                                   class="form-control text-center" min="1" max="12"
+                                                                   form="form-table1-{{ formsSection.sort }}"
+                                                                   required>
+                                                        </div>
+                                                        <div class="col-sm-1 text-center text-middle"
+                                                             style="padding-top: 0.5em">
+                                                            <input type="checkbox" name="required" value="1"
+                                                                   form="form-table1-{{ formsSection.sort }}">
+                                                        </div>
+                                                        <div class="col-sm-2">
+                                                            <textarea rows="1" class="form-control auto-grow"
+                                                                      name="extra_info"
+                                                                      form="form-table1-{{ formsSection.sort }}"></textarea>
+                                                        </div>
+                                                        <div class="col-sm-2">
+                                                            <textarea class="form-control" name="extra_input"
+                                                                      form="form-table1-{{ formsSection.sort }}"></textarea>
+                                                        </div>
+                                                        <div class="col-sm-1 text-center">
+                                                            <input type="hidden" name="count"
+                                                                   value="{{ formsSection.sort }}"
+                                                                   form="form-table1-{{ formsSection.sort }}">
+                                                            <button type="button"
+                                                                    class="btn btn-success trigger-add-question-modal"
+                                                                    data-toggle="tooltip" title="Add question"
+                                                                    data-count="{{ formsSection.sort }}">
+                                                                <i class="fa-solid fa-plus"></i>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                {% endfor %}
+                <div class="row">
+                    <div class="col-sm-6 mb-3">
+                        {% if rights.write %}
+                            <input type="button" name="btn" value="Update" data-toggle="modal"
+                                   data-target="#confirm-submit" class="btn btn-success submitFrm" form="form-all"/>
+                        {% endif %}
+                        <a class="btn btn-danger" href="{{ BASE_URL }}/forms">Cancel</a>
+                    </div>
+                    <div class="col-sm-6 mb-3 text-end">
+                        {% if rights.write %}
+                            <button type="button" class="btn btn-success trigger-add-section-modal"
+                                    data-toggle="tooltip" title="Add section" data-bs-toggle="modal"
+                                    data-bs-target="#confirm-add-extra-section-modal">
+                                <i class="fa-solid fa-plus"></i> Add Section
+                            </button>
+                        {% endif %}
+                    </div>
+                    <div class="form-actions col-sm-12 text-center">
+                        <p class="message-error alert alert-danger mt-2 error-message" style="display: none"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% include 'forms/edit_questions_modal.twig' %}
+{% endblock %}
