@@ -13,7 +13,7 @@ use Tigress\Repository;
  * @author Rudy Mas <rudy.mas@go-next.be>
  * @copyright 2025 GO! Next (https://www.go-next.be)
  * @license Proprietary
- * @version 2025.06.10.0
+ * @version 2025.06.11.0
  * @package Controller\forms
  */
 class FormCrudController
@@ -73,7 +73,17 @@ class FormCrudController
         $formAnswers->uniq_code = $uniqCode;
         $formAnswers->forms_question_id = (int)$key;
 
-        if (!isset($_FILES[$key]['error']) || $_FILES[$key]['error'] !== UPLOAD_ERR_OK) {
+        if (!isset($_FILES[$key]['name']) || empty($_FILES[$key]['name'])) {
+            if (CONFIG->website->html_lang === 'nl-BE' || CONFIG->website->html_lang === 'nl') {
+                $formAnswers->answer = 'ERROR: geen bestand geselecteerd';
+            } elseif (CONFIG->website->html_lang === 'fr-BE' || CONFIG->website->html_lang === 'fr') {
+                $formAnswers->answer = 'ERREUR : aucun fichier sélectionné';
+            } else {
+                $formAnswers->answer = 'ERROR: no file selected';
+            }
+            $formsAnswers->save($formAnswers);
+            return;
+        } elseif (!isset($_FILES[$key]['error']) || $_FILES[$key]['error'] !== UPLOAD_ERR_OK) {
             if (CONFIG->website->html_lang === 'nl-BE' || CONFIG->website->html_lang === 'nl') {
                 $formAnswers->answer = 'ERROR: uploaden van het bestand mislukte';
             } elseif (CONFIG->website->html_lang === 'fr-BE' || CONFIG->website->html_lang === 'fr') {
@@ -89,11 +99,11 @@ class FormCrudController
             $formAnswers->answer = '/private/forms/' . $safeName;
         } else {
             if (CONFIG->website->html_lang === 'nl-BE' || CONFIG->website->html_lang === 'nl') {
-                $formAnswers->answer = 'ERROR: uploaden van het bestand mislukte';
+                $formAnswers->answer = 'ERROR: verplaatsen van het bestand is mislukt';
             } elseif (CONFIG->website->html_lang === 'fr-BE' || CONFIG->website->html_lang === 'fr') {
-                $formAnswers->answer = 'ERREUR : l\'envoi du fichier a échoué';
+                $formAnswers->answer = 'ERREUR : le déplacement du fichier a échoué';
             } else {
-                $formAnswers->answer = 'ERROR: upload failed';
+                $formAnswers->answer = 'ERROR: moving the file failed';
             }
         }
         $formsAnswers->save($formAnswers);
