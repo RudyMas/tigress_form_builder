@@ -76,6 +76,8 @@ class FormCrudController
         if (!isset($_FILES[$key]['error']) || $_FILES[$key]['error'] !== UPLOAD_ERR_OK) {
             if (CONFIG->website->html_lang === 'nl-BE' || CONFIG->website->html_lang === 'nl') {
                 $formAnswers->answer = 'ERROR: uploaden van het bestand mislukte';
+            } elseif (CONFIG->website->html_lang === 'fr-BE' || CONFIG->website->html_lang === 'fr') {
+                $formAnswers->answer = 'ERREUR : l\'envoi du fichier a échoué';
             } else {
                 $formAnswers->answer = 'ERROR: file upload failed';
             }
@@ -88,6 +90,8 @@ class FormCrudController
         } else {
             if (CONFIG->website->html_lang === 'nl-BE' || CONFIG->website->html_lang === 'nl') {
                 $formAnswers->answer = 'ERROR: uploaden van het bestand mislukte';
+            } elseif (CONFIG->website->html_lang === 'fr-BE' || CONFIG->website->html_lang === 'fr') {
+                $formAnswers->answer = 'ERREUR : l\'envoi du fichier a échoué';
             } else {
                 $formAnswers->answer = 'ERROR: upload failed';
             }
