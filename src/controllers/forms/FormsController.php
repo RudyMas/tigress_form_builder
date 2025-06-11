@@ -3,10 +3,12 @@
 namespace Controller\forms;
 
 use chillerlan\QRCode\Common\EccLevel;
+use Repository\FormBuilderTilesRepo;
 use Repository\FormsRepo;
 use Repository\FormsSectionsRepo;
 use Repository\FormsQuestionsRepo;
 use Repository\FormBuilderFieldTypesRepo;
+use Tigress\Core;
 use Tigress\QrCodeGenerator;
 use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
@@ -24,6 +26,14 @@ use Twig\Error\SyntaxError;
 class FormsController
 {
     /**
+     * @throws LoaderError
+     */
+    public function __construct()
+    {
+        TWIG->addPath('vendor/tigress/form-builder/src/views');
+    }
+
+    /**
      * Overview of the forms.
      *
      * @return void
@@ -39,7 +49,13 @@ class FormsController
         }
 
         if (RIGHTS->checkRights() === false) {
-            $_SESSION['error'] = 'You do not have the necessary rights to view this page.';
+            if (CONFIG->website->html_lang === 'nl-BE' || CONFIG->website->html_lang === 'nl') {
+                $_SESSION['error'] = 'U heeft niet de juiste rechten om deze pagina te bekijken.';
+            } elseif (CONFIG->website->html_lang === 'fr-BE' || CONFIG->website->html_lang === 'fr') {
+                $_SESSION['error'] = 'Vous n\'avez pas les droits nécessaires pour voir cette page.';
+            } else {
+                $_SESSION['error'] = 'You do not have the necessary rights to view this page.';
+            }
             TWIG->redirect('/login');
         }
 
@@ -65,22 +81,44 @@ class FormsController
         }
 
         if (RIGHTS->checkRights() === false) {
-            $_SESSION['error'] = 'You do not have the necessary rights to view this page.';
+            if (CONFIG->website->html_lang === 'nl-BE' || CONFIG->website->html_lang === 'nl') {
+                $_SESSION['error'] = 'U heeft niet de juiste rechten om deze pagina te bekijken.';
+            } elseif (CONFIG->website->html_lang === 'fr-BE' || CONFIG->website->html_lang === 'fr') {
+                $_SESSION['error'] = 'Vous n\'avez pas les droits nécessaires pour voir cette page.';
+            } else {
+                $_SESSION['error'] = 'You do not have the necessary rights to view this page.';
+            }
             TWIG->redirect('/login');
         }
 
         $forms = new FormsRepo();
         if ($args['id'] == 0) {
             $forms->new();
-            $actionButton = 'Add';
+            if (CONFIG->website->html_lang === 'nl-BE' || CONFIG->website->html_lang === 'nl') {
+                $actionButton = 'Toevoegen';
+            } elseif (CONFIG->website->html_lang === 'fr-BE' || CONFIG->website->html_lang === 'fr') {
+                $actionButton = 'Ajouter';
+            } else {
+                $actionButton = 'Add';
+            }
         } else {
             $forms->loadById($args['id']);
-            $actionButton = 'Edit';
+            if (CONFIG->website->html_lang === 'nl-BE' || CONFIG->website->html_lang === 'nl') {
+                $actionButton = 'Aanpassen';
+            } elseif (CONFIG->website->html_lang === 'fr-BE' || CONFIG->website->html_lang === 'fr') {
+                $actionButton = 'Modifier';
+            } else {
+                $actionButton = 'Update';
+            }
         }
+
+        $tiles = new FormBuilderTilesRepo();
+        $tiles->load();
 
         TWIG->render('forms/edit.twig', [
             'actionButton' => $actionButton,
             'form' => $forms->current(),
+            'tiles' => $tiles,
         ]);
     }
 
@@ -103,7 +141,13 @@ class FormsController
         }
 
         if (RIGHTS->checkRights() === false) {
-            $_SESSION['error'] = 'You do not have the necessary rights to view this page.';
+            if (CONFIG->website->html_lang === 'nl-BE' || CONFIG->website->html_lang === 'nl') {
+                $_SESSION['error'] = 'U heeft niet de juiste rechten om deze pagina te bekijken.';
+            } elseif (CONFIG->website->html_lang === 'fr-BE' || CONFIG->website->html_lang === 'fr') {
+                $_SESSION['error'] = 'Vous n\'avez pas les droits nécessaires pour voir cette page.';
+            } else {
+                $_SESSION['error'] = 'You do not have the necessary rights to view this page.';
+            }
             TWIG->redirect('/login');
         }
 
@@ -117,8 +161,8 @@ class FormsController
             'active' => 1,
         ], 'sort');
 
-        $FormsQuestions = new FormsQuestionsRepo();
-        $FormsQuestions->loadByWhereQuery("forms_section_id IN (SELECT id FROM forms_sections WHERE form_id = :form_id AND active = 1) AND active = 1", [
+        $formsQuestions = new FormsQuestionsRepo();
+        $formsQuestions->loadByWhereQuery("forms_section_id IN (SELECT id FROM forms_sections WHERE form_id = :form_id AND active = 1) AND active = 1", [
             'form_id' => $args['id'],
         ], 'sort');
 
@@ -128,7 +172,7 @@ class FormsController
         TWIG->render('forms/edit_questions.twig', [
             'form' => $form,
             'formsSections' => $formsSections,
-            'formQuestions' => $FormsQuestions,
+            'formsQuestions' => $formsQuestions,
             'formBuilderFieldTypes' => $formBuilderFieldTypes,
         ]);
     }

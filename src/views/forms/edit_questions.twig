@@ -154,7 +154,7 @@
                                                                value="0">
                                                         <input type="checkbox" value="1"
                                                                name="formsQuestions[{{ formsQuestion.id }}][disabled]"
-                                                               form="form-all"{% if formsQuestion.required %} checked{% endif %}>
+                                                               form="form-all"{% if formsQuestion.disabled %} checked{% endif %}>
                                                     </td>
                                                     <td class="text-middle">
                                                         <textarea rows="1" class="form-control auto-grow"
@@ -221,6 +221,9 @@
                                                              style="padding-top: 0.5em">
                                                             <input type="checkbox" name="required" value="1"
                                                                    form="form-table1-{{ formsSection.sort }}">
+                                                            /
+                                                            <input type="checkbox" name="disabled" value="1"
+                                                                   form="form-table1-{{ formsSection.sort }}">
                                                         </div>
                                                         <div class="col-sm-2">
                                                             <textarea rows="1" class="form-control auto-grow"
@@ -228,7 +231,8 @@
                                                                       form="form-table1-{{ formsSection.sort }}"></textarea>
                                                         </div>
                                                         <div class="col-sm-2">
-                                                            <textarea class="form-control" name="extra_input"
+                                                            <textarea rows="1" class="form-control auto-grow"
+                                                                      name="extra_input"
                                                                       form="form-table1-{{ formsSection.sort }}"></textarea>
                                                         </div>
                                                         <div class="col-sm-1 text-center">

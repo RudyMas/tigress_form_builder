@@ -78,9 +78,9 @@ document.addEventListener('DOMContentLoaded', function () {
         ],
         stateSave: true,
         order: [[0, 'desc']],
-        language: {
-            url: '/node_modules/datatables.net-plugins/i18n/nl-NL.json'
-        },
+        // language: {
+        //     url: '/node_modules/datatables.net-plugins/i18n/nl-NL.json'
+        // },
     });
 
     // Tooltip initialiseren bij elke redraw

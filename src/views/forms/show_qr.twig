@@ -1,13 +1,13 @@
 {% extends 'base.twig' %}
-{% block title %}Bevraging - {{ actionButton }}{% endblock %}
+{% block title %}Forms - QR-code{% endblock %}
 {% block breadcrumb %}
     <div class="row mb-2">
         <div class="col-sm-12">
             <nav aria-label="breadcrumb" data-bs-theme="dark">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ BASE_URL }}/"><i class="fa fa-home"></i></a></li>
-                    <li class="breadcrumb-item"><a href="{{ BASE_URL }}/bevragingen">Bevragingen</a></li>
-                    <li class="breadcrumb-item active">QR-code: {{ bevraging.naam }}</li>
+                    <li class="breadcrumb-item"><a href="{{ BASE_URL }}/forms">Forms</a></li>
+                    <li class="breadcrumb-item active">QR-code: {{ form.name }}</li>
                 </ol>
             </nav>
         </div>
@@ -17,7 +17,7 @@
     <div class="container">
         <div class="row mb-2">
             <div class="col-sm-12">
-                <h3>QR-code: {{ bevraging.naam }}</h3>
+                <h3>QR-code: {{ form.name }}</h3>
             </div>
         </div>
         <div class="row mb-2">

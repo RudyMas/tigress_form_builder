@@ -3,9 +3,9 @@
     {{ parent() }}
     <script src="{{ BASE_URL }}/vendor/tigress/form-builder/public/javascript/forms/form_index.js"></script>
 {% endblock %}
-{% block title %}Forms - {{ bevraging.name }}{% endblock %}
+{% block title %}Forms - {{ form.name }}{% endblock %}
 {% block content %}
-    <div class="{% if form.type == 1 %}container-fluid{% else %}container{% endif %}">
+    <div class="{% if form.type_id == 1 %}container-fluid{% else %}container{% endif %}">
         <div class="row">
             <div class="col-sm-12">
                 <h1>{{ form.name }}</h1>
@@ -23,7 +23,7 @@
                             {% endfor %}
                         </div>
                         {% set step = 1 %}
-                        {% for formsSection in formSections %}
+                        {% for formsSection in formsSections %}
                             <div class="step-content{% if step == 1 %} current{% endif %}"
                                  data-step="{{ step }}"{% if step != 1 %} style="display: none;"{% endif %}>
                                 <fieldset>
@@ -34,7 +34,7 @@
                                     <div class="row mb-2">
                                         {% for data in formsQuestions %}
                                             {% if data.forms_section_id == formsSection.id %}
-                                                {% if form.type == 1 %}
+                                                {% if form.type_id == 1 %}
                                                     {% include 'form_builder_elements.twig' with {
                                                         data: data,
                                                         mobile: true,
@@ -78,7 +78,7 @@
                             <div class="row mb-2">
                                 {% for data in formsQuestions %}
                                     {% if data.forms_section_id == formsSections[0].id %}
-                                        {% if form.type == 1 %}
+                                        {% if form.type_id == 1 %}
                                             {% include 'form_builder_elements.twig' with {
                                                 data: data,
                                                 mobile: true,

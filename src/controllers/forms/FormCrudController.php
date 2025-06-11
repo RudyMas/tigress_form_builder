@@ -74,7 +74,11 @@ class FormCrudController
         $formAnswers->forms_question_id = (int)$key;
 
         if (!isset($_FILES[$key]['error']) || $_FILES[$key]['error'] !== UPLOAD_ERR_OK) {
-            $formAnswers->answer = 'ERROR: file upload failed';
+            if (CONFIG->website->html_lang === 'nl-BE' || CONFIG->website->html_lang === 'nl') {
+                $formAnswers->answer = 'ERROR: uploaden van het bestand mislukte';
+            } else {
+                $formAnswers->answer = 'ERROR: file upload failed';
+            }
             $formsAnswers->save($formAnswers);
             return;
         }
@@ -82,7 +86,11 @@ class FormCrudController
         if (move_uploaded_file($tmpPath, $destination)) {
             $formAnswers->answer = '/private/forms/' . $safeName;
         } else {
-            $formAnswers->answer = 'ERROR: upload failed';
+            if (CONFIG->website->html_lang === 'nl-BE' || CONFIG->website->html_lang === 'nl') {
+                $formAnswers->answer = 'ERROR: uploaden van het bestand mislukte';
+            } else {
+                $formAnswers->answer = 'ERROR: upload failed';
+            }
         }
         $formsAnswers->save($formAnswers);
     }

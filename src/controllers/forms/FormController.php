@@ -26,7 +26,7 @@ class FormController
      */
     public function __construct()
     {
-        TWIG->addPath('vendor/tigress/forms/src/views');
+        TWIG->addPath('vendor/tigress/form-builder/src/views');
     }
 
     /**
@@ -59,7 +59,7 @@ class FormController
         ], 'sort');
 
         $formsQuestions = new FormsQuestionsRepo();
-        $formsQuestions->loadByWhereQuery("forms_section_id IN (SELECT id FROM forms_section WHERE form_id = :form_id AND active = 1) AND active = 1", [
+        $formsQuestions->loadByWhereQuery("forms_section_id IN (SELECT id FROM forms_sections WHERE form_id = :form_id AND active = 1) AND active = 1", [
             'form_id' => $form->id,
         ], 'sort');
 

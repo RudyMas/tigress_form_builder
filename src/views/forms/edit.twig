@@ -35,17 +35,28 @@
                         </div>
                         <div class="row mb-2">
                             <div class="col-sm-3">
-                                <label for="type" class="form-label"><b>Screen type</b></label>
-                                <select class="form-control" id="type" name="type" required>
+                                <label for="type_id" class="form-label"><b>Screen type</b></label>
+                                <select class="form-control" id="type_id" name="type_id" required>
                                     <option value="">Choose screen type</option>
-                                    <option value="1" {% if form.type == 1 %}selected{% endif %}>Mobile</option>
-                                    <option value="2" {% if form.type == 2 %}selected{% endif %}>Desktop</option>
+                                    <option value="1" {% if form.type_id == 1 %}selected{% endif %}>Mobile</option>
+                                    <option value="2" {% if form.type_id == 2 %}selected{% endif %}>Desktop</option>
                                 </select>
                             </div>
                             <div class="col-sm-3">
                                 <label for="form_reference" class="form-label"><b>Form reference (for URL)</b></label>
                                 <input type="text" class="form-control" id="form_reference" name="form_reference"
                                        placeholder="Form reference" value="{{ form.form_reference }}">
+                            </div>
+                            <div class="col-sm-3">
+                                <label for="tile_id" class="form-label"><b>Linkt to tile</b></label>
+                                <select class="form-control" id="tile_id" name="tile_id" required>
+                                    <option value="0">Just a form, not linked</option>
+                                    {% for tile in tiles %}
+                                        <option value="{{ tile.id }}" {% if form.tile_id == tile.id %}selected{% endif %}>
+                                            {{ tile.tile_name }}
+                                        </option>
+                                    {% endfor %}
+                                </select>
                             </div>
                         </div>
                     </fieldset>
