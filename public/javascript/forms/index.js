@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', function () {
             },
             {
                 title: 'Device',
-                data: 'type',
+                data: 'type_id',
                 className: 'text-center text-middle',
                 render: function (data, type, row) {
                     if (data === 1) {
@@ -67,7 +67,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     }
                     if (variables.delete) {
                         if (variables.show === 'archive') {
-                            output += ` <button title="Repair" type="button" class="btn btn-sm btn-success open-modal" data-bs-toggle="modal" data-bs-target="#ModalFormsRepair" data-id="${row.id}"><i class="fa fa-undo" aria-hidden="true"></i></button>`;
+                            output += ` <button title="Restore" type="button" class="btn btn-sm btn-success open-modal" data-bs-toggle="modal" data-bs-target="#ModalFormsRestore" data-id="${row.id}"><i class="fa fa-undo" aria-hidden="true"></i></button>`;
                         } else {
                             output += ` <button title="Archive" type="button" class="btn btn-sm btn-danger open-modal" data-bs-toggle="modal" data-bs-target="#ModalFormsDelete" data-id="${row.id}"><i class="fa fa-archive" aria-hidden="true"></i></button>`;
                         }
@@ -88,10 +88,15 @@ document.addEventListener('DOMContentLoaded', function () {
         initTooltips();
     });
 
-    // Modal vullen
-    const modalDelete = document.getElementById('ModalFormDelete');
+    const modalDelete = document.getElementById('ModalFormsDelete');
     modalDelete.addEventListener('show.bs.modal', function (event) {
         const button = event.relatedTarget;
         modalDelete.querySelector('#DeleteForm').value = button.getAttribute('data-id');
+    });
+
+    const modalRestore = document.getElementById('ModalFormsRestore');
+    modalRestore.addEventListener('show.bs.modal', function (event) {
+        const button = event.relatedTarget;
+        modalRestore.querySelector('#RestoreForm').value = button.getAttribute('data-id');
     });
 });

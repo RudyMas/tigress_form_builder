@@ -58,18 +58,39 @@
 
     {# Modal Remove Form #}
     <form action="{{ BASE_URL }}/forms/delete" method="post" enctype="multipart/form-data">
-        <div class="modal fade" id="ModalFormDelete" tabindex="-1" aria-labelledby="ModalFormDeleteLabel" aria-hidden="true">
+        <div class="modal fade" id="ModalFormsDelete" tabindex="-1" aria-labelledby="ModalFormsDeleteLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="ModalFormDeleteLabel">Archive form</h5>
+                        <h5 class="modal-title" id="ModalFormsDeleteLabel">Archive form</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <p id="modalContent">Are you sure you want to archive the form?</p>
                     </div>
                     <div class="modal-footer">
-                        <button id="RemoveForm" name="RemoveForm" value="" type="submit" class="btn btn-success">Yes</button>
+                        <button id="DeleteForm" name="DeleteForm" value="" type="submit" class="btn btn-success">Yes</button>
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">No</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    {# Modal Restore Form #}
+    <form action="{{ BASE_URL }}/forms/restore" method="post" enctype="multipart/form-data">
+        <div class="modal fade" id="ModalFormsRestore" tabindex="-1" aria-labelledby="ModalFormsRestoreLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="ModalFormsDeleteLabel">Restore form</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p id="modalContent">Are you sure you want to restore the form?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="RestoreForm" name="RestoreForm" value="" type="submit" class="btn btn-success">Yes</button>
                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">No</button>
                     </div>
                 </div>

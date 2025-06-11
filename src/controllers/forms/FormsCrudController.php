@@ -6,6 +6,7 @@ use JetBrains\PhpStorm\NoReturn;
 use Repository\FormsRepo;
 use Repository\FormsSectionsRepo;
 use Repository\FormsQuestionsRepo;
+use Tigress\Core;
 use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
 use Twig\Error\SyntaxError;
@@ -27,6 +28,38 @@ class FormsCrudController
     public function __construct()
     {
         TWIG->addPath('vendor/tigress/form-builder/src/views');
+    }
+
+    /**
+     * Delete a form.
+     *
+     * @return void
+     */
+    #[NoReturn] public function deleteForm(): void
+    {
+        SECURITY->checkAccess();
+
+        if (RIGHTS->checkRights() === false) {
+            if (CONFIG->website->html_lang === 'nl-BE' || CONFIG->website->html_lang === 'nl') {
+                $_SESSION['error'] = 'U heeft niet de vereiste rechten om deze pagina te bekijken.';
+            } elseif (CONFIG->website->html_lang === 'fr-BE' || CONFIG->website->html_lang === 'fr') {
+                $_SESSION['error'] = 'Vous n\'avez pas les droits requis pour voir cette page.';
+            } else {
+                $_SESSION['error'] = 'You do not have the required permissions to view this page.';
+            }
+            TWIG->redirect('/login');
+        }
+
+        $forms = new FormsRepo();
+        $forms->deleteById((int)$_POST['DeleteForm']);
+        if (CONFIG->website->html_lang === 'nl-BE' || CONFIG->website->html_lang === 'nl') {
+            $_SESSION['success'] = "Het formulier werd succesvol verwijderd.";
+        } elseif (CONFIG->website->html_lang === 'fr-BE' || CONFIG->website->html_lang === 'fr') {
+            $_SESSION['success'] = "Le formulaire a été supprimé avec succès.";
+        } else {
+            $_SESSION['success'] = "The form was successfully deleted.";
+        }
+        TWIG->redirect('/forms');
     }
 
     /**
@@ -155,6 +188,38 @@ class FormsCrudController
         $data = $forms->getAllQuestions($args);
 
         TWIG->render(null, $data, 'DT');
+    }
+
+    /**
+     * Restore a deleted form.
+     *
+     * @return void
+     */
+    #[NoReturn] public function restoreForm(): void
+    {
+        SECURITY->checkAccess();
+
+        if (RIGHTS->checkRights() === false) {
+            if (CONFIG->website->html_lang === 'nl-BE' || CONFIG->website->html_lang === 'nl') {
+                $_SESSION['error'] = 'U heeft niet de vereiste rechten om deze pagina te bekijken.';
+            } elseif (CONFIG->website->html_lang === 'fr-BE' || CONFIG->website->html_lang === 'fr') {
+                $_SESSION['error'] = 'Vous n\'avez pas les droits requis pour voir cette page.';
+            } else {
+                $_SESSION['error'] = 'You do not have the required permissions to view this page.';
+            }
+            TWIG->redirect('/login');
+        }
+
+        $forms = new FormsRepo();
+        $forms->undeleteById((int)$_POST['RestoreForm']);
+        if (CONFIG->website->html_lang === 'nl-BE' || CONFIG->website->html_lang === 'nl') {
+            $_SESSION['success'] = "Het formulier werd succesvol hersteld.";
+        } elseif (CONFIG->website->html_lang === 'fr-BE' || CONFIG->website->html_lang === 'fr') {
+            $_SESSION['success'] = "Le formulaire a été restauré avec succès.";
+        } else {
+            $_SESSION['success'] = "The form was successfully restored.";
+        }
+        TWIG->redirect('/forms?show=archive');
     }
 
     /**

@@ -41,6 +41,12 @@
       "method": "deleteSection"
     },
     {
+      "request": "POST",
+      "path": "/forms/delete",
+      "controller": "forms\\FormsCrudController",
+      "method": "deleteForm"
+    },
+    {
       "request": "GET",
       "path": "/forms/delete/question/{form_id}/{forms_question_id}",
       "controller": "forms\\FormsCrudController",
@@ -57,6 +63,12 @@
       "path": "/forms/get/{show}",
       "controller": "forms\\FormsCrudController",
       "method": "getAll"
+    },
+    {
+      "request": "POST",
+      "path": "/forms/restore",
+      "controller": "forms\\FormsCrudController",
+      "method": "restoreForm"
     },
     {
       "request": "POST",
