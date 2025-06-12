@@ -35,12 +35,12 @@
                                         {% for data in formsQuestions %}
                                             {% if data.forms_section_id == formsSection.id %}
                                                 {% if form.type_id == 1 %}
-                                                    {% include 'form_builder_elements.twig' with {
+                                                    {% include 'forms/form_builder_elements.twig' with {
                                                         data: data,
                                                         mobile: true,
                                                     } %}
                                                 {% else %}
-                                                    {% include 'form_builder_elements.twig' with {
+                                                    {% include 'forms/form_builder_elements.twig' with {
                                                         data: data,
                                                         mobile: false,
                                                     } %}
@@ -79,12 +79,12 @@
                                 {% for data in formsQuestions %}
                                     {% if data.forms_section_id == formsSections[0].id %}
                                         {% if form.type_id == 1 %}
-                                            {% include 'form_builder_elements.twig' with {
+                                            {% include 'forms/form_builder_elements.twig' with {
                                                 data: data,
                                                 mobile: true,
                                             } %}
                                         {% else %}
-                                            {% include 'form_builder_elements.twig' with {
+                                            {% include 'forms/form_builder_elements.twig' with {
                                                 data: data,
                                                 mobile: false,
                                             } %}

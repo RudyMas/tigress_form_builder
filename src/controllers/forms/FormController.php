@@ -86,13 +86,12 @@ class FormController
      */
     public function closed(): void
     {
-        if (CONFIG->website->html_lang === 'nl-BE' || CONFIG->website->html_lang === 'nl') {
-            $message = 'Het formulier is reeds gesloten of niet herkend.<br>Gelieve de beheerder van het formulier te contacteren.';
-        } elseif (CONFIG->website->html_lang === 'fr-BE' || CONFIG->website->html_lang === 'fr') {
-            $message = 'Le formulaire est déjà fermé ou non reconnu.<br>Veuillez contacter l\'administrateur du formulaire.';
-        } else {
-            $message = 'The form is already closed or not recognized.<br>Please contact the form administrator.';
-        }
+        $message = match(substr(CONFIG->website->html_lang, 0, 2)) {
+            'nl' => 'Het formulier is reeds gesloten of niet herkend.<br>Gelieve de beheerder van het formulier te contacteren.',
+            'fr' => 'Le formulaire est déjà fermé ou non reconnu.<br>Veuillez contacter l\'administrateur du formulaire.',
+            default => 'The form is already closed or not recognized.<br>Please contact the form administrator.',
+        };
+
         TWIG->render('forms/message.twig', [
             'message' => $message,
             'loadMenu' => 'forms/form_menu.twig',
@@ -109,13 +108,12 @@ class FormController
      */
     public function success(): void
     {
-        if (CONFIG->website->html_lang === 'nl-BE' || CONFIG->website->html_lang === 'nl') {
-            $message = 'Het formulier is succesvol opgeslagen.<br>Je hoeft verder niets te doen – je kunt nu uw browser sluiten.';
-        } elseif (CONFIG->website->html_lang === 'fr-BE' || CONFIG->website->html_lang === 'fr') {
-            $message = 'Le formulaire a été enregistré avec succès.<br>Vous n\'avez rien d\'autre à faire – vous pouvez maintenant fermer votre navigateur.';
-        } else {
-            $message = 'The form has been successfully saved.<br>You do not need to do anything further – you may now close your browser.';
-        }
+        $message = match(substr(CONFIG->website->html_lang, 0, 2)) {
+            'nl' => 'Het formulier is succesvol opgeslagen.<br>Je hoeft verder niets te doen – je kunt nu uw browser sluiten.',
+            'fr' => 'Le formulaire a été enregistré avec succès.<br>Vous n\'avez rien d\'autre à faire – vous pouvez maintenant fermer votre navigateur.',
+            default => 'The form has been successfully saved.<br>You do not need to do anything further – you may now close your browser.',
+        };
+
         TWIG->render('forms/message.twig', [
             'message' => $message,
             'loadMenu' => 'forms/form_menu.twig',

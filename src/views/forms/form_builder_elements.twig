@@ -1,4 +1,20 @@
-{# Form Builder Template version 2025.06.06 #}
+{# Form Builder Template version 2025.06.12 #}
+
+{% set translations_fbe_250612 = {
+    'nl': {
+        'make_choice': 'Maak je keuze',
+        'phone_format': 'Formaat: +<landcode>-<zone>-<nummer>',
+    },
+    'fr': {
+        'make_choice': 'Faites votre choix',
+        'phone_format': 'Format : +<code pays>-<zone>-<numéro>',
+    },
+    'en': {
+        'make_choice': 'Make your choice',
+        'phone_format': 'Format: +<country code>–<area code>–<telephone number>',
+    }
+} %}
+
 {% if mobile %}
     {% set col = 12 %}
 {% else %}
@@ -17,31 +33,31 @@
 
 <div class="col-sm-{{ col }} mt-4">
     {% if data.field_type_id in [1,3,4,6,8,9,10,16,17,18,19] %}
-        <label for="{{ data.id }}" class="form-label">{{ data.question }}</label>
+        <label for="{{ data.id }}" class="form-label">{{ data.question }}{% if data.required %} <span style="color: red">*</span>{% endif %}</label>
         <input type="{{ formBuilderFieldTypes.getInputType(data.field_type_id) }}" class="form-control"
                id="{{ data.id }}" name="{{ data.id }}"{{ extraAttributes }} {{ data.extra_input|raw }}>
     {% elseif data.field_type_id in [2] %}
         {% if data.extra_input is empty %}
             {% set extra_input = 'rows="1"' %}
         {% endif %}
-        <label for="{{ data.id }}" class="form-label">{{ data.question }}</label>
+        <label for="{{ data.id }}" class="form-label">{{ data.question }}{% if data.required %} <span style="color: red">*</span>{% endif %}</label>
         <textarea class="form-control auto-grow" id="{{ data.id }}"
                   name="{{ data.id }}"{{ extraAttributes }} {{ extra_input|raw }}></textarea>
     {% elseif data.field_type_id in [5] %}
         {% if data.extra_info is empty %}
-            {% set extra_info = 'Format: +<country code>–<area code>–<telephone number>' %}
+            {% set extra_info = trans('phone_format', translations_fbe_250612) %}
         {% endif %}
         {% if data.extra_input is empty %}
             {% set extra_input = 'pattern="\\+\\d{1,4}-\\d{1,5}-\\d{4,10}"' %}
         {% endif %}
-        <label for="{{ data.id }}" class="form-label">{{ data.question }}<br><small>{{ extra_info }}</small></label>
+        <label for="{{ data.id }}" class="form-label">{{ data.question }}{% if data.required %} <span style="color: red">*</span>{% endif %}<br><small>{{ extra_info }}</small></label>
         <input type="tel" class="form-control" id="{{ data.id }}"
                name="{{ data.id }}"{{ extraAttributes }} {{ extra_input|raw }}>
     {% elseif data.field_type_id in [7] %}
-        <label for="{{ data.id }}" class="form-label">{{ data.question }}</label>
+        <label for="{{ data.id }}" class="form-label">{{ data.question }}{% if data.required %} <span style="color: red">*</span>{% endif %}</label>
         <select class="form-select" id="{{ data.id }}"
                 name="{{ data.id }}"{{ extraAttributes }} {{ data.extra_input|raw }}>
-            <option value="">Make your choice</option>
+            <option value="">{{ trans('make_choice', translations_fbe_250612) }}</option>
             {% for optie in data.extra_info|split('\n') %}
                 <option value="{{ optie|trim }}">{{ optie|trim }}</option>
             {% endfor %}
@@ -50,10 +66,10 @@
         <div class="form-check">
             <input type="checkbox" class="form-check-input" id="{{ data.id }}"
                    name="{{ data.id }}"{{ extraAttributes }} {{ data.extra_input|raw }}>
-            <label class="form-check-label" for="{{ data.id }}">{{ data.question }}</label>
+            <label class="form-check-label" for="{{ data.id }}">{{ data.question }}{% if data.required %} <span style="color: red">*</span>{% endif %}</label>
         </div>
     {% elseif data.field_type_id in [12] %}
-        <label class="form-label">{{ data.question }}</label>
+        <label class="form-label">{{ data.question }}{% if data.required %} <span style="color: red">*</span>{% endif %}</label>
         {% for option in data.extra_info|split('\n') %}
             <div class="form-check">
                 <input type="radio" class="form-check-input" id="{{ data.id }}_{{ option|trim }}" name="{{ data.id }}"
@@ -62,15 +78,15 @@
             </div>
         {% endfor %}
     {% elseif data.field_type_id in [13] %}
-        <label for="{{ data.id }}" class="form-label">{{ data.question }}</label>
+        <label for="{{ data.id }}" class="form-label">{{ data.question }}{% if data.required %} <span style="color: red">*</span>{% endif %}</label>
         <input type="file" class="form-control" id="{{ data.id }}"
-               name="{{ data.id }}"{{ extraAttributes }} {{ data.extra_input|raw }}>
+               name="{{ data.id }}[]"{{ extraAttributes }} {{ data.extra_input|raw }}>
     {% elseif data.field_type_id in [14] %}
-        <label for="{{ data.id }}" class="form-label">{{ data.question }}</label>
+        <label for="{{ data.id }}" class="form-label">{{ data.question }}{% if data.required %} <span style="color: red">*</span>{% endif %}</label>
         <input type="color" class="form-control form-control-color" id="{{ data.id }}" name="{{ data.id }}"
                value="#000000"{{ extraAttributes }} {{ data.extra_input|raw }}>
     {% elseif data.field_type_id in [15] %}
-        <label for="{{ data.id }}" class="form-label">{{ data.question }}:
+        <label for="{{ data.id }}" class="form-label">{{ data.question }}{% if data.required %} <span style="color: red">*</span>{% endif %}:
             <i>
                 <output id="volumeOutput">{{ start }}</output>
             </i>

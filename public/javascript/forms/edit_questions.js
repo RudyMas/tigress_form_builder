@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function () {
         return Array.from((context || document).querySelectorAll(selector));
     }
 
-    // -------- Formulier validatie en submit
+    // Form validation and submit
     $all('.submitFrm').forEach(function(btn) {
         btn.addEventListener('click', function () {
             let isValid = true;
@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
             });
 
-            // Selects (ook styling van select2 containers)
+            // Selects (as well as styling of select2 containers)
             $all('select[required][form="form-all"]').forEach(function(el) {
                 let value = el.value;
                 let s2 = el.nextElementSibling?.classList?.contains('select2-container') ? el.nextElementSibling : null;
@@ -53,9 +53,25 @@ document.addEventListener('DOMContentLoaded', function () {
             let errorMsg = $(".error-message");
             if (!isValid) {
                 if (errorMsg) {
+                    let htmlLang = document.documentElement.lang;
+                    let lang = htmlLang.substring(0, 2);
+                    let errorMsg = document.getElementById("error-message");
+
                     errorMsg.style.display = "block";
-                    // errorMsg.innerHTML = "Gelieve alle velden in te vullen.";
-                    errorMsg.innerHTML = "Please fill in all required fields.";
+
+                    switch (lang) {
+                        case "nl":
+                            errorMsg.innerHTML = "Gelieve alle velden in te vullen.";
+                            break;
+                        case "fr":
+                            errorMsg.innerHTML = "Veuillez remplir tous les champs.";
+                            break;
+                        default:
+                            errorMsg.innerHTML = "Please fill in all fields.";
+                    }
+
+                    e.preventDefault();
+                    return false;
                 }
                 return false;
             } else {
@@ -72,16 +88,16 @@ document.addEventListener('DOMContentLoaded', function () {
         $('#form-all').submit();
     });
 
-    // ----------- Dynamisch: validatie voor toevoegen modals
+    // Dynamic modal validation for adding questions and sections
     function addModalValidation(triggerSel, formSel, modalSel, confirmBtnSel, deleteBtnSel, deleteModalSel, confirmDeleteBtnSel) {
-        // Toevoegen
+        // Add
         $all(triggerSel).forEach(function(trigger) {
             trigger.addEventListener('click', function (e) {
                 e.preventDefault();
-                let count = trigger.dataset.count; // undefined als niet gebruikt
+                let count = trigger.dataset.count; // undefined if not set
                 let form = count ? $(`#${formSel}-${count}`) : $(`#${formSel}`);
                 let valid = true;
-                // Verwijder foutklassen
+                // Reset valid classes
                 $all('.is-invalid', form).forEach(x => x.classList.remove('is-invalid'));
                 // Required check
                 $all('[required]', form).forEach(function (el) {
@@ -90,7 +106,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         valid = false;
                     }
                 });
-                // Toon modal indien geldig
+                // Show modal if valid
                 if (valid) {
                     if (confirmBtnSel && count !== undefined) {
                         // Bewaar count op de bevestigingsknop
@@ -102,7 +118,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
             });
         });
-        // Bevestig toevoegen
+        // Confirm button
         let confirmBtn = $(confirmBtnSel);
         if (confirmBtn) confirmBtn.addEventListener('click', function () {
             let count = confirmBtn.dataset.count;
@@ -110,7 +126,7 @@ document.addEventListener('DOMContentLoaded', function () {
             if (form) form.submit();
         });
 
-        // Verwijder links
+        // Remove links
         $all(deleteBtnSel).forEach(function(btn) {
             btn.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -123,13 +139,13 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // Vraag Toevoegen / Verwijderen
+    // Adding / Removing questions
     addModalValidation(
         '.trigger-add-question-modal', 'form-table1', '#confirm-add-question-modal',
         '#confirm-add-question-btn', '.btn-delete-question', '#confirm-delete-question-modal', '#confirm-delete-question-btn'
     );
 
-    // Extra sectie verwijderen (los, niet via addModalValidation)
+    // This is used for the "extra" section in the form
     $all('.btn-delete-section').forEach(function(btn) {
         btn.addEventListener('click', function (e) {
             e.preventDefault();
@@ -141,7 +157,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    // ----------- Bij wijzigen form="form-all": disable + buttons
+    // Disable buttons when any input in form-all changes
     $all('[form="form-all"]').forEach(function(input) {
         input.addEventListener('change', function () {
             let selectors = [

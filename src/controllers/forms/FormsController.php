@@ -49,13 +49,11 @@ class FormsController
         }
 
         if (RIGHTS->checkRights() === false) {
-            if (CONFIG->website->html_lang === 'nl-BE' || CONFIG->website->html_lang === 'nl') {
-                $_SESSION['error'] = 'U heeft niet de juiste rechten om deze pagina te bekijken.';
-            } elseif (CONFIG->website->html_lang === 'fr-BE' || CONFIG->website->html_lang === 'fr') {
-                $_SESSION['error'] = 'Vous n\'avez pas les droits nécessaires pour voir cette page.';
-            } else {
-                $_SESSION['error'] = 'You do not have the necessary rights to view this page.';
-            }
+            $_SESSION['error'] = match(substr(CONFIG->website->html_lang, 0, 2)) {
+                'nl' => 'U heeft niet de juiste rechten om deze pagina te bekijken.',
+                'fr' => 'Vous n\'avez pas les droits nécessaires pour voir cette page.',
+                default => 'You do not have the necessary rights to view this page.',
+            };
             TWIG->redirect('/login');
         }
 
@@ -81,35 +79,29 @@ class FormsController
         }
 
         if (RIGHTS->checkRights() === false) {
-            if (CONFIG->website->html_lang === 'nl-BE' || CONFIG->website->html_lang === 'nl') {
-                $_SESSION['error'] = 'U heeft niet de juiste rechten om deze pagina te bekijken.';
-            } elseif (CONFIG->website->html_lang === 'fr-BE' || CONFIG->website->html_lang === 'fr') {
-                $_SESSION['error'] = 'Vous n\'avez pas les droits nécessaires pour voir cette page.';
-            } else {
-                $_SESSION['error'] = 'You do not have the necessary rights to view this page.';
-            }
+            $_SESSION['error'] = match(substr(CONFIG->website->html_lang, 0, 2)) {
+                'nl' => 'U heeft niet de juiste rechten om deze pagina te bekijken.',
+                'fr' => 'Vous n\'avez pas les droits nécessaires pour voir cette page.',
+                default => 'You do not have the necessary rights to view this page.',
+            };
             TWIG->redirect('/login');
         }
 
         $forms = new FormsRepo();
         if ($args['id'] == 0) {
             $forms->new();
-            if (CONFIG->website->html_lang === 'nl-BE' || CONFIG->website->html_lang === 'nl') {
-                $actionButton = 'Toevoegen';
-            } elseif (CONFIG->website->html_lang === 'fr-BE' || CONFIG->website->html_lang === 'fr') {
-                $actionButton = 'Ajouter';
-            } else {
-                $actionButton = 'Add';
-            }
+            $actionButton = match(substr(CONFIG->website->html_lang, 0, 2)) {
+                'nl' => 'Toevoegen',
+                'fr' => 'Ajouter',
+                default => 'Add',
+            };
         } else {
             $forms->loadById($args['id']);
-            if (CONFIG->website->html_lang === 'nl-BE' || CONFIG->website->html_lang === 'nl') {
-                $actionButton = 'Aanpassen';
-            } elseif (CONFIG->website->html_lang === 'fr-BE' || CONFIG->website->html_lang === 'fr') {
-                $actionButton = 'Modifier';
-            } else {
-                $actionButton = 'Update';
-            }
+            $actionButton = match(substr(CONFIG->website->html_lang, 0, 2)) {
+                'nl' => 'Aanpassen',
+                'fr' => 'Modifier',
+                default => 'Update',
+            };
         }
 
         $tiles = new FormBuilderTilesRepo();
@@ -141,13 +133,11 @@ class FormsController
         }
 
         if (RIGHTS->checkRights() === false) {
-            if (CONFIG->website->html_lang === 'nl-BE' || CONFIG->website->html_lang === 'nl') {
-                $_SESSION['error'] = 'U heeft niet de juiste rechten om deze pagina te bekijken.';
-            } elseif (CONFIG->website->html_lang === 'fr-BE' || CONFIG->website->html_lang === 'fr') {
-                $_SESSION['error'] = 'Vous n\'avez pas les droits nécessaires pour voir cette page.';
-            } else {
-                $_SESSION['error'] = 'You do not have the necessary rights to view this page.';
-            }
+            $_SESSION['error'] = match(substr(CONFIG->website->html_lang, 0, 2)) {
+                'nl' => 'U heeft niet de juiste rechten om deze pagina te bekijken.',
+                'fr' => 'Vous n\'avez pas les droits nécessaires pour voir cette page.',
+                default => 'You do not have the necessary rights to view this page.',
+            };
             TWIG->redirect('/login');
         }
 

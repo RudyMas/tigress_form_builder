@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
-    // Initialiseer de eerste stap
+    // Initialize the first step
     const setStep = step => {
         document.querySelectorAll(".step-content").forEach(element => element.style.display = "none");
         document.querySelector("[data-step='" + step + "']").style.display = "block";
@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     };
 
-    // Start met stap 1
+    // Start with step 1
     document.querySelectorAll("[data-set-step]").forEach(element => {
         element.onclick = event => {
             event.preventDefault();
@@ -17,11 +17,11 @@ document.addEventListener('DOMContentLoaded', function () {
         };
     });
 
-    // Controleer of alle verplichte velden zijn ingevuld
+    // Check if all required input and textarea fields are filled
     document.getElementById("submitFrm").addEventListener("click", function (e) {
         let isValid = true;
 
-        // Controleer input & textarea
+        // Check if all required input and textarea fields are filled
         document.querySelectorAll("input[required], textarea[required]").forEach(function (el) {
             let value = el.value;
             if (value === null || value.trim().length === 0 || !el.checkValidity()) {
@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
 
-        // Controleer select
+        // Check if all required select fields are filled
         document.querySelectorAll("select[required]").forEach(function (el) {
             let value = el.value;
             if (value === null || value.trim().length === 0 || value === "-1") {
@@ -59,12 +59,25 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
 
-        // Controleer of er een foutmelding is
+        // Check if all required fields are filled
         if (!isValid) {
+            let htmlLang = document.documentElement.lang;
+            let lang = htmlLang.substring(0, 2);
             let errorMsg = document.getElementById("error-message");
+
             errorMsg.style.display = "block";
-            // errorMsg.innerHTML = "Gelieve alle velden in te vullen. Bekijk ook de vorige stappen, indien van toepassing.";
-            errorMsg.innerHTML = "Please fill in all fields. Also check previous steps, if applicable.";
+
+            switch (lang) {
+                case "nl":
+                    errorMsg.innerHTML = "Gelieve alle velden in te vullen. Bekijk ook de vorige stappen, indien van toepassing.";
+                    break;
+                case "fr":
+                    errorMsg.innerHTML = "Veuillez remplir tous les champs. Vérifiez également les étapes précédentes, le cas échéant.";
+                    break;
+                default:
+                    errorMsg.innerHTML = "Please fill in all fields. Also check previous steps, if applicable.";
+            }
+
             e.preventDefault();
             return false;
         } else {
@@ -73,8 +86,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-
-    // Verwijder foutmeldingen bij invoer
+    // Reset border and background on input change
     document.querySelectorAll("input[required], textarea[required]").forEach(function (el) {
         el.addEventListener("input", function () {
             el.style.border = "";
@@ -86,7 +98,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    // Submit de form na bevestiging
+    // Submit the form after confirmation
     document.getElementById("submit").addEventListener("click", function () {
         document.getElementById("form").submit();
     });
