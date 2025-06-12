@@ -32,17 +32,6 @@ class FormBuilderTilesRepo extends DataRepository
                 'type' => 'string',
             ],
         ]);
-
-        $this->setData([
-            [
-                'id' => 1,
-                'tile_name' => 'Name of a tile',
-            ],
-            [
-                'id' => 2,
-                'tile_name' => 'Name of a tile',
-            ],
-        ]);
     }
 
     /**

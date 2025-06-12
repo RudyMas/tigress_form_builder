@@ -1,30 +1,46 @@
 document.addEventListener('DOMContentLoaded', function () {
-    // Initialize the first step
+    // Helpers
+    function $(selector, context) {
+        return (context || document).querySelector(selector);
+    }
+    function $all(selector, context) {
+        return Array.from((context || document).querySelectorAll(selector));
+    }
+
+    // Language handling
+    const htmlLang = document.documentElement.lang;
+    const lang = htmlLang.substring(0, 2);
+    const errorTranslations = {
+        nl: 'Gelieve alle velden in te vullen. Bekijk ook de vorige stappen, indien van toepassing.',
+        fr: 'Veuillez remplir tous les champs. Vérifiez également les étapes précédentes, le cas échéant.',
+        en: 'Please fill in all fields. Also check previous steps, if applicable.'
+    };
+    const errorMessageText = errorTranslations[lang] || errorTranslations.en;
+
+    // Step navigation
     const setStep = step => {
-        document.querySelectorAll(".step-content").forEach(element => element.style.display = "none");
-        document.querySelector("[data-step='" + step + "']").style.display = "block";
-        document.querySelectorAll(".steps .step").forEach((element, index) => {
-            index < step - 1 ? element.classList.add("complete") : element.classList.remove("complete");
-            index === step - 1 ? element.classList.add("current") : element.classList.remove("current");
+        $all(".step-content").forEach(el => el.style.display = "none");
+        $(`[data-step='${step}']`).style.display = "block";
+        $all(".steps .step").forEach((el, index) => {
+            el.classList.toggle("complete", index < step - 1);
+            el.classList.toggle("current", index === step - 1);
         });
     };
 
-    // Start with step 1
-    document.querySelectorAll("[data-set-step]").forEach(element => {
-        element.onclick = event => {
-            event.preventDefault();
-            setStep(parseInt(element.dataset.setStep));
-        };
+    $all("[data-set-step]").forEach(el => {
+        el.addEventListener("click", e => {
+            e.preventDefault();
+            setStep(parseInt(el.dataset.setStep));
+        });
     });
 
-    // Check if all required input and textarea fields are filled
-    document.getElementById("submitFrm").addEventListener("click", function (e) {
+    // Form validation on submit
+    $("#submitFrm")?.addEventListener("click", function (e) {
         let isValid = true;
 
-        // Check if all required input and textarea fields are filled
-        document.querySelectorAll("input[required], textarea[required]").forEach(function (el) {
-            let value = el.value;
-            if (value === null || value.trim().length === 0 || !el.checkValidity()) {
+        // Validate input & textarea
+        $all("input[required], textarea[required]").forEach(el => {
+            if (!el.value || !el.value.trim() || !el.checkValidity()) {
                 isValid = false;
                 el.style.border = "1px solid red";
                 el.style.background = "#FFCECE";
@@ -34,72 +50,59 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
 
-        // Check if all required select fields are filled
-        document.querySelectorAll("select[required]").forEach(function (el) {
+        // Validate select
+        $all("select[required]").forEach(el => {
             let value = el.value;
-            if (value === null || value.trim().length === 0 || value === "-1") {
+            let s2 = el.nextElementSibling?.classList?.contains('select2-container') ? el.nextElementSibling : null;
+
+            if (!value || value.trim() === '' || value === "-1") {
                 isValid = false;
-                let select2 = el.nextElementSibling;
-                if (select2 && select2.classList.contains('select2-container')) {
-                    let selection = select2.querySelector('.select2-selection');
-                    if (selection) {
-                        selection.style.border = "1px solid red";
-                        selection.style.background = "#FFCECE";
+                if (s2) {
+                    let s2sel = s2.querySelector('.select2-selection');
+                    if (s2sel) {
+                        s2sel.style.border = "1px solid red";
+                        s2sel.style.background = "#FFCECE";
                     }
                 }
             } else {
-                let select2 = el.nextElementSibling;
-                if (select2 && select2.classList.contains('select2-container')) {
-                    let selection = select2.querySelector('.select2-selection');
-                    if (selection) {
-                        selection.style.border = "";
-                        selection.style.background = "";
+                if (s2) {
+                    let s2sel = s2.querySelector('.select2-selection');
+                    if (s2sel) {
+                        s2sel.style.border = "";
+                        s2sel.style.background = "";
                     }
                 }
             }
         });
 
-        // Check if all required fields are filled
+        // Show or hide error message
+        const errorMsg = $("#error-message");
         if (!isValid) {
-            let htmlLang = document.documentElement.lang;
-            let lang = htmlLang.substring(0, 2);
-            let errorMsg = document.getElementById("error-message");
-
-            errorMsg.style.display = "block";
-
-            switch (lang) {
-                case "nl":
-                    errorMsg.innerHTML = "Gelieve alle velden in te vullen. Bekijk ook de vorige stappen, indien van toepassing.";
-                    break;
-                case "fr":
-                    errorMsg.innerHTML = "Veuillez remplir tous les champs. Vérifiez également les étapes précédentes, le cas échéant.";
-                    break;
-                default:
-                    errorMsg.innerHTML = "Please fill in all fields. Also check previous steps, if applicable.";
+            if (errorMsg) {
+                errorMsg.style.display = "block";
+                errorMsg.innerHTML = errorMessageText;
             }
-
             e.preventDefault();
             return false;
         } else {
-            let modal = new bootstrap.Modal(document.getElementById('confirm-submit'));
+            if (errorMsg) errorMsg.style.display = "none";
+            const modal = new bootstrap.Modal($("#confirm-submit"));
             modal.show();
         }
     });
 
-    // Reset border and background on input change
-    document.querySelectorAll("input[required], textarea[required]").forEach(function (el) {
-        el.addEventListener("input", function () {
+    // Reset style on input/textarea change
+    $all("input[required], textarea[required]").forEach(el => {
+        el.addEventListener("input", () => {
             el.style.border = "";
             el.style.background = "";
-            let errorMsg = document.getElementById("error-message");
-            if (errorMsg) {
-                errorMsg.style.display = "none";
-            }
+            const errorMsg = $("#error-message");
+            if (errorMsg) errorMsg.style.display = "none";
         });
     });
 
-    // Submit the form after confirmation
-    document.getElementById("submit").addEventListener("click", function () {
-        document.getElementById("form").submit();
+    // Submit form after confirmation
+    $("#submit")?.addEventListener("click", () => {
+        $("#form")?.submit();
     });
 });

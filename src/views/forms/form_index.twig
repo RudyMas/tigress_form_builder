@@ -1,9 +1,46 @@
 {% extends 'base.twig' %}
+
+{% set translations_fi_250612 = {
+    'nl': {
+        'attention': 'Opgelet',
+        'close': 'Sluiten',
+        'forms': 'Formulieren',
+        'next': 'Volgende',
+        'no': 'Nee',
+        'previous': 'Vorige',
+        'submit': 'Indienen',
+        'submit_message': 'Wilt u het formulier indienen?',
+        'yes': 'Ja',
+    },
+    'fr': {
+        'attention': 'Attention',
+        'close': 'Fermer',
+        'forms': 'Formulaires',
+        'next': 'Suivant',
+        'no': 'Non',
+        'previous': 'Précédent',
+        'submit': 'Soumettre',
+        'submit_message': 'Voulez-vous soumettre le formulaire ?',
+        'yes': 'Oui',
+    },
+    'en': {
+        'attention': 'Attention',
+        'close': 'Close',
+        'forms': 'Forms',
+        'next': 'Next',
+        'no': 'No',
+        'previous': 'Previous',
+        'submit': 'Submit',
+        'submit_message': 'Do you want to submit the form?',
+        'yes': 'Yes',
+    }
+} %}
+
 {% block js %}
     {{ parent() }}
     <script src="{{ BASE_URL }}/vendor/tigress/form-builder/public/javascript/forms/form_index.js"></script>
 {% endblock %}
-{% block title %}Forms - {{ form.name }}{% endblock %}
+{% block title %}{{ trans('forms', translations_fi_250612) }} - {{ form.name }}{% endblock %}
 {% block content %}
     <div class="{% if form.type_id == 1 %}container-fluid{% else %}container{% endif %}">
         <div class="row">
@@ -51,19 +88,19 @@
                                 </fieldset>
                                 <div class="d-flex justify-content-between">
                                     {% if step == 1 %}
-                                        <button class="btn btn-info" data-set-step="0" disabled>Previous</button>
-                                        <a href="#" class="btn btn-info" data-set-step="{{ step + 1 }}">Next</a>
+                                        <button class="btn btn-info" data-set-step="0" disabled>{{ trans('previous', translations_fi_250612) }}</button>
+                                        <a href="#" class="btn btn-info" data-set-step="{{ step + 1 }}">{{ trans('next', translations_fi_250612) }}</a>
                                     {% elseif step == numberOfSections %}
-                                        <a href="#" class="btn btn-info" data-set-step="{{ step - 1 }}">Previous</a>
+                                        <a href="#" class="btn btn-info" data-set-step="{{ step - 1 }}">{{ trans('previous', translations_fi_250612) }}</a>
                                         <button type="button" name="btn" value="Submit" id="submitFrm"
                                                 class="btn btn-success" data-toggle="modal"
                                                 data-target="#confirm-submit">
-                                            Submit
+                                            {{ trans('submit', translations_fi_250612) }}
                                         </button>
-                                        <button class="btn btn-info" data-set-step="0" disabled>Next</button>
+                                        <button class="btn btn-info" data-set-step="0" disabled>{{ trans('next', translations_fi_250612) }}</button>
                                     {% else %}
-                                        <a href="#" class="btn btn-info" data-set-step="{{ step - 1 }}">Previous</a>
-                                        <a href="#" class="btn btn-info" data-set-step="{{ step + 1 }}">Next</a>
+                                        <a href="#" class="btn btn-info" data-set-step="{{ step - 1 }}">{{ trans('previous', translations_fi_250612) }}</a>
+                                        <a href="#" class="btn btn-info" data-set-step="{{ step + 1 }}">{{ trans('next', translations_fi_250612) }}</a>
                                     {% endif %}
                                 </div>
                             </div>
@@ -97,7 +134,7 @@
                             <button type="button" name="btn" value="Submit" id="submitFrm"
                                     class="btn btn-success" data-toggle="modal"
                                     data-target="#confirm-submit">
-                                Submit
+                                {{ trans('submit', translations_fi_250612) }}
                             </button>
                         </div>
                     {% endif %}
@@ -115,15 +152,15 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Attention</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <h5 class="modal-title">{{ trans('attention', translations_fi_250612) }}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{{ trans('submit_message', translations_fi_250612) }}"></button>
                 </div>
                 <div class="modal-body">
-                    Do you want to submit the survey?
+                    {{ trans('submit_message', translations_fi_250612) }}
                 </div>
                 <div class="modal-footer">
-                    <a href="#" id="submit" class="btn btn-success success">Yes</a>
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">No</button>
+                    <a href="#" id="submit" class="btn btn-success success">{{ trans('yes', translations_fi_250612) }}</a>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">{{ trans('no', translations_fi_250612) }}</button>
                 </div>
             </div>
         </div>

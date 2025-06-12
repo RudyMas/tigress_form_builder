@@ -105,6 +105,16 @@ class FormsController
         }
 
         $tiles = new FormBuilderTilesRepo();
+        $tiles->setData([
+            [
+                'id' => 1,
+                'tile_name' => 'Voorstel tot aankoop (VTA)',
+            ],
+            [
+                'id' => 2,
+                'tile_name' => 'nog te bepalen ...',
+            ],
+        ]);
         $tiles->load();
 
         TWIG->render('forms/edit.twig', [

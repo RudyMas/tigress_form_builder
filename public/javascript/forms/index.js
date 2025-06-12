@@ -98,9 +98,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 data: 'type_id',
                 className: 'text-center text-middle',
                 render: function (data) {
-                    return data === 1 ? translations.mobile :
-                        data === 2 ? translations.desktop :
-                            translations.unknown;
+                    return data === 1 ? translations.mobile : data === 2 ? translations.desktop : translations.unknown;
                 }
             },
             {

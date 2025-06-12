@@ -1,4 +1,72 @@
 {% extends 'base.twig' %}
+
+{% set lang = WEBSITE.html_lang[:2] %}
+{% set fieldLabel = {
+    'nl': 'naam',
+    'fr': 'nom',
+    'en': 'name'
+}[lang]|default('name') %}
+
+{% set translations_eq_250612 = {
+    'nl': {
+        'add_question': 'Toevoegen vraag',
+        'add_section': 'Toevoegen sectie',
+        'answer': 'Antwoord',
+        'answer_extra': '(Keuzelijst / Selectievakje / Keuzerondje)',
+        'cancel': 'Annuleren',
+        'delete_section': 'Verwijderen sectie-tabel',
+        'delete_question': 'Verwijderen vraag',
+        'disabled': 'Uitgeschakeld',
+        'field_type': 'Veldtype',
+        'forms': 'Formulieren',
+        'html_tag_attributes': 'HTML-tag attributen',
+        'length': 'Lengte',
+        'make_choice': 'Maak je keuze',
+        'order': 'Volgorde',
+        'question': 'Vraag',
+        'required': 'Verplicht',
+        'update': 'Bijwerken',
+    },
+    'fr': {
+        'add_question': 'Ajouter une question',
+        'add_section': 'Ajouter une section',
+        'answer': 'Réponse',
+        'answer_extra': '(Liste de sélection / Case à cocher / Bouton radio)',
+        'cancel': 'Annuler',
+        'delete_section': 'Supprimer la section-table',
+        'delete_question': 'Supprimer la question',
+        'disabled': 'Désactivé',
+        'field_type': 'Type de champ',
+        'forms': 'Formulaires',
+        'html_tag_attributes': 'Attributs de la balise HTML',
+        'length': 'Longueur',
+        'make_choice': 'Faites votre choix',
+        'order': 'Ordre',
+        'question': 'Question',
+        'required': 'Requis',
+        'update': 'Pour ajuster',
+    },
+    'en': {
+        'add_question': 'Add question',
+        'add_section': 'Add section',
+        'answer': 'Answer',
+        'answer_extra': '(Selection list / Checkbox / Radio button)',
+        'cancel': 'Cancel',
+        'delete_section': 'Delete section-table',
+        'delete_question': 'Delete question',
+        'disabled': 'Disabled',
+        'field_type': 'Field type',
+        'forms': 'Forms',
+        'html_tag_attributes': 'HTML-tag attributes',
+        'length': 'Length',
+        'make_choice': 'Make your choice',
+        'order': 'Order',
+        'question': 'Question',
+        'required': 'Required',
+        'update': 'Update',
+    }
+} %}
+
 {% block js %}
     {{ parent() }}
     <script>
@@ -12,14 +80,15 @@
     </script>
     <script src="{{ BASE_URL }}/vendor/tigress/form-builder/public/javascript/forms/edit_questions.js"></script>
 {% endblock %}
-{% block title %}Forms - {{ form.name }}{% endblock %}
+{% block title %}{{ trans('forms', translations_eq_250612) }} - {{ form.name }}{% endblock %}
 {% block breadcrumb %}
     <div class="row mb-2">
         <div class="col-sm-12">
             <nav aria-label="breadcrumb" data-bs-theme="dark">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ BASE_URL }}/"><i class="fa fa-home"></i></a></li>
-                    <li class="breadcrumb-item active"><a href="{{ BASE_URL }}/forms">Forms</a></li>
+                    <li class="breadcrumb-item active"><a
+                                href="{{ BASE_URL }}/forms">{{ trans('forms', translations_eq_250612) }}</a></li>
                     <li class="breadcrumb-item active">{{ form.name }}</li>
                 </ol>
             </nav>
@@ -30,7 +99,7 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-12">
-                <h3>Forms - {{ form.name }}</h3>
+                <h3>{{ trans('forms', translations_eq_250612) }} - {{ form.name }} - {{ lang }}</h3>
             </div>
         </div>
         <div class="row mb-2">
@@ -66,10 +135,10 @@
                                                                    required>
                                                         </td>
                                                         <td style="text-align: center; vertical-align: middle; width: 25%">
-                                                            &nbsp;<a href="#" class="btn btn-danger btn-delete-sectie"
+                                                            &nbsp;<a href="#" class="btn btn-danger btn-delete-section"
                                                                      data-url="{{ BASE_URL }}/forms/delete/section/{{ form.id }}/{{ formsSection.id }}"
                                                                      data-toggle="tooltip"
-                                                                     title="Delete section-table {{ formsSection.sort }}">
+                                                                     title="{{ trans('delete_section', translations_eq_250612) }} {{ formsSection.sort }}">
                                                                 <i class="fa-solid fa-trash"></i>
                                                             </a>
                                                         </td>
@@ -92,15 +161,22 @@
                                     <table class="table table-bordered w-100">
                                         <thead>
                                         <tr>
-                                            <th style="width: 8.33%" class="text-center">Order</th>
-                                            <th style="width: 24.99%" class="text-center">Question</th>
-                                            <th style="width: 8.33%" class="text-center">Field type</th>
-                                            <th style="width: 8.33%" class="text-center">Length</th>
-                                            <th style="width: 8.33%" class="text-center">Required / Disabled</th>
-                                            <th style="width: 16.66%" class="text-center">Answer<br>(Selection list /
-                                                Checkbox / Radio button)
-                                            </th>
-                                            <th style="width: 16.66%" class="text-center">HTML-tag attributes</th>
+                                            <th style="width: 8.33%"
+                                                class="text-center">{{ trans('order', translations_eq_250612) }}</th>
+                                            <th style="width: 24.99%"
+                                                class="text-center">{{ trans('question', translations_eq_250612) }}</th>
+                                            <th style="width: 8.33%"
+                                                class="text-center">{{ trans('field_type', translations_eq_250612) }}</th>
+                                            <th style="width: 8.33%"
+                                                class="text-center">{{ trans('length', translations_eq_250612) }}</th>
+                                            <th style="width: 8.33%"
+                                                class="text-center">{{ trans('required', translations_eq_250612) }}
+                                                / {{ trans('disabled', translations_eq_250612) }}</th>
+                                            <th style="width: 16.66%"
+                                                class="text-center">{{ trans('answer', translations_eq_250612) }}
+                                                <br>{{ trans('answer_extra', translations_eq_250612) }}</th>
+                                            <th style="width: 16.66%"
+                                                class="text-center">{{ trans('html_tag_attributes', translations_eq_250612) }}</th>
                                             <th style="width: 8.33%"></th>
                                         </tr>
                                         </thead>
@@ -129,7 +205,7 @@
                                                             <option value="">Make your choice</option>
                                                             {% for FieldType in formBuilderFieldTypes %}
                                                                 <option value="{{ FieldType.id }}"{% if formsQuestion.field_type_id == FieldType.id %} selected{% endif %}>
-                                                                    {{ FieldType.name }}
+                                                                    {{ attribute(FieldType, fieldLabel) }}
                                                                 </option>
                                                             {% endfor %}
                                                         </select>
@@ -169,7 +245,8 @@
                                                     <td class="text-center text-middle">
                                                         <a href="#" class="btn btn-danger btn-delete-question"
                                                            data-url="{{ BASE_URL }}/forms/delete/question/{{ form.id }}/{{ formsQuestion.id }}"
-                                                           data-toggle="tooltip" title="Delete question">
+                                                           data-toggle="tooltip"
+                                                           title="{{ trans('delete_question', translations_eq_250612) }}">
                                                             <i class="fa-solid fa-trash"></i>
                                                         </a>
                                                     </td>
@@ -202,10 +279,10 @@
                                                                     class="form-select"
                                                                     form="form-table1-{{ formsSection.sort }}"
                                                                     required>
-                                                                <option value="">Make your choice</option>
+                                                                <option value="">{{ trans('make_choice', translations_eq_250612) }}</option>
                                                                 {% for FieldType in formBuilderFieldTypes %}
                                                                     <option value="{{ FieldType.id }}">
-                                                                        {{ FieldType.name }}
+                                                                        {{ attribute(FieldType, fieldLabel) }}
                                                                     </option>
                                                                 {% endfor %}
                                                             </select>
@@ -241,7 +318,8 @@
                                                                    form="form-table1-{{ formsSection.sort }}">
                                                             <button type="button"
                                                                     class="btn btn-success trigger-add-question-modal"
-                                                                    data-toggle="tooltip" title="Add question"
+                                                                    data-toggle="tooltip"
+                                                                    title="{{ trans('add_question', translations_eq_250612) }}"
                                                                     data-count="{{ formsSection.sort }}">
                                                                 <i class="fa-solid fa-plus"></i>
                                                             </button>
@@ -260,22 +338,23 @@
                 <div class="row">
                     <div class="col-sm-6 mb-3">
                         {% if rights.write %}
-                            <input type="button" name="btn" value="Update" data-toggle="modal"
+                            <input type="button" name="btn" value="{{ trans('update', translations_eq_250612) }}"
+                                   data-toggle="modal"
                                    data-target="#confirm-submit" class="btn btn-success submitFrm" form="form-all"/>
                         {% endif %}
-                        <a class="btn btn-danger" href="{{ BASE_URL }}/forms">Cancel</a>
+                        <a class="btn btn-danger"
+                           href="{{ BASE_URL }}/forms">{{ trans('cancel', translations_eq_250612) }}</a>
                     </div>
                     <div class="col-sm-6 mb-3 text-end">
                         {% if rights.write %}
                             <button type="button" class="btn btn-success trigger-add-section-modal"
-                                    data-toggle="tooltip" title="Add section" data-bs-toggle="modal"
-                                    data-bs-target="#confirm-add-extra-section-modal">
-                                <i class="fa-solid fa-plus"></i> Add Section
+                                    data-bs-toggle="modal" data-bs-target="#confirm-add-extra-section-modal">
+                                <i class="fa-solid fa-plus"></i> {{ trans('add_section', translations_eq_250612) }}
                             </button>
                         {% endif %}
                     </div>
                     <div class="form-actions col-sm-12 text-center">
-                        <p class="message-error alert alert-danger mt-2 error-message" style="display: none"></p>
+                        <p id="error-message" class="message-error alert alert-danger mt-2" style="display: none"></p>
                     </div>
                 </div>
             </div>
