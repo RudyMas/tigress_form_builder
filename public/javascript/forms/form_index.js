@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const errorTranslations = {
         nl: 'Gelieve alle velden in te vullen. Bekijk ook de vorige stappen, indien van toepassing.',
         fr: 'Veuillez remplir tous les champs. Vérifiez également les étapes précédentes, le cas échéant.',
+        de: 'Bitte füllen Sie alle Felder aus. Überprüfen Sie auch die vorherigen Schritte, falls zutreffend.',
         en: 'Please fill in all fields. Also check previous steps, if applicable.'
     };
     const errorMessageText = errorTranslations[lang] || errorTranslations.en;

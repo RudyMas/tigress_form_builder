@@ -14,6 +14,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const errorTranslations = {
         nl: 'Gelieve alle velden in te vullen.',
         fr: 'Veuillez remplir tous les champs.',
+        de: 'Bitte füllen Sie alle Felder aus.',
         en: 'Please fill in all fields.'
     };
     const errorMessageText = errorTranslations[lang] || errorTranslations.en;

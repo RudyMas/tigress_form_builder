@@ -35,6 +35,18 @@
       "special_rights": "forms"
     },
     {
+      "request": "POST",
+      "path": "/forms/add/section/{form_id}",
+      "controller": "forms\\FormsCrudController",
+      "method": "addSection"
+    },
+    {
+      "request": "POST",
+      "path": "/forms/add/question/{form_id}/{forms_section_id}",
+      "controller": "forms\\FormsCrudController",
+      "method": "addQuestion"
+    },
+    {
       "request": "GET",
       "path": "/forms/delete/section/{form_id}/{forms_section_id}",
       "controller": "forms\\FormsCrudController",
@@ -65,30 +77,6 @@
       "method": "getAll"
     },
     {
-      "request": "POST",
-      "path": "/forms/restore",
-      "controller": "forms\\FormsCrudController",
-      "method": "restoreForm"
-    },
-    {
-      "request": "POST",
-      "path": "/forms/save",
-      "controller": "forms\\FormsCrudController",
-      "method": "saveForm"
-    },
-    {
-      "request": "POST",
-      "path": "/forms/add/section/{form_id}",
-      "controller": "forms\\FormsCrudController",
-      "method": "addSection"
-    },
-    {
-      "request": "POST",
-      "path": "/forms/add/question/{form_id}/{forms_section_id}",
-      "controller": "forms\\FormsCrudController",
-      "method": "addQuestion"
-    },
-    {
       "request": "GET",
       "path": "/forms/questions/{id}",
       "controller": "forms\\FormsController",
@@ -105,6 +93,24 @@
       "path": "/forms/qr/{id}",
       "controller": "forms\\FormsController",
       "method": "showQr"
+    },
+    {
+      "request": "POST",
+      "path": "/forms/restore",
+      "controller": "forms\\FormsCrudController",
+      "method": "restoreForm"
+    },
+    {
+      "request": "POST",
+      "path": "/forms/save",
+      "controller": "forms\\FormsCrudController",
+      "method": "saveForm"
+    },
+    {
+      "request": "GET",
+      "path": "/forms/{id}/answers",
+      "controller": "forms\\FormsController",
+      "method": "answersIndex"
     }
   ]
 }

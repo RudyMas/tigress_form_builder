@@ -48,15 +48,6 @@ class FormsController
             TWIG->redirect('/login');
         }
 
-        if (RIGHTS->checkRights() === false) {
-            $_SESSION['error'] = match(substr(CONFIG->website->html_lang, 0, 2)) {
-                'nl' => 'U heeft niet de juiste rechten om deze pagina te bekijken.',
-                'fr' => 'Vous n\'avez pas les droits nécessaires pour voir cette page.',
-                default => 'You do not have the necessary rights to view this page.',
-            };
-            TWIG->redirect('/login');
-        }
-
         TWIG->render('forms/index.twig');
     }
 
@@ -75,15 +66,6 @@ class FormsController
 
         if (RIGHTS->checkRights() === false) {
             $_SESSION['redirect_after_login'] = $_SERVER['REQUEST_URI'];
-            TWIG->redirect('/login');
-        }
-
-        if (RIGHTS->checkRights() === false) {
-            $_SESSION['error'] = match(substr(CONFIG->website->html_lang, 0, 2)) {
-                'nl' => 'U heeft niet de juiste rechten om deze pagina te bekijken.',
-                'fr' => 'Vous n\'avez pas les droits nécessaires pour voir cette page.',
-                default => 'You do not have the necessary rights to view this page.',
-            };
             TWIG->redirect('/login');
         }
 
@@ -139,15 +121,6 @@ class FormsController
 
         if (RIGHTS->checkRights() === false) {
             $_SESSION['redirect_after_login'] = $_SERVER['REQUEST_URI'];
-            TWIG->redirect('/login');
-        }
-
-        if (RIGHTS->checkRights() === false) {
-            $_SESSION['error'] = match(substr(CONFIG->website->html_lang, 0, 2)) {
-                'nl' => 'U heeft niet de juiste rechten om deze pagina te bekijken.',
-                'fr' => 'Vous n\'avez pas les droits nécessaires pour voir cette page.',
-                default => 'You do not have the necessary rights to view this page.',
-            };
             TWIG->redirect('/login');
         }
 
@@ -219,5 +192,40 @@ class FormsController
             'url' => $url,
             'qrImage' => $image,
         ]);
+    }
+
+    public function answersIndex(array $args): void
+    {
+        SECURITY->checkAccess();
+
+        if (RIGHTS->checkRights() === false) {
+            $_SESSION['redirect_after_login'] = $_SERVER['REQUEST_URI'];
+            TWIG->redirect('/login');
+        }
+
+        $forms = new FormsRepo();
+        $forms->loadById($args['id']);
+        $form = $forms->current();
+
+        TWIG->render('forms/answers_index.twig', [
+            'form' => $form,
+        ]);
+    }
+
+    /**
+     * Check if the user has the necessary rights to view the page.
+     *
+     * @return void
+     */
+    private function checkRights(): void
+    {
+        if (RIGHTS->checkRights() === false) {
+            $_SESSION['error'] = match (substr(CONFIG->website->html_lang, 0, 2)) {
+                'nl' => 'U heeft niet de juiste rechten om deze pagina te bekijken.',
+                'fr' => 'Vous n\'avez pas les droits nécessaires pour voir cette page.',
+                default => 'You do not have the necessary rights to view this page.',
+            };
+            TWIG->redirect('/login');
+        }
     }
 }

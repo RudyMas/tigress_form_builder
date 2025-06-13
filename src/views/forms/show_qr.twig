@@ -1,12 +1,25 @@
 {% extends 'base.twig' %}
-{% block title %}Forms - QR-code{% endblock %}
+
+{% set translations_sq_250612 = {
+    'nl': {
+        'forms': 'Formulieren',
+    },
+    'fr': {
+        'forms': 'Formulaires',
+    },
+    'en': {
+        'forms': 'Forms',
+    }
+} %}
+
+{% block title %}{{ trans('forms', translations_sq_250612) }} - QR-code{% endblock %}
 {% block breadcrumb %}
     <div class="row mb-2">
         <div class="col-sm-12">
             <nav aria-label="breadcrumb" data-bs-theme="dark">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ BASE_URL }}/"><i class="fa fa-home"></i></a></li>
-                    <li class="breadcrumb-item"><a href="{{ BASE_URL }}/forms">Forms</a></li>
+                    <li class="breadcrumb-item"><a href="{{ BASE_URL }}/forms">{{ trans('forms', translations_sq_250612) }}</a></li>
                     <li class="breadcrumb-item active">QR-code: {{ form.name }}</li>
                 </ol>
             </nav>

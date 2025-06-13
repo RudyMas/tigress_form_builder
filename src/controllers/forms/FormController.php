@@ -89,6 +89,7 @@ class FormController
         $message = match(substr(CONFIG->website->html_lang, 0, 2)) {
             'nl' => 'Het formulier is reeds gesloten of niet herkend.<br>Gelieve de beheerder van het formulier te contacteren.',
             'fr' => 'Le formulaire est déjà fermé ou non reconnu.<br>Veuillez contacter l\'administrateur du formulaire.',
+            'de' => 'Das Formular ist bereits geschlossen oder nicht erkannt.<br>Bitte kontaktieren Sie den Formularadministrator.',
             default => 'The form is already closed or not recognized.<br>Please contact the form administrator.',
         };
 
@@ -111,6 +112,7 @@ class FormController
         $message = match(substr(CONFIG->website->html_lang, 0, 2)) {
             'nl' => 'Het formulier is succesvol opgeslagen.<br>Je hoeft verder niets te doen – je kunt nu uw browser sluiten.',
             'fr' => 'Le formulaire a été enregistré avec succès.<br>Vous n\'avez rien d\'autre à faire – vous pouvez maintenant fermer votre navigateur.',
+            'de' => 'Das Formular wurde erfolgreich gespeichert.<br>Sie müssen nichts weiter tun – Sie können jetzt Ihren Browser schließen.',
             default => 'The form has been successfully saved.<br>You do not need to do anything further – you may now close your browser.',
         };
 
