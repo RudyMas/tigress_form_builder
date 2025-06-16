@@ -4,102 +4,52 @@ document.addEventListener('DOMContentLoaded', function () {
     const allTranslations = {
         nl: {
             id: 'Id',
-            form: 'Formulier',
-            device: 'Toestel',
-            link: 'Link',
-            actions: 'Acties',
-            qr: 'QR-code',
-            view: 'Bekijk',
-            questionlist: 'Vragenlijst',
-            edit: 'Bewerk',
-            archive: 'Archiveren',
-            restore: 'Herstellen',
-            desktop: '<i class="fa fa-desktop"></i>',
-            mobile: '<i class="fa fa-mobile-alt"></i>',
+            created: 'Datum',
+            name: 'Ingediend door',
             unknown: '<i class="fa fa-question"></i>',
-            makeChoice: 'Maak je keuze',
+            actions: 'Acties',
+            view: 'Bekijk',
         },
         fr: {
             id: 'Id',
-            form: 'Formulaire',
-            device: 'Appareil',
-            link: 'Lien',
-            actions: 'Actions',
-            qr: 'Code QR',
-            view: 'Voir',
-            questionlist: 'Liste de questions',
-            edit: 'Éditer',
-            archive: 'Archiver',
-            restore: 'Restaurer',
-            desktop: '<i class="fa fa-desktop"></i>',
-            mobile: '<i class="fa fa-mobile-alt"></i>',
+            created: 'Date',
+            name: 'Soumis par',
             unknown: '<i class="fa fa-question"></i>',
-            makeChoice: 'Faites votre choix',
+            actions: 'Actions',
+            view: 'Voir',
         },
         de: {
             id: 'Id',
-            form: 'Formular',
-            device: 'Gerät',
-            link: 'Link',
-            actions: 'Aktionen',
-            qr: 'QR-Code',
-            view: 'Ansehen',
-            questionlist: 'Fragenliste',
-            edit: 'Bearbeiten',
-            archive: 'Archivieren',
-            restore: 'Wiederherstellen',
-            desktop: '<i class="fa fa-desktop"></i>',
-            mobile: '<i class="fa fa-mobile-alt"></i>',
+            created: 'Datum',
+            name: 'Eingereicht von',
             unknown: '<i class="fa fa-question"></i>',
-            makeChoice: 'Treffen Sie Ihre Wahl',
+            actions: 'Aktionen',
+            view: 'Ansehen',
         },
         es: {
             id: 'Id',
-            form: 'Formulario',
-            device: 'Dispositivo',
-            link: 'Enlace',
-            actions: 'Acciones',
-            qr: 'Código QR',
-            view: 'Ver',
-            questionlist: 'Lista de preguntas',
-            edit: 'Editar',
-            archive: 'Archivar',
-            restore: 'Restaurar',
-            desktop: '<i class="fa fa-desktop"></i>',
-            mobile: '<i class="fa fa-mobile-alt"></i>',
+            created: 'Fecha',
+            name: 'Enviado por',
             unknown: '<i class="fa fa-question"></i>',
-            makeChoice: 'Haga su elección',
+            actions: 'Acciones',
+            view: 'Ver',
         },
         en: {
             id: 'Id',
-            form: 'Form',
-            device: 'Device',
-            link: 'Link',
-            actions: 'Actions',
-            qr: 'QR-code',
-            view: 'View',
-            questionlist: 'Questionlist',
-            edit: 'Edit',
-            archive: 'Archive',
-            restore: 'Restore',
-            desktop: '<i class="fa fa-desktop"></i>',
-            mobile: '<i class="fa fa-mobile-alt"></i>',
+            created: 'Date',
+            name: 'Submitted by',
             unknown: '<i class="fa fa-question"></i>',
-            makeChoice: 'Make your choice',
+            actions: 'Actions',
+            view: 'View',
         }
     }
 
     const translations = allTranslations[tigress.shortLang] || allTranslations['en'];
 
-    let url = '/forms/get/active';
-    if (variables.show === 'archive') {
-        url = '/forms/get/inactive';
-    }
-
-    const tableForms = new DataTable('#dataTableForms', {
+    const tableAnswers = new DataTable('#dataTableAnswers', {
         processing: true,
         ajax: {
-            url: url,
+            url: `/forms/${variables.formId}/answers/get`,
             dataType: 'json'
         },
         lengthMenu: [
@@ -110,29 +60,24 @@ document.addEventListener('DOMContentLoaded', function () {
         columns: [
             {
                 title: translations.id,
-                data: 'id',
-                className: 'text-middle'
+                data: 'uniq_code',
+                width: '99%',
             },
             {
-                title: translations.form,
-                data: 'name',
+                title: translations.created,
+                data: 'created',
                 className: 'text-nowrap text-middle',
-                width: '99%'
             },
             {
-                title: translations.device,
-                data: 'type_id',
-                className: 'text-center text-middle',
-                render: function (data) {
-                    return data === 1 ? translations.mobile : data === 2 ? translations.desktop : translations.unknown;
-                }
-            },
-            {
-                title: translations.link,
-                data: 'form_reference',
-                className: 'text-middle',
-                render: function (data) {
-                    return data ? `<a href="/form/${data}" target="_blank">https://gunax.go-next.be/form/${data}</a>` : '';
+                title: translations.name,
+                data: 'last_name',
+                className: 'text-center text-middle text-nowrap',
+                render: function (data, type, row) {
+                    if (row.created_user_id > 0) {
+                        return `${data} ${row.first_name}`;
+                    } else {
+                        return `<span class="text-muted">${translations.unknown}</span>`;
+                    }
                 }
             },
             {
@@ -141,44 +86,34 @@ document.addEventListener('DOMContentLoaded', function () {
                 className: 'text-nowrap text-center text-middle',
                 render: function (data, type, row) {
                     let output = '';
-                    output += ` <a data-bs-toggle="tooltip" title="${translations.qr}" href="/forms/qr/${row.id}" class="btn btn-sm btn-secondary"><i class="fa fa-qrcode"></i></a>`;
                     if (variables.read) {
-                        output += ` <a data-bs-toggle="tooltip" title="${translations.view}" href="/forms/${row.id}/answers/" class="btn btn-sm btn-info"><i class="fa fa-eye"></i></a>`;
-                    }
-                    if (variables.write && variables.show !== 'archive') {
-                        output += ` <a data-bs-toggle="tooltip" title="${translations.questionlist}" href="/forms/questions/${row.id}" class="btn btn-sm btn-warning"><i class="fa-solid fa-clipboard-question"></i></a>`;
-                        output += ` <a data-bs-toggle="tooltip" title="${translations.edit}" href="/forms/edit/${row.id}" class="btn btn-sm btn-success"><i class="fa fa-pencil"></i></a>`;
-                    }
-                    if (variables.delete) {
-                        if (variables.show === 'archive') {
-                            output += ` <button title="${translations.restore}" type="button" class="btn btn-sm btn-success open-modal" data-bs-toggle="modal" data-bs-target="#ModalFormsRestore" data-id="${row.id}"><i class="fa fa-undo" aria-hidden="true"></i></button>`;
-                        } else {
-                            output += ` <button title="${translations.archive}" type="button" class="btn btn-sm btn-danger open-modal" data-bs-toggle="modal" data-bs-target="#ModalFormsDelete" data-id="${row.id}"><i class="fa fa-archive" aria-hidden="true"></i></button>`;
-                        }
+                        output += ` <a data-bs-toggle="tooltip" title="${translations.view}" href="/forms/${row.id}/answers/view/${row.uniq_code}" class="btn btn-sm btn-info"><i class="fa fa-eye"></i></a>`;
                     }
                     return output;
                 }
             }
         ],
+        columnDefs: [
+            {
+                targets: [1],
+                type: 'datetime-moment',
+                render: function (data, type) {
+                    if (!data) {
+                        return '';
+                    }
+                    return type === 'display'
+                        ? moment(data, 'YYYY-MM-DD HH:mm:ss').format('DD-MM-YYYY, HH:mm')
+                        : moment(data, 'YYYY-MM-DD HH:mm:ss').valueOf();
+                }
+            }
+        ],
         stateSave: true,
-        order: [[0, 'desc']],
+        order: [[1, 'desc']],
         language: tigress.languageOption,
     });
 
     // Tooltip initialiseren bij elke redraw
-    tableForms.on('draw', function () {
+    tableAnswers.on('draw', function () {
         initTooltips();
-    });
-
-    const modalDelete = document.getElementById('ModalFormsDelete');
-    modalDelete.addEventListener('show.bs.modal', function (event) {
-        const button = event.relatedTarget;
-        modalDelete.querySelector('#DeleteForm').value = button.getAttribute('data-id');
-    });
-
-    const modalRestore = document.getElementById('ModalFormsRestore');
-    modalRestore.addEventListener('show.bs.modal', function (event) {
-        const button = event.relatedTarget;
-        modalRestore.querySelector('#RestoreForm').value = button.getAttribute('data-id');
     });
 });

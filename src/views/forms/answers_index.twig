@@ -3,42 +3,15 @@
 {% set translations_ai_250613 = {
     'nl': {
         'forms': 'Formulieren',
-
-        'add': 'Toevoegen',
-        'archive': 'Archief',
-        'archive_form': 'Formulier archiveren',
-        'close': 'Sluiten',
-        'no': 'Nee',
-        'archive_question': 'Weet u zeker dat u het formulier wilt archiveren?',
-        'restore_form': 'Formulier herstellen',
-        'restore_question': 'Weet u zeker dat u het formulier wilt herstellen?',
-        'yes': 'Ja',
+        'answers': 'Antwoorden',
     },
     'fr': {
         'forms': 'Formulaires',
-
-        'add': 'Ajouter',
-        'archive': 'Archive',
-        'archive_form': 'Archiver le formulaire',
-        'close': 'Fermer',
-        'no': 'Non',
-        'archive_question': 'Êtes-vous sûr de vouloir archiver le formulaire ?',
-        'restore_form': 'Restaurer le formulaire',
-        'restore_question': 'Êtes-vous sûr de vouloir restaurer le formulaire ?',
-        'yes': 'Oui',
+        'answers': 'Réponses',
     },
     'en': {
         'forms': 'Forms',
-
-        'add': 'Add',
-        'archive': 'Archive',
-        'archive_form': 'Archive Form',
-        'close': 'Close',
-        'no': 'No',
-        'archive_question': 'Are you sure you want to archive the form?',
-        'restore_form': 'Restore Form',
-        'restore_question': 'Are you sure you want to restore the form?',
-        'yes': 'Yes',
+        'answers': 'Answers',
     }
 } %}
 
@@ -46,6 +19,7 @@
     {{ parent() }}
     <script>
         let variables = {
+            formId: '{{ form.id }}',
             access: '{{ rights.access }}',
             write: '{{ rights.write }}',
             read: '{{ rights.read }}',
@@ -54,7 +28,7 @@
     </script>
     <script src="{{ BASE_URL }}/vendor/tigress/form-builder/public/javascript/forms/answers_index.js"></script>
 {% endblock %}
-{% block title %}{{ trans('forms', translations_ai_250613) }}{% endblock %}
+{% block title %}{{ trans('forms', translations_ai_250613) }} - {{ trans('answers', translations_ai_250613) }}{% endblock %}
 {% block breadcrumb %}
     <div class="row mb-2">
         <div class="col-md-12">
@@ -62,7 +36,7 @@
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ BASE_URL }}/"><i class="fa fa-home"></i></a></li>
                     <li class="breadcrumb-item"><a href="{{ BASE_URL }}/forms">{{ trans('forms', translations_ai_250613) }}</a></li>
-                    <li class="breadcrumb-item active">{{ form.name }}</li>
+                    <li class="breadcrumb-item active">{{ trans('answers', translations_ai_250613) }} - {{ form.name }}</li>
                 </ol>
             </nav>
         </div>
@@ -72,7 +46,7 @@
     <div class="container">
         <div class="row mb-2">
             <div class="col-sm-12">
-                <h3>{{ trans('forms', translations_ai_250613) }}</h3>
+                <h3>{{ trans('answers', translations_ai_250613) }} - {{ form.name }}</h3>
             </div>
         </div>
         <div class="row mb-2">

@@ -3,6 +3,7 @@
 namespace Controller\forms;
 
 use JetBrains\PhpStorm\NoReturn;
+use Repository\FormsAnswersRepo;
 use Repository\FormsRepo;
 use Repository\FormsSectionsRepo;
 use Repository\FormsQuestionsRepo;
@@ -142,6 +143,23 @@ class FormsCrudController
         }
 
         TWIG->render(null, $forms->toArray(), 'DT');
+    }
+
+    /**
+     * @param array $args
+     * @return void
+     * @throws LoaderError
+     * @throws RuntimeError
+     * @throws SyntaxError
+     */
+    public function getAnswersFromForm(array $args): void
+    {
+        SECURITY->checkAccess();
+
+        $formsAnswers = new FormsAnswersRepo();
+        $data = $formsAnswers->getAnswersByFormId($args['id']);
+
+        TWIG->render(null, $data, 'DT');
     }
 
     /**

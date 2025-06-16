@@ -111,6 +111,12 @@
       "path": "/forms/{id}/answers",
       "controller": "forms\\FormsController",
       "method": "answersIndex"
+    },
+    {
+      "request": "GET",
+      "path": "/forms/{id}/answers/get",
+      "controller": "forms\\FormsCrudController",
+      "method": "getAnswersFromForm"
     }
   ]
 }

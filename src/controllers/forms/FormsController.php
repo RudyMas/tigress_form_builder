@@ -4,6 +4,7 @@ namespace Controller\forms;
 
 use chillerlan\QRCode\Common\EccLevel;
 use Repository\FormBuilderTilesRepo;
+use Repository\FormsAnswersRepo;
 use Repository\FormsRepo;
 use Repository\FormsSectionsRepo;
 use Repository\FormsQuestionsRepo;
@@ -151,6 +152,8 @@ class FormsController
     }
 
     /**
+     * Create and show a QR code for a form.
+     *
      * @throws RuntimeError
      * @throws SyntaxError
      * @throws LoaderError
