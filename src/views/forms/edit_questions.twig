@@ -14,6 +14,7 @@
         'answer': 'Antwoord',
         'answer_extra': '(Keuzelijst / Selectievakje / Keuzerondje)',
         'cancel': 'Annuleren',
+        'db_field': 'Database veld',
         'delete_section': 'Verwijderen sectie-tabel',
         'delete_question': 'Verwijderen vraag',
         'disabled': 'Uitgeschakeld',
@@ -33,6 +34,7 @@
         'answer': 'Réponse',
         'answer_extra': '(Liste de sélection / Case à cocher / Bouton radio)',
         'cancel': 'Annuler',
+        'db_field': 'Champ de base de données',
         'delete_section': 'Supprimer la section-table',
         'delete_question': 'Supprimer la question',
         'disabled': 'Désactivé',
@@ -52,6 +54,7 @@
         'answer': 'Answer',
         'answer_extra': '(Selection list / Checkbox / Radio button)',
         'cancel': 'Cancel',
+        'db_field': 'Database field',
         'delete_section': 'Delete section-table',
         'delete_question': 'Delete question',
         'disabled': 'Disabled',
@@ -163,7 +166,7 @@
                                         <tr>
                                             <th style="width: 8.33%"
                                                 class="text-center">{{ trans('order', translations_eq_250612) }}</th>
-                                            <th style="width: 24.99%"
+                                            <th style="width: 16.66%"
                                                 class="text-center">{{ trans('question', translations_eq_250612) }}</th>
                                             <th style="width: 8.33%"
                                                 class="text-center">{{ trans('field_type', translations_eq_250612) }}</th>
@@ -177,6 +180,8 @@
                                                 <br>{{ trans('answer_extra', translations_eq_250612) }}</th>
                                             <th style="width: 16.66%"
                                                 class="text-center">{{ trans('html_tag_attributes', translations_eq_250612) }}</th>
+                                            <th style="width: 8.33%"
+                                                class="text-center">{{ trans('db_field', translations_eq_250612) }}</th>
                                             <th style="width: 8.33%"></th>
                                         </tr>
                                         </thead>
@@ -242,6 +247,12 @@
                                                                   name="formsQuestions[{{ formsQuestion.id }}][extra_input]"
                                                                   form="form-all">{{ formsQuestion.extra_input }}</textarea>
                                                     </td>
+                                                    <td>
+                                                        <input type="text"
+                                                               name="formsQuestions[{{ formsQuestion.id }}][db_field]"
+                                                               class="form-control text-center"
+                                                               value="{{ formsQuestion.db_field }}" form="form-all">
+                                                    </td>
                                                     <td class="text-center text-middle">
                                                         <a href="#" class="btn btn-danger btn-delete-question"
                                                            data-url="{{ BASE_URL }}/forms/delete/question/{{ form.id }}/{{ formsQuestion.id }}"
@@ -256,7 +267,7 @@
                                         </tbody>
                                         <tfoot>
                                         <tr>
-                                            <td colspan="8" style="background-color: lightyellow;">
+                                            <td colspan="9" style="background-color: lightyellow;">
                                                 <form id="form-table1-{{ formsSection.sort }}" method="post"
                                                       action="{{ BASE_URL }}/forms/add/question/{{ form.id }}/{{ formsSection.id }}"
                                                       enctype="multipart/form-data">
@@ -268,7 +279,7 @@
                                                                    form="form-table1-{{ formsSection.sort }}"
                                                                    required>
                                                         </div>
-                                                        <div class="col-sm-3">
+                                                        <div class="col-sm-2">
                                                             <textarea rows="1" class="form-control auto-grow"
                                                                       name="question"
                                                                       form="form-table1-{{ formsSection.sort }}"
@@ -311,6 +322,11 @@
                                                             <textarea rows="1" class="form-control auto-grow"
                                                                       name="extra_input"
                                                                       form="form-table1-{{ formsSection.sort }}"></textarea>
+                                                        </div>
+                                                        <div class="col-sm-1">
+                                                            <input type="text" name="db_field"
+                                                                   class="form-control text-center"
+                                                                   form="form-table1-{{ formsSection.sort }}">
                                                         </div>
                                                         <div class="col-sm-1 text-center">
                                                             <input type="hidden" name="count"

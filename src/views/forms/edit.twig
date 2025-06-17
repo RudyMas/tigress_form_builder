@@ -4,6 +4,7 @@
     'nl': {
         'cancel': 'Annuleren',
         'choose_screen_type': 'Kies type scherm',
+        'db_table': 'Database tabel',
         'desktop': 'Desktop',
         'form_name': 'Naam van het formulier',
         'form_reference': 'Formulier referentie (voor URL)',
@@ -17,6 +18,7 @@
     'fr': {
         'cancel': 'Annuler',
         'choose_screen_type': 'Choisir le type d\'écran',
+        'db_table': 'Table de base de données',
         'desktop': 'Bureau',
         'form_name': 'Nom du formulaire',
         'form_reference': 'Référence du formulaire (pour l\'URL)',
@@ -30,6 +32,7 @@
     'en': {
         'cancel': 'Cancel',
         'choose_screen_type': 'Choose screen type',
+        'db_table': 'Database table',
         'desktop': 'Desktop',
         'form_name': 'Name of the form',
         'form_reference': 'Form reference (for URL)',
@@ -100,6 +103,10 @@
                                         </option>
                                     {% endfor %}
                                 </select>
+                            </div>
+                            <div class="col-sm-3">
+                                <label for="db_table" class="form-label"><b>{{ trans('db_table', translations_e_250612) }}</b></label>
+                                <input type="text" class="form-control" id="db_table" name="db_table" value="{{ form.db_table }}">
                             </div>
                         </div>
                     </fieldset>
