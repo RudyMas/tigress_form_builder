@@ -34,6 +34,14 @@ document.addEventListener('DOMContentLoaded', function () {
             actions: 'Acciones',
             view: 'Ver',
         },
+        it: {
+            id: 'Id',
+            created: 'Data',
+            name: 'Inviato da',
+            unknown: '<i class="fa fa-question"></i>',
+            actions: 'Azioni',
+            view: 'Visualizza',
+        },
         en: {
             id: 'Id',
             created: 'Date',

@@ -4,12 +4,10 @@ namespace Controller\forms;
 
 use chillerlan\QRCode\Common\EccLevel;
 use Repository\FormBuilderTilesRepo;
-use Repository\FormsAnswersRepo;
 use Repository\FormsRepo;
 use Repository\FormsSectionsRepo;
 use Repository\FormsQuestionsRepo;
 use Repository\FormBuilderFieldTypesRepo;
-use Tigress\Core;
 use Tigress\QrCodeGenerator;
 use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
@@ -21,7 +19,7 @@ use Twig\Error\SyntaxError;
  * @author Rudy Mas <rudy.mas@go-next.be>
  * @copyright 2025 GO! Next (https://www.go-next.be)
  * @license Proprietary
- * @version 2025.06.10.0
+ * @version 2025.06.18.0
  * @package Controller\forms
  */
 class FormsController
@@ -76,6 +74,9 @@ class FormsController
             $actionButton = match(substr(CONFIG->website->html_lang, 0, 2)) {
                 'nl' => 'Toevoegen',
                 'fr' => 'Ajouter',
+                'de' => 'Bearbeiten',
+                'es' => 'Editar',
+                'it' => 'Aggiungi',
                 default => 'Add',
             };
         } else {
@@ -83,6 +84,9 @@ class FormsController
             $actionButton = match(substr(CONFIG->website->html_lang, 0, 2)) {
                 'nl' => 'Aanpassen',
                 'fr' => 'Modifier',
+                'de' => 'Aktualisieren',
+                'es' => 'Actualizar',
+                'it' => 'Aggiorna',
                 default => 'Update',
             };
         }
@@ -197,6 +201,15 @@ class FormsController
         ]);
     }
 
+    /**
+     * Display the answers for a specific form.
+     *
+     * @param array $args
+     * @return void
+     * @throws LoaderError
+     * @throws RuntimeError
+     * @throws SyntaxError
+     */
     public function answersIndex(array $args): void
     {
         SECURITY->checkAccess();
@@ -226,6 +239,9 @@ class FormsController
             $_SESSION['error'] = match (substr(CONFIG->website->html_lang, 0, 2)) {
                 'nl' => 'U heeft niet de juiste rechten om deze pagina te bekijken.',
                 'fr' => 'Vous n\'avez pas les droits nécessaires pour voir cette page.',
+                'de' => 'Sie haben nicht die erforderlichen Rechte, um diese Seite anzuzeigen.',
+                'es' => 'No tiene los derechos necesarios para ver esta página.',
+                'it' => 'Non hai i diritti necessari per visualizzare questa pagina.',
                 default => 'You do not have the necessary rights to view this page.',
             };
             TWIG->redirect('/login');

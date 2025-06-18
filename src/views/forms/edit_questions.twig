@@ -2,17 +2,20 @@
 
 {% set lang = WEBSITE.html_lang[:2] %}
 {% set fieldLabel = {
-    'nl': 'naam',
-    'fr': 'nom',
-    'en': 'name'
-}[lang]|default('name') %}
+    'nl': 'name_nl',
+    'fr': 'name_fr',
+    'en': 'name_en',
+    'de': 'name_de',
+    'es': 'name_es',
+    'it': 'name_it',
+}[lang]|default('name_en') %}
 
 {% set translations_eq_250612 = {
     'nl': {
         'add_question': 'Toevoegen vraag',
         'add_section': 'Toevoegen sectie',
         'answer': 'Antwoord',
-        'answer_extra': '(Keuzelijst / Selectievakje / Keuzerondje)',
+        'answer_extra': '(Keuzelijst / Keuzerondje)',
         'cancel': 'Annuleren',
         'db_field': 'Database veld',
         'delete_section': 'Verwijderen sectie-tabel',
@@ -32,7 +35,7 @@
         'add_question': 'Ajouter une question',
         'add_section': 'Ajouter une section',
         'answer': 'Réponse',
-        'answer_extra': '(Liste de sélection / Case à cocher / Bouton radio)',
+        'answer_extra': '(Liste de sélection / Bouton radio)',
         'cancel': 'Annuler',
         'db_field': 'Champ de base de données',
         'delete_section': 'Supprimer la section-table',
@@ -52,7 +55,7 @@
         'add_question': 'Add question',
         'add_section': 'Add section',
         'answer': 'Answer',
-        'answer_extra': '(Selection list / Checkbox / Radio button)',
+        'answer_extra': '(Selection list / Radio button)',
         'cancel': 'Cancel',
         'db_field': 'Database field',
         'delete_section': 'Delete section-table',
@@ -67,7 +70,67 @@
         'question': 'Question',
         'required': 'Required',
         'update': 'Update',
-    }
+    },
+    'de': {
+        'add_question': 'Frage hinzufügen',
+        'add_section': 'Abschnitt hinzufügen',
+        'answer': 'Antwort',
+        'answer_extra': '(Auswahlliste / Optionsfeld)',
+        'cancel': 'Abbrechen',
+        'db_field': 'Datenbankfeld',
+        'delete_section': 'Abschnittstabelle löschen',
+        'delete_question': 'Frage löschen',
+        'disabled': 'Deaktiviert',
+        'field_type': 'Feldtyp',
+        'forms': 'Formulare',
+        'html_tag_attributes': 'HTML-Tag-Attribute',
+        'length': 'Länge',
+        'make_choice': 'Treffen Sie Ihre Wahl',
+        'order': 'Reihenfolge',
+        'question': 'Frage',
+        'required': 'Erforderlich',
+        'update': 'Aktualisieren',
+    },
+    'es': {
+        'add_question': 'Agregar pregunta',
+        'add_section': 'Agregar sección',
+        'answer': 'Respuesta',
+        'answer_extra': '(Lista de selección / Botón de opción)',
+        'cancel': 'Cancelar',
+        'db_field': 'Campo de base de datos',
+        'delete_section': 'Eliminar sección-tabla',
+        'delete_question': 'Eliminar pregunta',
+        'disabled': 'Deshabilitado',
+        'field_type': 'Tipo de campo',
+        'forms': 'Formularios',
+        'html_tag_attributes': 'Atributos de etiqueta HTML',
+        'length': 'Longitud',
+        'make_choice': 'Hacer su elección',
+        'order': 'Orden',
+        'question': 'Pregunta',
+        'required': 'Requerido',
+        'update': 'Actualizar',
+    },
+    'it': {
+        'add_question': 'Aggiungi domanda',
+        'add_section': 'Aggiungi sezione',
+        'answer': 'Risposta',
+        'answer_extra': '(Elenco di selezione / Pulsante radio)',
+        'cancel': 'Annulla',
+        'db_field': 'Campo del database',
+        'delete_section': 'Elimina tabella sezione',
+        'delete_question': 'Elimina domanda',
+        'disabled': 'Disabilitato',
+        'field_type': 'Tipo di campo',
+        'forms': 'Moduli',
+        'html_tag_attributes': 'Attributi del tag HTML',
+        'length': 'Lunghezza',
+        'make_choice': 'Fai la tua scelta',
+        'order': 'Ordine',
+        'question': 'Domanda',
+        'required': 'Obbligatorio',
+        'update': 'Aggiorna',
+    },
 } %}
 
 {% block js %}
@@ -102,7 +165,7 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-12">
-                <h3>{{ trans('forms', translations_eq_250612) }} - {{ form.name }} - {{ lang }}</h3>
+                <h3>{{ trans('forms', translations_eq_250612) }} - {{ form.name }}</h3>
             </div>
         </div>
         <div class="row mb-2">
@@ -207,7 +270,7 @@
                                                     <td class="text-middle">
                                                         <select name="formsQuestions[{{ formsQuestion.id }}][field_type_id]"
                                                                 class="form-select" form="form-all" required>
-                                                            <option value="">Make your choice</option>
+                                                            <option value="">{{ trans('make_choice', translations_eq_250612) }}</option>
                                                             {% for FieldType in formBuilderFieldTypes %}
                                                                 <option value="{{ FieldType.id }}"{% if formsQuestion.field_type_id == FieldType.id %} selected{% endif %}>
                                                                     {{ attribute(FieldType, fieldLabel) }}

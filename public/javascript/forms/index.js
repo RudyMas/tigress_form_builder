@@ -14,9 +14,6 @@ document.addEventListener('DOMContentLoaded', function () {
             edit: 'Bewerk',
             archive: 'Archiveren',
             restore: 'Herstellen',
-            desktop: '<i class="fa fa-desktop"></i>',
-            mobile: '<i class="fa fa-mobile-alt"></i>',
-            unknown: '<i class="fa fa-question"></i>',
             makeChoice: 'Maak je keuze',
         },
         fr: {
@@ -31,9 +28,6 @@ document.addEventListener('DOMContentLoaded', function () {
             edit: 'Éditer',
             archive: 'Archiver',
             restore: 'Restaurer',
-            desktop: '<i class="fa fa-desktop"></i>',
-            mobile: '<i class="fa fa-mobile-alt"></i>',
-            unknown: '<i class="fa fa-question"></i>',
             makeChoice: 'Faites votre choix',
         },
         de: {
@@ -48,9 +42,6 @@ document.addEventListener('DOMContentLoaded', function () {
             edit: 'Bearbeiten',
             archive: 'Archivieren',
             restore: 'Wiederherstellen',
-            desktop: '<i class="fa fa-desktop"></i>',
-            mobile: '<i class="fa fa-mobile-alt"></i>',
-            unknown: '<i class="fa fa-question"></i>',
             makeChoice: 'Treffen Sie Ihre Wahl',
         },
         es: {
@@ -65,10 +56,21 @@ document.addEventListener('DOMContentLoaded', function () {
             edit: 'Editar',
             archive: 'Archivar',
             restore: 'Restaurar',
-            desktop: '<i class="fa fa-desktop"></i>',
-            mobile: '<i class="fa fa-mobile-alt"></i>',
-            unknown: '<i class="fa fa-question"></i>',
             makeChoice: 'Haga su elección',
+        },
+        it: {
+            id: 'Id',
+            form: 'Modulo',
+            device: 'Dispositivo',
+            link: 'Collegamento',
+            actions: 'Azioni',
+            qr: 'Codice QR',
+            view: 'Visualizza',
+            questionlist: 'Elenco domande',
+            edit: 'Modifica',
+            archive: 'Archivia',
+            restore: 'Ripristina',
+            makeChoice: 'Fai la tua scelta',
         },
         en: {
             id: 'Id',
@@ -82,9 +84,6 @@ document.addEventListener('DOMContentLoaded', function () {
             edit: 'Edit',
             archive: 'Archive',
             restore: 'Restore',
-            desktop: '<i class="fa fa-desktop"></i>',
-            mobile: '<i class="fa fa-mobile-alt"></i>',
-            unknown: '<i class="fa fa-question"></i>',
             makeChoice: 'Make your choice',
         }
     }
@@ -124,7 +123,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 data: 'type_id',
                 className: 'text-center text-middle',
                 render: function (data) {
-                    return data === 1 ? translations.mobile : data === 2 ? translations.desktop : translations.unknown;
+                    return data === 1 ? '<i class="fa fa-mobile-alt"></i>' : data === 2 ? '<i class="fa fa-desktop"></i>' : '<i class="fa fa-question"></i>';
                 }
             },
             {

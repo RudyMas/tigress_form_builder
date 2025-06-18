@@ -4,7 +4,6 @@ namespace Controller\forms;
 
 use JetBrains\PhpStorm\NoReturn;
 use Repository\FormsAnswersRepo;
-use Tigress\Core;
 use Tigress\Repository;
 
 /**
@@ -13,7 +12,7 @@ use Tigress\Repository;
  * @author Rudy Mas <rudy.mas@go-next.be>
  * @copyright 2025 GO! Next (https://www.go-next.be)
  * @license Proprietary
- * @version 2025.06.12.0
+ * @version 2025.06.18.0
  * @package Controller\forms
  */
 class FormCrudController
@@ -88,6 +87,9 @@ class FormCrudController
                 $formAnswers->answer = match(substr(CONFIG->website->html_lang, 0, 2)) {
                     'nl' => 'Geen bestand ingezonden',
                     'fr' => 'Aucun fichier soumis',
+                    'de' => 'Keine Datei eingereicht',
+                    'es' => 'Ningún archivo enviado',
+                    'it' => 'Nessun file inviato',
                     default => 'No file submitted',
                 };
                 $formsAnswers->save($formAnswers);
@@ -96,6 +98,9 @@ class FormCrudController
                 $formAnswers->answer = match(substr(CONFIG->website->html_lang, 0, 2)) {
                     'nl' => 'ERROR: uploaden van het bestand mislukte',
                     'fr' => 'ERREUR : l\'envoi du fichier a échoué',
+                    'de' => 'FEHLER: Datei-Upload fehlgeschlagen',
+                    'es' => 'ERROR: la carga del archivo falló',
+                    'it' => 'ERRORE: caricamento del file non riuscito',
                     default => 'ERROR: file upload failed',
                 };
                 $formsAnswers->save($formAnswers);
@@ -108,6 +113,9 @@ class FormCrudController
                 $formAnswers->answer = match(substr(CONFIG->website->html_lang, 0, 2)) {
                     'nl' => 'ERROR: verplaatsen van het bestand is mislukt',
                     'fr' => 'ERREUR : le déplacement du fichier a échoué',
+                    'de' => 'FEHLER: Verschieben der Datei fehlgeschlagen',
+                    'es' => 'ERROR: mover el archivo falló',
+                    'it' => 'ERRORE: spostamento del file non riuscito',
                     default => 'ERROR: moving the file failed',
                 };
             }

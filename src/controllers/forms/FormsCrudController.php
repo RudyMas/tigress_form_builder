@@ -7,7 +7,6 @@ use Repository\FormsAnswersRepo;
 use Repository\FormsRepo;
 use Repository\FormsSectionsRepo;
 use Repository\FormsQuestionsRepo;
-use Tigress\Core;
 use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
 use Twig\Error\SyntaxError;
@@ -18,7 +17,7 @@ use Twig\Error\SyntaxError;
  * @author Rudy Mas <rudy.mas@go-next.be>
  * @copyright 2025 GO! Next (https://www.go-next.be)
  * @license Proprietary
- * @version 2025.06.12.0
+ * @version 2025.06.18.0
  * @package Controller\forms
  */
 class FormsCrudController
@@ -44,6 +43,9 @@ class FormsCrudController
             $_SESSION['error'] = match(substr(CONFIG->website->html_lang, 0, 2)) {
                 'nl' => 'U heeft niet de vereiste rechten om deze pagina te bekijken.',
                 'fr' => 'Vous n\'avez pas les droits requis pour voir cette page.',
+                'de' => 'Sie haben nicht die erforderlichen Berechtigungen, um diese Seite anzuzeigen.',
+                'es' => 'No tiene los permisos necesarios para ver esta página.',
+                'it' => 'Non hai i permessi necessari per visualizzare questa pagina.',
                 default => 'You do not have the required permissions to view this page.'
             };
             TWIG->redirect('/login');
@@ -54,6 +56,9 @@ class FormsCrudController
         $_SESSION['success'] = match(substr(CONFIG->website->html_lang, 0, 2)) {
             'nl' => "Het formulier werd succesvol verwijderd.",
             'fr' => "Le formulaire a été supprimé avec succès.",
+            'de' => "Das Formular wurde erfolgreich gelöscht.",
+            'es' => "El formulario se ha eliminado correctamente.",
+            'it' => "Il modulo è stato eliminato con successo.",
             default => "The form was successfully deleted."
         };
         TWIG->redirect('/forms');
@@ -73,6 +78,9 @@ class FormsCrudController
             $_SESSION['error'] = match(substr(CONFIG->website->html_lang, 0, 2)) {
                 'nl' => 'U heeft niet de vereiste rechten om deze pagina te bekijken.',
                 'fr' => 'Vous n\'avez pas les droits requis pour voir cette page.',
+                'de' => 'Sie haben nicht die erforderlichen Berechtigungen, um diese Seite anzuzeigen.',
+                'es' => 'No tiene los permisos necesarios para ver esta página.',
+                'it' => 'Non hai i permessi necessari per visualizzare questa pagina.',
                 default => 'You do not have the required permissions to view this page.'
             };
             TWIG->redirect('/login');
@@ -84,6 +92,9 @@ class FormsCrudController
         $_SESSION['success'] = match(substr(CONFIG->website->html_lang, 0, 2)) {
             'nl' => 'De sectie werd succesvol verwijderd.',
             'fr' => 'La section a été supprimée avec succès.',
+            'de' => 'Der Abschnitt wurde erfolgreich gelöscht.',
+            'es' => 'La sección se ha eliminado correctamente.',
+            'it' => 'La sezione è stata eliminata con successo.',
             default => 'The section was successfully deleted.'
         };
         TWIG->redirect('/forms/questions/' . $args['form_id']);
@@ -103,6 +114,9 @@ class FormsCrudController
             $_SESSION['error'] = match(substr(CONFIG->website->html_lang, 0, 2)) {
                 'nl' => 'U heeft niet de vereiste rechten om deze pagina te bekijken.',
                 'fr' => 'Vous n\'avez pas les droits requis pour voir cette page.',
+                'de' => 'Sie haben nicht die erforderlichen Berechtigungen, um diese Seite anzuzeigen.',
+                'es' => 'No tiene los permisos necesarios para ver esta página.',
+                'it' => 'Non hai i permessi necessari per visualizzare questa pagina.',
                 default => 'You do not have the required permissions to view this page.'
             };
             TWIG->redirect('/login');
@@ -114,6 +128,9 @@ class FormsCrudController
         $_SESSION['success'] = match(substr(CONFIG->website->html_lang, 0, 2)) {
             'nl' => "De vraag werd succesvol verwijderd.",
             'fr' => "La question a été supprimée avec succès.",
+            'de' => "Die Frage wurde erfolgreich gelöscht.",
+            'es' => "La pregunta se ha eliminado correctamente.",
+            'it' => "La domanda è stata eliminata con successo.",
             default => "The question was successfully deleted."
         };
         TWIG->redirect('/forms/questions/' . $args['form_id']);
@@ -177,6 +194,9 @@ class FormsCrudController
             $_SESSION['error'] = match(substr(CONFIG->website->html_lang, 0, 2)) {
                 'nl' => 'U heeft niet de vereiste rechten om deze pagina te bekijken.',
                 'fr' => 'Vous n\'avez pas les droits requis pour voir cette page.',
+                'de' => 'Sie haben nicht die erforderlichen Berechtigungen, um diese Seite anzuzeigen.',
+                'es' => 'No tiene los permisos necesarios para ver esta página.',
+                'it' => 'Non hai i permessi necessari per visualizzare questa pagina.',
                 default => 'You do not have the required permissions to view this page.'
             };
             TWIG->redirect('/login');
@@ -201,6 +221,9 @@ class FormsCrudController
             $_SESSION['error'] = match(substr(CONFIG->website->html_lang, 0, 2)) {
                 'nl' => 'U heeft niet de vereiste rechten om deze pagina te bekijken.',
                 'fr' => 'Vous n\'avez pas les droits requis pour voir cette page.',
+                'de' => 'Sie haben nicht die erforderlichen Berechtigungen, um diese Seite anzuzeigen.',
+                'es' => 'No tiene los permisos necesarios para ver esta página.',
+                'it' => 'Non hai i permessi necessari per visualizzare questa pagina.',
                 default => 'You do not have the required permissions to view this page.'
             };
             TWIG->redirect('/login');
@@ -211,6 +234,9 @@ class FormsCrudController
         $_SESSION['success'] = match(substr(CONFIG->website->html_lang, 0, 2)) {
             'nl' => 'Het formulier werd succesvol hersteld.',
             'fr' => 'Le formulaire a été restauré avec succès.',
+            'de' => 'Das Formular wurde erfolgreich wiederhergestellt.',
+            'es' => 'El formulario se ha restaurado correctamente.',
+            'it' => 'Il modulo è stato ripristinato con successo.',
             default => 'The form was successfully restored.'
         };
         TWIG->redirect('/forms?show=archive');
@@ -238,6 +264,9 @@ class FormsCrudController
         $_SESSION['success'] = match(substr(CONFIG->website->html_lang, 0, 2)) {
             'nl' => 'Het formulier werd succesvol opgeslagen.',
             'fr' => 'Le formulaire a été enregistré avec succès.',
+            'de' => 'Das Formular wurde erfolgreich gespeichert.',
+            'es' => 'El formulario se ha guardado correctamente.',
+            'it' => 'Il modulo è stato salvato con successo.',
             default => 'The form was successfully saved.'
         };
         TWIG->redirect('/forms');
@@ -269,6 +298,9 @@ class FormsCrudController
         $_SESSION['success'] = match(substr(CONFIG->website->html_lang, 0, 2)) {
             'nl' => 'De vraag werd succesvol opgeslagen.',
             'fr' => 'La question a été enregistrée avec succès.',
+            'de' => 'Die Frage wurde erfolgreich gespeichert.',
+            'es' => 'La pregunta se ha guardado correctamente.',
+            'it' => 'La domanda è stata salvata con successo.',
             default => 'The question was successfully saved.'
         };
         TWIG->redirect('/forms/questions/' . $_POST['form_id']);
@@ -305,6 +337,9 @@ class FormsCrudController
         $_SESSION['success'] = match(substr(CONFIG->website->html_lang, 0, 2)) {
             'nl' => 'De wijzigingen werden succesvol opgeslagen.',
             'fr' => 'Les modifications ont été enregistrées avec succès.',
+            'de' => 'Die Änderungen wurden erfolgreich gespeichert.',
+            'es' => 'Los cambios se han guardado correctamente.',
+            'it' => 'Le modifiche sono state salvate con successo.',
             default => 'The changes were successfully saved.'
         };
         TWIG->redirect('/forms/questions/' . $args['id']);
@@ -333,6 +368,9 @@ class FormsCrudController
         $_SESSION['success'] = match(substr(CONFIG->website->html_lang, 0, 2)) {
             'nl' => 'De sectie werd succesvol toegevoegd.',
             'fr' => 'La section a été ajoutée avec succès.',
+            'de' => 'Der Abschnitt wurde erfolgreich hinzugefügt.',
+            'es' => 'La sección se ha añadido correctamente.',
+            'it' => 'La sezione è stata aggiunta con successo.',
             default => 'The section was successfully added.'
         };
         TWIG->redirect('/forms/questions/' . $args['form_id']);
@@ -358,6 +396,9 @@ class FormsCrudController
         $_SESSION['success'] = match(substr(CONFIG->website->html_lang, 0, 2)) {
             'nl' => 'De vraag werd succesvol toegevoegd.',
             'fr' => 'La question a été ajoutée avec succès.',
+            'de' => 'Die Frage wurde erfolgreich hinzugefügt.',
+            'es' => 'La pregunta se ha añadido correctamente.',
+            'it' => 'La domanda è stata aggiunta con successo.',
             default => 'The question was successfully added.'
         };
         TWIG->redirect('/forms/questions/' . $args['form_id']);
