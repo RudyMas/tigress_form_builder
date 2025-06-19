@@ -1,0 +1,192 @@
+{# Form Builder Template version 2025.06.19 #}
+
+{% set translations_fbea_250619 = {
+    'nl': {
+        'date_time': 'd-m-Y, H:i',
+        'date_time_short': 'd-m-Y',
+        'image': 'Afbeelding',
+        'no': 'Nee',
+        'no image found': 'Geen afbeelding gevonden',
+        'range': 'Bereik',
+        'week': 'Week',
+        'yes': 'Ja',
+        'January': 'Januari',
+        'February': 'Februari',
+        'March': 'Maart',
+        'April': 'April',
+        'May': 'Mei',
+        'June': 'Juni',
+        'July': 'Juli',
+        'August': 'Augustus',
+        'September': 'September',
+        'October': 'Oktober',
+        'November': 'November',
+        'December': 'December',
+    },
+    'fr': {
+        'date_time': 'd-m-Y, H:i',
+        'date_time_short': 'd-m-Y',
+        'image': 'Image',
+        'no': 'Non',
+        'no image found': 'Aucune image trouvée',
+        'range': 'Plage',
+        'week': 'Semaine',
+        'yes': 'Oui',
+        'January': 'Janvier',
+        'February': 'Février',
+        'March': 'Mars',
+        'April': 'Avril',
+        'May': 'Mai',
+        'June': 'Juin',
+        'July': 'Juillet',
+        'August': 'Août',
+        'September': 'Septembre',
+        'October': 'Octobre',
+        'November': 'Novembre',
+        'December': 'Décembre',
+    },
+    'de': {
+        'date_time': 'd-m-Y, H:i',
+        'date_time_short': 'd-m-Y',
+        'image': 'Bild',
+        'no': 'Nein',
+        'no image found': 'Kein Bild gefunden',
+        'range': 'Bereich',
+        'week': 'Woche',
+        'yes': 'Ja',
+        'January': 'Januar',
+        'February': 'Februar',
+        'March': 'März',
+        'April': 'April',
+        'May': 'Mai',
+        'June': 'Juni',
+        'July': 'Juli',
+        'August': 'August',
+        'September': 'September',
+        'October': 'Oktober',
+        'November': 'November',
+        'December': 'Dezember',
+    },
+    'es': {
+        'date_time': 'd-m-Y, H:i',
+        'date_time_short': 'd-m-Y',
+        'image': 'Imagen',
+        'no': 'No',
+        'no image found': 'No se encontró imagen',
+        'range': 'Rango',
+        'week': 'Semana',
+        'yes': 'Sí',
+        'January': 'Enero',
+        'February': 'Febrero',
+        'March': 'Marzo',
+        'April': 'Abril',
+        'May': 'Mayo',
+        'June': 'Junio',
+        'July': 'Julio',
+        'August': 'Agosto',
+        'September': 'Septiembre',
+        'October': 'Octubre',
+        'November': 'Noviembre',
+        'December': 'Diciembre',
+    },
+    'it': {
+        'date_time': 'd-m-Y, H:i',
+        'date_time_short': 'd-m-Y',
+        'image': 'Immagine',
+        'no': 'No',
+        'no image found': 'Nessuna immagine trovata',
+        'range': 'Intervallo',
+        'week': 'Settimana',
+        'yes': 'Sì',
+        'January': 'Gennaio',
+        'February': 'Febbraio',
+        'March': 'Marzo',
+        'April': 'Aprile',
+        'May': 'Maggio',
+        'June': 'Giugno',
+        'July': 'Luglio',
+        'August': 'Agosto',
+        'September': 'Settembre',
+        'October': 'Ottobre',
+        'November': 'Novembre',
+        'December': 'Dicembre',
+    },
+    'en': {
+        'date_time': 'd-m-Y, H:i',
+        'date_time_short': 'd-m-Y',
+        'image': 'Image',
+        'no': 'No',
+        'no image found': 'No image found',
+        'range': 'Range',
+        'week': 'Week',
+        'yes': 'Yes',
+        'January': 'January',
+        'February': 'February',
+        'March': 'March',
+        'April': 'April',
+        'May': 'May',
+        'June': 'June',
+        'July': 'July',
+        'August': 'August',
+        'September': 'September',
+        'October': 'October',
+        'November': 'November',
+        'December': 'December',
+    }
+} %}
+<div style="margin-left: 12px">
+    {% if data.question__field_type_id in [1,2,3,5,7,10,17,20] %}
+        {{ data.answer|raw|nl2br }}
+    {% elseif data.question__field_type_id in [4] %}
+        <a href="mailto:{{ data.answer }}">{{ data.answer }}</a>
+    {% elseif data.question__field_type_id in [6] %}
+        <input type="password" value="{{ data.answer }}" readonly class="form-control" style="border: 0; padding: 0; background-color: inherit;">
+    {% elseif data.question__field_type_id in [8] %}
+        {{ data.answer|date(trans('date_time', translations_fbea_250619)) }}
+    {% elseif data.question__field_type_id in [9] %}
+        {{ data.answer|date(trans('date_time_short', translations_fbea_250619)) }}
+    {% elseif data.question__field_type_id in [11] %}
+        {% if data.answer == 'on' %}
+            {{ trans('yes', translations_fbea_250619) }}
+        {% else %}
+            {{ trans('no', translations_fbea_250619) }}
+        {% endif %}
+    {% elseif data.question__field_type_id in [12] %}
+        {% for option in data.question__extra_info|split('\n') %}
+            {% if option|trim == data.answer|trim %}
+                <i class="fa-regular fa-circle-dot"></i> {{ option }}<br>
+            {% else %}
+                <i class="fa-regular fa-circle"></i> {{ option }}<br>
+            {% endif %}
+        {% endfor %}
+    {% elseif data.question__field_type_id in [13] %}
+        {% if file_exists(data.answer) %}
+            <img src="{{ BASE_URL }}{{ data.answer }}" alt="{{ trans('image', translations_fbea_250619) }}" class="img-fluid" style="max-width: 100%; height: auto;">
+        {% else %}
+            {{ trans('no image found', translations_fbea_250619) }}
+        {% endif %}
+    {% elseif data.question__field_type_id in [14] %}
+        <fieldset style="width: 40px; height: 40px; padding: 0; border-color: black">
+            <div style="width: 30px; height: 30px; margin: 3px; border-radius: 5px; background-color: {{ data.answer }}"></div>
+        </fieldset>
+    {% elseif data.question__field_type_id in [15] %}
+        {% set attrs = get_all_attrs(data.question__extra_input) %}
+
+        {{ data.answer }} ({{ trans('range', translations_fbea_250619) }}:
+        {% if attrs.min is not null and attrs.max is not null %}
+            {{ attrs.min }} - {{ attrs.max }})
+        {% elseif attrs.min is not null %}
+            {{ attrs.min }} +)
+        {% elseif attrs.max is not null %}
+            0 - {{ attrs.max }})
+        {% else %}
+            0 +)
+        {% endif %}
+    {% elseif data.question__field_type_id in [16] %}
+        <a href="{{ data.answer }}" target="_blank">{{ data.answer }}</a>
+    {% elseif data.question__field_type_id in [18] %}
+        {{ trans(data.answer|date('F'), translations_fbea_250619) ~ ' ' ~ data.answer|date('Y') }}
+    {% elseif data.question__field_type_id in [19] %}
+        {{ trans('week', translations_fbea_250619) }} {{ week_range('2025-W25') }}
+    {% endif %}
+</div>

@@ -108,7 +108,7 @@ class FormCrudController
             }
 
             if (move_uploaded_file($tmpPath, $destination)) {
-                $formAnswers->answer = '/private/forms/' . $safeName;
+                $formAnswers->answer = $destination;
             } else {
                 $formAnswers->answer = match(substr(CONFIG->website->html_lang, 0, 2)) {
                     'nl' => 'ERROR: verplaatsen van het bestand is mislukt',

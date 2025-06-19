@@ -95,7 +95,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 render: function (data, type, row) {
                     let output = '';
                     if (variables.read) {
-                        output += ` <a data-bs-toggle="tooltip" title="${translations.view}" href="/forms/${row.id}/answers/view/${row.uniq_code}" class="btn btn-sm btn-info"><i class="fa fa-eye"></i></a>`;
+                        output += ` <a data-bs-toggle="tooltip" title="${translations.view}" href="/forms/${variables.formId}/answers/view/${row.uniq_code}" class="btn btn-sm btn-info"><i class="fa fa-eye"></i></a>`;
                     }
                     return output;
                 }

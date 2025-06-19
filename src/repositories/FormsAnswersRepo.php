@@ -45,4 +45,28 @@ class FormsAnswersRepo extends Repository
         ];
         return $this->getByQuery($sql, $keyBindings);
     }
+
+    /**
+     * Get answers by unique code.
+     *
+     * @param mixed $uniq_code
+     * @return array
+     */
+    public function getAnswersByUniqCode(mixed $uniq_code): array
+    {
+        $sql = "SELECT fa.*, fq.question as question__question, fq.field_type_id as question__field_type_id,
+                    fq.extra_info as question__extra_info, fq.extra_input as question__extra_input, fs.id as section__id,
+                    users.first_name, users.last_name
+                FROM forms_answers as fa
+                JOIN forms_questions as fq ON fq.id = fa.forms_question_id
+                JOIN forms_sections as fs ON fs.id = fq.forms_section_id
+                LEFT JOIN users ON users.id = fa.created_user_id
+                WHERE fa.uniq_code = :uniq_code
+                  AND fa.active = :active";
+        $keyBindings = [
+            'uniq_code' => $uniq_code,
+            'active' => 1,
+        ];
+        return $this->getByQuery($sql, $keyBindings);
+    }
 }

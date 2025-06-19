@@ -117,6 +117,12 @@
       "path": "/forms/{id}/answers/get",
       "controller": "forms\\FormsCrudController",
       "method": "getAnswersFromForm"
+    },
+    {
+      "request": "GET",
+      "path": "/forms/{id}/answers/view/{uniq_code}",
+      "controller": "forms\\FormsController",
+      "method": "showAnswersFromForm"
     }
   ]
 }

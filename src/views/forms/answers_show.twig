@@ -1,0 +1,148 @@
+{% extends 'base.twig' %}
+
+{% set translations_as_250618 = {
+    'nl': {
+        'forms': 'Formulieren',
+        'answers': 'Antwoorden',
+        'overview': 'Overzicht',
+
+        'attention': 'Opgelet',
+        'close': 'Sluiten',
+        'next': 'Volgende',
+        'no': 'Nee',
+        'previous': 'Vorige',
+        'submit': 'Indienen',
+        'submit_message': 'Wilt u het formulier indienen?',
+        'yes': 'Ja',
+    },
+    'fr': {
+        'forms': 'Formulaires',
+        'answers': 'Réponses',
+        'overview': 'Aperçu',
+
+        'attention': 'Attention',
+        'close': 'Fermer',
+        'next': 'Suivant',
+        'no': 'Non',
+        'previous': 'Précédent',
+        'submit': 'Soumettre',
+        'submit_message': 'Voulez-vous soumettre le formulaire ?',
+        'yes': 'Oui',
+    },
+    'de': {
+        'forms': 'Formulare',
+        'answers': 'Antworten',
+        'overview': 'Übersicht',
+
+        'attention': 'Achtung',
+        'close': 'Schließen',
+        'next': 'Weiter',
+        'no': 'Nein',
+        'previous': 'Zurück',
+        'submit': 'Absenden',
+        'submit_message': 'Möchten Sie das Formular absenden?',
+        'yes': 'Ja',
+    },
+    'es': {
+        'forms': 'Formularios',
+        'answers': 'Respuestas',
+        'overview': 'Resumen',
+
+        'attention': 'Atención',
+        'close': 'Cerrar',
+        'next': 'Siguiente',
+        'no': 'No',
+        'previous': 'Anterior',
+        'submit': 'Enviar',
+        'submit_message': '¿Desea enviar el formulario?',
+        'yes': 'Sí',
+    },
+    'it': {
+        'forms': 'Moduli',
+        'answers': 'Risposte',
+        'overview': 'Panoramica',
+
+        'attention': 'Attenzione',
+        'close': 'Chiudi',
+        'next': 'Avanti',
+        'no': 'No',
+        'previous': 'Precedente',
+        'submit': 'Invia',
+        'submit_message': 'Vuoi inviare il modulo?',
+        'yes': 'Sì',
+    },
+    'en': {
+        'forms': 'Forms',
+        'answers': 'Answers',
+        'overview': 'Overview',
+
+        'attention': 'Attention',
+        'close': 'Close',
+        'next': 'Next',
+        'no': 'No',
+        'previous': 'Previous',
+        'submit': 'Submit',
+        'submit_message': 'Do you want to submit the form?',
+        'yes': 'Yes',
+    }
+} %}
+
+{% block css %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ BASE_URL }}/vendor/tigress/form-builder/public/css/forms/answers_show.css">
+{% endblock %}
+{% block title %}{{ trans('forms', translations_as_250618) }} - {{ trans('overview', translations_as_250618) }} {{ trans('answers', translations_as_250618) }}{% endblock %}
+{% block breadcrumb %}
+    <div class="row mb-2">
+        <div class="col-md-12">
+            <nav aria-label="breadcrumb" data-bs-theme="dark">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{ BASE_URL }}/"><i class="fa fa-home"></i></a></li>
+                    <li class="breadcrumb-item"><a
+                                href="{{ BASE_URL }}/forms">{{ trans('forms', translations_as_250618) }}</a></li>
+                    <li class="breadcrumb-item"><a
+                                href="{{ BASE_URL }}/forms/{{ form.id }}/answers">{{ trans('overview', translations_as_250618) }}
+                            - {{ form.name }}</a></li>
+                    <li class="breadcrumb-item active">{{ trans('answers', translations_as_250618) }}</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <h1>{{ trans('answers', translations_as_250618) }}: {{ form.name }}</h1>
+            </div>
+        </div>
+        <div class="row mb-2">
+            <div class="col-sm-12">
+                <fieldset class="printer-only">
+                    {% for formsSection in formsSections %}
+                        <fieldset class="no-break">
+                            <legend><h3>{{ formsSection.name }}</h3></legend>
+                            {% if formsSection.description %}
+                                <p><i>{{ formsSection.description|nl2br }}</i></p>
+                            {% endif %}
+                            <div class="row">
+                                {% for data in formsAnswers %}
+                                    {% if data.section__id == formsSection.id %}
+                                        <div class="col-md-12 mb-3">
+                                            <strong>{{ data.question__question }}</strong>
+                                            <div class="form-answer">
+                                                {% include 'forms/form_builder_elements_answers.twig' with {
+                                                    data: data,
+                                                } %}
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        </fieldset>
+                    {% endfor %}
+                </fieldset>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -3,11 +3,14 @@
 namespace Controller\forms;
 
 use chillerlan\QRCode\Common\EccLevel;
+use DateTime;
 use Repository\FormBuilderTilesRepo;
+use Repository\FormsAnswersRepo;
 use Repository\FormsRepo;
 use Repository\FormsSectionsRepo;
 use Repository\FormsQuestionsRepo;
 use Repository\FormBuilderFieldTypesRepo;
+use Tigress\Core;
 use Tigress\QrCodeGenerator;
 use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
@@ -152,6 +155,46 @@ class FormsController
             'formsSections' => $formsSections,
             'formsQuestions' => $formsQuestions,
             'formBuilderFieldTypes' => $formBuilderFieldTypes,
+        ]);
+    }
+
+    /**
+     * Show the answers from a form.
+     *
+     * @param array $args
+     * @return void
+     * @throws LoaderError
+     * @throws RuntimeError
+     * @throws SyntaxError
+     */
+    public function showAnswersFromForm(array $args): void
+    {
+        SECURITY->checkAccess();
+
+        if (RIGHTS->checkRights() === false) {
+            $_SESSION['redirect_after_login'] = $_SERVER['REQUEST_URI'];
+            TWIG->redirect('/login');
+        }
+
+        $forms = new FormsRepo();
+        $forms->loadById($args['id']);
+        $form = $forms->current();
+
+        $formsSections = new FormsSectionsRepo();
+        $formsSections->loadByWhere([
+            'form_id' => $form->id,
+            'active' => 1,
+        ], 'sort');
+
+        $formsAnswers = new FormsAnswersRepo();
+        $allAnswers = $formsAnswers->getAnswersByUniqCode($args['uniq_code']);
+
+//        Core::dump($allAnswers);
+
+        TWIG->render('forms/answers_show.twig', [
+            'form' => $form,
+            'formsAnswers' => $allAnswers,
+            'formsSections' => $formsSections,
         ]);
     }
 
