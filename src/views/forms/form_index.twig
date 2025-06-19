@@ -89,6 +89,7 @@
         </div>
         <form accept-charset="UTF-8" autocomplete="on" class="survey-form" enctype="multipart/form-data"
               id="form" method="POST">
+            <input type="hidden" name="db_table" value="{{ form.db_table }}">
             <div class="row mb-2">
                 <div class="col-sm-12">
                     {% if numberOfSections > 1 %}
