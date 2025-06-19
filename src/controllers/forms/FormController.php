@@ -6,6 +6,7 @@ use Repository\FormsRepo;
 use Repository\FormsSectionsRepo;
 use Repository\FormsQuestionsRepo;
 use Repository\FormBuilderFieldTypesRepo;
+use Tigress\Core;
 use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
 use Twig\Error\SyntaxError;
@@ -86,7 +87,7 @@ class FormController
      */
     public function closed(): void
     {
-        $message = match(substr(CONFIG->website->html_lang, 0, 2)) {
+        $message = match (substr(CONFIG->website->html_lang, 0, 2)) {
             'nl' => 'Het formulier is reeds gesloten of niet herkend.<br>Gelieve de beheerder van het formulier te contacteren.',
             'fr' => 'Le formulaire est déjà fermé ou non reconnu.<br>Veuillez contacter l\'administrateur du formulaire.',
             'de' => 'Das Formular ist bereits geschlossen oder nicht erkannt.<br>Bitte kontaktieren Sie den Formularadministrator.',
@@ -111,7 +112,7 @@ class FormController
      */
     public function success(): void
     {
-        $message = match(substr(CONFIG->website->html_lang, 0, 2)) {
+        $message = match (substr(CONFIG->website->html_lang, 0, 2)) {
             'nl' => 'Het formulier is succesvol opgeslagen.<br>Je hoeft verder niets te doen – je kunt nu uw browser sluiten.',
             'fr' => 'Le formulaire a été enregistré avec succès.<br>Vous n\'avez rien d\'autre à faire – vous pouvez maintenant fermer votre navigateur.',
             'de' => 'Das Formular wurde erfolgreich gespeichert.<br>Sie müssen nichts weiter tun – Sie können jetzt Ihren Browser schließen.',

@@ -69,6 +69,12 @@
     }
 } %}
 
+{% if form.db_table is not empty %}
+    {% set database = true %}
+{% else %}
+    {% set database = false %}
+{% endif %}
+
 {% block js %}
     {{ parent() }}
     <script src="{{ BASE_URL }}/vendor/tigress/form-builder/public/javascript/forms/form_index.js"></script>
@@ -108,11 +114,13 @@
                                                     {% include 'forms/form_builder_elements.twig' with {
                                                         data: data,
                                                         mobile: true,
+                                                        database: database,
                                                     } %}
                                                 {% else %}
                                                     {% include 'forms/form_builder_elements.twig' with {
                                                         data: data,
                                                         mobile: false,
+                                                        database: database,
                                                     } %}
                                                 {% endif %}
                                             {% endif %}
@@ -152,11 +160,13 @@
                                             {% include 'forms/form_builder_elements.twig' with {
                                                 data: data,
                                                 mobile: true,
+                                                database: database,
                                             } %}
                                         {% else %}
                                             {% include 'forms/form_builder_elements.twig' with {
                                                 data: data,
                                                 mobile: false,
+                                                database: database,
                                             } %}
                                         {% endif %}
                                     {% endif %}
