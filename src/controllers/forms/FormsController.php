@@ -10,6 +10,7 @@ use Repository\FormsRepo;
 use Repository\FormsSectionsRepo;
 use Repository\FormsQuestionsRepo;
 use Repository\FormBuilderFieldTypesRepo;
+use Tigress\Controller;
 use Tigress\Core;
 use Tigress\QrCodeGenerator;
 use Twig\Error\LoaderError;
@@ -25,7 +26,7 @@ use Twig\Error\SyntaxError;
  * @version 2025.06.18.0
  * @package Controller\forms
  */
-class FormsController
+class FormsController extends Controller
 {
     /**
      * @throws LoaderError
@@ -74,7 +75,7 @@ class FormsController
         $forms = new FormsRepo();
         if ($args['id'] == 0) {
             $forms->new();
-            $actionButton = match(substr(CONFIG->website->html_lang, 0, 2)) {
+            $actionButton = match (substr(CONFIG->website->html_lang, 0, 2)) {
                 'nl' => 'Toevoegen',
                 'fr' => 'Ajouter',
                 'de' => 'Bearbeiten',
@@ -84,7 +85,7 @@ class FormsController
             };
         } else {
             $forms->loadById($args['id']);
-            $actionButton = match(substr(CONFIG->website->html_lang, 0, 2)) {
+            $actionButton = match (substr(CONFIG->website->html_lang, 0, 2)) {
                 'nl' => 'Aanpassen',
                 'fr' => 'Modifier',
                 'de' => 'Aktualisieren',
@@ -180,22 +181,34 @@ class FormsController
         $forms->loadById($args['id']);
         $form = $forms->current();
 
-        $formsSections = new FormsSectionsRepo();
-        $formsSections->loadByWhere([
-            'form_id' => $form->id,
-            'active' => 1,
-        ], 'sort');
+        if (!empty($form->db_table)) {
+            $repositoryClass = 'Repository\\' . $this->tableNameToClass($form->db_table);
+            if (class_exists($repositoryClass)) {
+                $formsAnswers = new $repositoryClass();
+                $formsAnswers->loadAll();
 
-        $formsAnswers = new FormsAnswersRepo();
-        $allAnswers = $formsAnswers->getAnswersByUniqCode($args['uniq_code']);
+                Core::dump($formsAnswers);
+            } else {
+                $_SESSION['error'] = 'De antwoorden voor dit formulier zijn niet beschikbaar.';
+                TWIG->redirect('/forms/answers/' . $form->id);
+            }
+        } else {
+            $formsSections = new FormsSectionsRepo();
+            $formsSections->loadByWhere([
+                'form_id' => $form->id,
+                'active' => 1,
+            ], 'sort');
 
-//        Core::dump($allAnswers);
+            $formsAnswers = new FormsAnswersRepo();
+            $allAnswers = $formsAnswers->getAnswersByUniqCode($args['uniq_code']);
 
-        TWIG->render('forms/answers_show.twig', [
-            'form' => $form,
-            'formsAnswers' => $allAnswers,
-            'formsSections' => $formsSections,
-        ]);
+            TWIG->render('forms/answers_show.twig', [
+                'form' => $form,
+                'formsAnswers' => $allAnswers,
+                'formsSections' => $formsSections,
+            ]);
+        }
+
     }
 
     /**
@@ -266,9 +279,34 @@ class FormsController
         $forms->loadById($args['id']);
         $form = $forms->current();
 
-        TWIG->render('forms/answers_index.twig', [
-            'form' => $form,
-        ]);
+        if (!empty($form->db_table)) {
+            $repositoryClass = 'Repository\\' . $this->tableNameToClass($form->db_table);
+            if (class_exists($repositoryClass)) {
+                $formsAnswers = new $repositoryClass();
+                $formsAnswers->loadAll();
+
+                $fields = $formsAnswers->getFields();
+                unset($fields['created_user_id']);
+                unset($fields['modified']);
+                unset($fields['modified_user_id']);
+                unset($fields['deleted']);
+                unset($fields['deleted_user_id']);
+                unset($fields['active']);
+
+                TWIG->render('forms/answers_index_database.twig', [
+                    'form' => $form,
+                    'fields' => $fields,
+                    'answers' => $formsAnswers,
+                ]);
+            } else {
+                $_SESSION['error'] = 'De antwoorden voor dit formulier zijn niet beschikbaar.';
+                TWIG->redirect('/forms/answers/' . $form->id);
+            }
+        } else {
+            TWIG->render('forms/answers_index.twig', [
+                'form' => $form,
+            ]);
+        }
     }
 
     /**

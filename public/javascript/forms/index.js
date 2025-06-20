@@ -116,7 +116,14 @@ document.addEventListener('DOMContentLoaded', function () {
                 title: translations.form,
                 data: 'name',
                 className: 'text-nowrap text-middle',
-                width: '99%'
+                width: '99%',
+                render: function (data, type, row) {
+                    if (row.db_table) {
+                        return '<i class="fa-solid fa-database"></i> ' + data;
+                    } else {
+                        return data;
+                    }
+                }
             },
             {
                 title: translations.device,
