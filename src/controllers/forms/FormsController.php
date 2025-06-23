@@ -3,7 +3,6 @@
 namespace Controller\forms;
 
 use chillerlan\QRCode\Common\EccLevel;
-use DateTime;
 use Repository\FormBuilderTilesRepo;
 use Repository\FormsAnswersRepo;
 use Repository\FormsRepo;
@@ -66,11 +65,7 @@ class FormsController extends Controller
     public function edit(array $args): void
     {
         SECURITY->checkAccess();
-
-        if (RIGHTS->checkRights() === false) {
-            $_SESSION['redirect_after_login'] = $_SERVER['REQUEST_URI'];
-            TWIG->redirect('/login');
-        }
+        $this->checkRights();
 
         $forms = new FormsRepo();
         if ($args['id'] == 0) {
@@ -127,11 +122,7 @@ class FormsController extends Controller
     public function editQuestions(array $args): void
     {
         SECURITY->checkAccess();
-
-        if (RIGHTS->checkRights() === false) {
-            $_SESSION['redirect_after_login'] = $_SERVER['REQUEST_URI'];
-            TWIG->redirect('/login');
-        }
+        $this->checkRights();
 
         $forms = new FormsRepo();
         $forms->loadById($args['id']);
@@ -171,11 +162,7 @@ class FormsController extends Controller
     public function showAnswersFromForm(array $args): void
     {
         SECURITY->checkAccess();
-
-        if (RIGHTS->checkRights() === false) {
-            $_SESSION['redirect_after_login'] = $_SERVER['REQUEST_URI'];
-            TWIG->redirect('/login');
-        }
+        $this->checkRights();
 
         $forms = new FormsRepo();
         $forms->loadById($args['id']);
@@ -190,7 +177,7 @@ class FormsController extends Controller
                 Core::dump($formsAnswers);
             } else {
                 $_SESSION['error'] = 'De antwoorden voor dit formulier zijn niet beschikbaar.';
-                TWIG->redirect('/forms/answers/' . $form->id);
+                TWIG->redirect('/forms/' . $form->id . '/answers/');
             }
         } else {
             $formsSections = new FormsSectionsRepo();
@@ -221,11 +208,7 @@ class FormsController extends Controller
     public function showQr(array $args): void
     {
         SECURITY->checkAccess();
-
-        if (RIGHTS->checkRights() === false) {
-            $_SESSION['redirect_after_login'] = $_SERVER['REQUEST_URI'];
-            TWIG->redirect('/login');
-        }
+        $this->checkRights();
 
         $forms = new FormsRepo();
         $forms->loadById($args['id']);
@@ -269,11 +252,7 @@ class FormsController extends Controller
     public function answersIndex(array $args): void
     {
         SECURITY->checkAccess();
-
-        if (RIGHTS->checkRights() === false) {
-            $_SESSION['redirect_after_login'] = $_SERVER['REQUEST_URI'];
-            TWIG->redirect('/login');
-        }
+        $this->checkRights();
 
         $forms = new FormsRepo();
         $forms->loadById($args['id']);
@@ -300,32 +279,12 @@ class FormsController extends Controller
                 ]);
             } else {
                 $_SESSION['error'] = 'De antwoorden voor dit formulier zijn niet beschikbaar.';
-                TWIG->redirect('/forms/answers/' . $form->id);
+                TWIG->redirect('/forms');
             }
         } else {
             TWIG->render('forms/answers_index.twig', [
                 'form' => $form,
             ]);
-        }
-    }
-
-    /**
-     * Check if the user has the necessary rights to view the page.
-     *
-     * @return void
-     */
-    private function checkRights(): void
-    {
-        if (RIGHTS->checkRights() === false) {
-            $_SESSION['error'] = match (substr(CONFIG->website->html_lang, 0, 2)) {
-                'nl' => 'U heeft niet de juiste rechten om deze pagina te bekijken.',
-                'fr' => 'Vous n\'avez pas les droits nécessaires pour voir cette page.',
-                'de' => 'Sie haben nicht die erforderlichen Rechte, um diese Seite anzuzeigen.',
-                'es' => 'No tiene los derechos necesarios para ver esta página.',
-                'it' => 'Non hai i diritti necessari per visualizzare questa pagina.',
-                default => 'You do not have the necessary rights to view this page.',
-            };
-            TWIG->redirect('/login');
         }
     }
 }
