@@ -13,11 +13,11 @@
   ],
   "minimum-stability": "stable",
   "require": {
-    "php": ">=8.4"
+    "php": ">=8.4",
+    "tigress/manipulator": "^2025"
   },
   "require-dev": {
-    "tigress/core": "^2025",
-    "tigress/manipulator": "^2025"
+    "tigress/core": "^2025"
   },
   "autoload": {
     "psr-4": {
