@@ -27,12 +27,15 @@ use Twig\Error\SyntaxError;
  */
 class FormsController extends Controller
 {
+    private string $translationFile = SYSTEM_ROOT . '/vendor/tigress/form-builder/translations/translations.json';
+
     /**
      * @throws LoaderError
      */
     public function __construct()
     {
         TWIG->addPath('vendor/tigress/form-builder/src/views');
+        TWIG->addGlobal('translations', json_decode(file_get_contents($this->translationFile), true));
     }
 
     /**

@@ -1,0 +1,68 @@
+{
+  "nl": {
+    "archive_form": "Formulier archiveren",
+    "archive_question": "Weet u zeker dat u het formulier wilt archiveren?",
+    "form": "Formulier",
+    "forms": "Formulieren",
+    "make_choice": "Maak een keuze",
+    "question_list": "Vragenlijst",
+    "restore_form": "Formulier herstellen",
+    "restore_question": "Weet u zeker dat u het formulier wilt herstellen?",
+    "submit_message": "Wilt u het formulier indienen?"
+  },
+  "fr": {
+    "archive_form": "Archiver le formulaire",
+    "archive_question": "Êtes-vous sûr de vouloir archiver le formulaire ?",
+    "form": "Formulaire",
+    "forms": "Formulaires",
+    "make_choice": "Faites un choix",
+    "question_list": "Liste des questions",
+    "restore_form": "Restaurer le formulaire",
+    "restore_question": "Êtes-vous sûr de vouloir restaurer le formulaire ?",
+    "submit_message": "Voulez-vous soumettre le formulaire ?"
+  },
+  "de": {
+    "archive_form": "Formular archivieren",
+    "archive_question": "Sind Sie sicher, dass Sie das Formular archivieren möchten?",
+    "form": "Formular",
+    "forms": "Formulare",
+    "make_choice": "Treffen Sie eine Auswahl",
+    "question_list": "Fragenliste",
+    "restore_form": "Formular wiederherstellen",
+    "restore_question": "Sind Sie sicher, dass Sie das Formular wiederherstellen möchten?",
+    "submit_message": "Möchten Sie das Formular einreichen?"
+  },
+  "es": {
+    "archive_form": "Archivar formulario",
+    "archive_question": "¿Está seguro de que desea archivar el formulario?",
+    "form": "Formulario",
+    "forms": "Formularios",
+    "make_choice": "Hacer una elección",
+    "question_list": "Lista de preguntas",
+    "restore_form": "Restaurar formulario",
+    "restore_question": "¿Está seguro de que desea restaurar el formulario?",
+    "submit_message": "¿Desea enviar el formulario?"
+  },
+  "it": {
+    "archive_form": "Archivia modulo",
+    "archive_question": "Sei sicuro di voler archiviare il modulo?",
+    "form": "Modulo",
+    "forms": "Moduli",
+    "make_choice": "Fai una scelta",
+    "question_list": "Elenco domande",
+    "restore_form": "Ripristina modulo",
+    "restore_question": "Sei sicuro di voler ripristinare il modulo?",
+    "submit_message": "Vuoi inviare il modulo?"
+  },
+  "en": {
+    "archive_form": "Archive Form",
+    "archive_question": "Are you sure you want to archive the form?",
+    "form": "Form",
+    "forms": "Forms",
+    "make_choice": "Make a Choice",
+    "question_list": "Question List",
+    "restore_form": "Restore Form",
+    "restore_question": "Are you sure you want to restore the form?",
+    "submit_message": "Do you want to submit the form?"
+  }
+}

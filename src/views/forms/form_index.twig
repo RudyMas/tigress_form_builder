@@ -1,74 +1,4 @@
 {% extends 'base.twig' %}
-
-{% set translations_fi_250612 = {
-    'nl': {
-        'attention': 'Opgelet',
-        'close': 'Sluiten',
-        'forms': 'Formulieren',
-        'next': 'Volgende',
-        'no': 'Nee',
-        'previous': 'Vorige',
-        'submit': 'Indienen',
-        'submit_message': 'Wilt u het formulier indienen?',
-        'yes': 'Ja',
-    },
-    'fr': {
-        'attention': 'Attention',
-        'close': 'Fermer',
-        'forms': 'Formulaires',
-        'next': 'Suivant',
-        'no': 'Non',
-        'previous': 'Précédent',
-        'submit': 'Soumettre',
-        'submit_message': 'Voulez-vous soumettre le formulaire ?',
-        'yes': 'Oui',
-    },
-    'de': {
-        'attention': 'Achtung',
-        'close': 'Schließen',
-        'forms': 'Formulare',
-        'next': 'Weiter',
-        'no': 'Nein',
-        'previous': 'Zurück',
-        'submit': 'Absenden',
-        'submit_message': 'Möchten Sie das Formular absenden?',
-        'yes': 'Ja',
-    },
-    'es': {
-        'attention': 'Atención',
-        'close': 'Cerrar',
-        'forms': 'Formularios',
-        'next': 'Siguiente',
-        'no': 'No',
-        'previous': 'Anterior',
-        'submit': 'Enviar',
-        'submit_message': '¿Desea enviar el formulario?',
-        'yes': 'Sí',
-    },
-    'it': {
-        'attention': 'Attenzione',
-        'close': 'Chiudi',
-        'forms': 'Moduli',
-        'next': 'Avanti',
-        'no': 'No',
-        'previous': 'Precedente',
-        'submit': 'Invia',
-        'submit_message': 'Vuoi inviare il modulo?',
-        'yes': 'Sì',
-    },
-    'en': {
-        'attention': 'Attention',
-        'close': 'Close',
-        'forms': 'Forms',
-        'next': 'Next',
-        'no': 'No',
-        'previous': 'Previous',
-        'submit': 'Submit',
-        'submit_message': 'Do you want to submit the form?',
-        'yes': 'Yes',
-    }
-} %}
-
 {% if form.db_table is not empty %}
     {% set database = true %}
 {% else %}
@@ -79,7 +9,7 @@
     {{ parent() }}
     <script src="{{ BASE_URL }}/vendor/tigress/form-builder/public/javascript/forms/form_index.js"></script>
 {% endblock %}
-{% block title %}{{ trans('forms', translations_fi_250612) }} - {{ form.name }}{% endblock %}
+{% block title %}{{ trans('forms', base_trans) }} - {{ form.name }}{% endblock %}
 {% block content %}
     <div class="{% if form.type_id == 1 %}container-fluid{% else %}container{% endif %}">
         <div class="row">
@@ -130,19 +60,19 @@
                                 </fieldset>
                                 <div class="d-flex justify-content-between">
                                     {% if step == 1 %}
-                                        <button class="btn btn-info" data-set-step="0" disabled>{{ trans('previous', translations_fi_250612) }}</button>
-                                        <a href="#" class="btn btn-info" data-set-step="{{ step + 1 }}">{{ trans('next', translations_fi_250612) }}</a>
+                                        <button class="btn btn-info" data-set-step="0" disabled>{{ trans('previous', base_trans) }}</button>
+                                        <a href="#" class="btn btn-info" data-set-step="{{ step + 1 }}">{{ trans('next', base_trans) }}</a>
                                     {% elseif step == numberOfSections %}
-                                        <a href="#" class="btn btn-info" data-set-step="{{ step - 1 }}">{{ trans('previous', translations_fi_250612) }}</a>
+                                        <a href="#" class="btn btn-info" data-set-step="{{ step - 1 }}">{{ trans('previous', base_trans) }}</a>
                                         <button type="button" name="btn" value="Submit" id="submitFrm"
                                                 class="btn btn-success" data-toggle="modal"
                                                 data-target="#confirm-submit">
-                                            {{ trans('submit', translations_fi_250612) }}
+                                            {{ trans('submit', base_trans) }}
                                         </button>
-                                        <button class="btn btn-info" data-set-step="0" disabled>{{ trans('next', translations_fi_250612) }}</button>
+                                        <button class="btn btn-info" data-set-step="0" disabled>{{ trans('next', base_trans) }}</button>
                                     {% else %}
-                                        <a href="#" class="btn btn-info" data-set-step="{{ step - 1 }}">{{ trans('previous', translations_fi_250612) }}</a>
-                                        <a href="#" class="btn btn-info" data-set-step="{{ step + 1 }}">{{ trans('next', translations_fi_250612) }}</a>
+                                        <a href="#" class="btn btn-info" data-set-step="{{ step - 1 }}">{{ trans('previous', base_trans) }}</a>
+                                        <a href="#" class="btn btn-info" data-set-step="{{ step + 1 }}">{{ trans('next', base_trans) }}</a>
                                     {% endif %}
                                 </div>
                             </div>
@@ -178,7 +108,7 @@
                             <button type="button" name="btn" value="Submit" id="submitFrm"
                                     class="btn btn-success" data-toggle="modal"
                                     data-target="#confirm-submit">
-                                {{ trans('submit', translations_fi_250612) }}
+                                {{ trans('submit', base_trans) }}
                             </button>
                         </div>
                     {% endif %}
@@ -196,15 +126,15 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">{{ trans('attention', translations_fi_250612) }}</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{{ trans('submit_message', translations_fi_250612) }}"></button>
+                    <h5 class="modal-title">{{ trans('attention', base_trans) }}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{{ trans('submit_message', translations) }}"></button>
                 </div>
                 <div class="modal-body">
-                    {{ trans('submit_message', translations_fi_250612) }}
+                    {{ trans('submit_message', translations) }}
                 </div>
                 <div class="modal-footer">
-                    <a href="#" id="submit" class="btn btn-success success">{{ trans('yes', translations_fi_250612) }}</a>
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">{{ trans('no', translations_fi_250612) }}</button>
+                    <a href="#" id="submit" class="btn btn-success success">{{ trans('yes', base_trans) }}</a>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">{{ trans('no', base_trans) }}</button>
                 </div>
             </div>
         </div>

@@ -1,80 +1,4 @@
 {% extends 'datatable.twig' %}
-
-{% set translations_i_250612 = {
-    'nl': {
-        'add': 'Toevoegen',
-        'archive': 'Archief',
-        'archive_form': 'Formulier archiveren',
-        'close': 'Sluiten',
-        'forms': 'Formulieren',
-        'no': 'Nee',
-        'archive_question': 'Weet u zeker dat u het formulier wilt archiveren?',
-        'restore_form': 'Formulier herstellen',
-        'restore_question': 'Weet u zeker dat u het formulier wilt herstellen?',
-        'yes': 'Ja',
-    },
-    'fr': {
-        'add': 'Ajouter',
-        'archive': 'Archive',
-        'archive_form': 'Archiver le formulaire',
-        'close': 'Fermer',
-        'forms': 'Formulaires',
-        'no': 'Non',
-        'archive_question': 'Êtes-vous sûr de vouloir archiver le formulaire ?',
-        'restore_form': 'Restaurer le formulaire',
-        'restore_question': 'Êtes-vous sûr de vouloir restaurer le formulaire ?',
-        'yes': 'Oui',
-    },
-    'de': {
-        'add': 'Hinzufügen',
-        'archive': 'Archiv',
-        'archive_form': 'Formular archivieren',
-        'close': 'Schließen',
-        'forms': 'Formulare',
-        'no': 'Nein',
-        'archive_question': 'Sind Sie sicher, dass Sie das Formular archivieren möchten?',
-        'restore_form': 'Formular wiederherstellen',
-        'restore_question': 'Sind Sie sicher, dass Sie das Formular wiederherstellen möchten?',
-        'yes': 'Ja',
-    },
-    'es': {
-        'add': 'Añadir',
-        'archive': 'Archivo',
-        'archive_form': 'Archivar formulario',
-        'close': 'Cerrar',
-        'forms': 'Formularios',
-        'no': 'No',
-        'archive_question': '¿Está seguro de que desea archivar el formulario?',
-        'restore_form': 'Restaurar formulario',
-        'restore_question': '¿Está seguro de que desea restaurar el formulario?',
-        'yes': 'Sí',
-    },
-    'it': {
-        'add': 'Aggiungi',
-        'archive': 'Archivio',
-        'archive_form': 'Archivia modulo',
-        'close': 'Chiudi',
-        'forms': 'Moduli',
-        'no': 'No',
-        'archive_question': 'Sei sicuro di voler archiviare il modulo?',
-        'restore_form': 'Ripristina modulo',
-        'restore_question': 'Sei sicuro di voler ripristinare il modulo?',
-        'yes': 'Sì',
-    },
-    'en': {
-        'add': 'Add',
-        'archive': 'Archive',
-        'archive_form': 'Archive Form',
-        'close': 'Close',
-        'forms': 'Forms',
-        'no': 'No',
-        'archive_question': 'Are you sure you want to archive the form?',
-        'restore_form': 'Restore Form',
-        'restore_question': 'Are you sure you want to restore the form?',
-        'yes': 'Yes',
-    }
-} %}
-
 {% block js %}
     {{ parent() }}
     <script>
@@ -85,17 +9,21 @@
             read: '{{ rights.read }}',
             delete: '{{ rights.delete }}',
         }
+        let language = {
+            base: {{ base_trans|json_encode|raw }},
+            local: {{ translations|json_encode|raw }},
+        }
     </script>
     <script src="{{ BASE_URL }}/vendor/tigress/form-builder/public/javascript/forms/index.js"></script>
 {% endblock %}
-{% block title %}{{ trans('forms', translations_i_250612) }}{% endblock %}
+{% block title %}{{ trans('forms', translations) }}{% endblock %}
 {% block breadcrumb %}
     <div class="row mb-2">
         <div class="col-md-12">
             <nav aria-label="breadcrumb" data-bs-theme="dark">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ BASE_URL }}/"><i class="fa fa-home"></i></a></li>
-                    <li class="breadcrumb-item active">{{ trans('forms', translations_i_250612) }}</li>
+                    <li class="breadcrumb-item active">{{ trans('forms', translations) }}</li>
                 </ol>
             </nav>
         </div>
@@ -105,17 +33,17 @@
     <div class="container">
         <div class="row mb-2">
             <div class="col-sm-8">
-                <h3>{{ trans('forms', translations_i_250612) }}</h3>
+                <h3>{{ trans('forms', translations) }}</h3>
             </div>
             <div class="col-sm-4 text-end">
                 {% if _GET.show == 'archive' %}
-                    <a href="{{ BASE_URL }}/forms" class="btn btn-warning"><i class="fa fa-archive"></i> {{ trans('archive', translations_i_250612) }}</a>
+                    <a href="{{ BASE_URL }}/forms" class="btn btn-warning"><i class="fa fa-archive"></i> {{ trans('archive', base_trans) }}</a>
                 {% else %}
-                    <a href="{{ BASE_URL }}/forms?show=archive" class="btn btn-outline-warning"><i class="fa fa-archive"></i> {{ trans('archive', translations_i_250612) }}</a>
+                    <a href="{{ BASE_URL }}/forms?show=archive" class="btn btn-outline-warning"><i class="fa fa-archive"></i> {{ trans('archive', base_trans) }}</a>
                 {% endif %}
                 {% if rights.write %}
                     <a href="{{ BASE_URL }}/forms/edit/0" class="btn btn-success"><i class="fa-solid fa-plus"></i>
-                        {{ trans('add', translations_i_250612) }}</a>
+                        {{ trans('add', base_trans) }}</a>
                 {% endif %}
             </div>
         </div>
@@ -138,15 +66,15 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="ModalFormsDeleteLabel">{{ trans('archive_form', translations_i_250612) }}</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{{ trans('close', translations_i_250612) }}"></button>
+                        <h5 class="modal-title" id="ModalFormsDeleteLabel">{{ trans('archive_form', translations) }}</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{{ trans('close', base_trans) }}"></button>
                     </div>
                     <div class="modal-body">
-                        <p id="modalContent">{{ trans('archive_question', translations_i_250612) }}</p>
+                        <p id="modalContent">{{ trans('archive_question', translations) }}</p>
                     </div>
                     <div class="modal-footer">
-                        <button id="DeleteForm" name="DeleteForm" value="" type="submit" class="btn btn-success">{{ trans('yes', translations_i_250612) }}</button>
-                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">{{ trans('no', translations_i_250612) }}</button>
+                        <button id="DeleteForm" name="DeleteForm" value="" type="submit" class="btn btn-success">{{ trans('yes', base_trans) }}</button>
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">{{ trans('no', base_trans) }}</button>
                     </div>
                 </div>
             </div>
@@ -159,15 +87,15 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="ModalFormsDeleteLabel">{{ trans('restore_form', translations_i_250612) }}</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{{ trans('close', translations_i_250612) }}"></button>
+                        <h5 class="modal-title" id="ModalFormsDeleteLabel">{{ trans('restore_form', restore_form) }}</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{{ trans('close', base_trans) }}"></button>
                     </div>
                     <div class="modal-body">
-                        <p id="modalContent">{{ trans('restore_question', translations_i_250612) }}</p>
+                        <p id="modalContent">{{ trans('restore_question', restore_form) }}</p>
                     </div>
                     <div class="modal-footer">
-                        <button id="RestoreForm" name="RestoreForm" value="" type="submit" class="btn btn-success">{{ trans('yes', translations_i_250612) }}</button>
-                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">{{ trans('no', translations_i_250612) }}</button>
+                        <button id="RestoreForm" name="RestoreForm" value="" type="submit" class="btn btn-success">{{ trans('yes', base_trans) }}</button>
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">{{ trans('no', base_trans) }}</button>
                     </div>
                 </div>
             </div>
