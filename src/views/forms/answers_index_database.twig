@@ -1,62 +1,4 @@
 {% extends 'datatable.twig' %}
-
-{% set translations_aid_250620 = {
-    'nl': {
-        'actions': 'acties',
-        'created': 'datum',
-        'date_time': 'd-m-Y, H:i',
-        'file': 'Bestand',
-        'forms': 'Formulieren',
-        'overview': 'Overzicht',
-        'view': 'Bekijk',
-    },
-    'fr': {
-        'actions': 'actions',
-        'created': 'date',
-        'date_time': 'd-m-Y, H:i',
-        'file': 'Fichier',
-        'forms': 'Formulaires',
-        'overview': 'Aperçu',
-        'view': 'Voir',
-    },
-    'de': {
-        'actions': 'aktionen',
-        'created': 'datum',
-        'date_time': 'd-m-Y, H:i',
-        'file': 'Datei',
-        'forms': 'Formulare',
-        'overview': 'Übersicht',
-        'view': 'Ansehen',
-    },
-    'es': {
-        'actions': 'acciones',
-        'created': 'fecha',
-        'date_time': 'd-m-Y, H:i',
-        'file': 'Archivo',
-        'forms': 'Formularios',
-        'overview': 'Resumen',
-        'view': 'Ver',
-    },
-    'it': {
-        'actions': 'azioni',
-        'created': 'data',
-        'date_time': 'd-m-Y, H:i',
-        'file': 'File',
-        'forms': 'Moduli',
-        'overview': 'Panoramica',
-        'view': 'Visualizza',
-    },
-    'en': {
-        'actions': 'actions',
-        'created': 'date',
-        'date_time': 'd-m-Y, H:i',
-        'file': 'File',
-        'forms': 'Forms',
-        'overview': 'Overview',
-        'view': 'View',
-    },
-} %}
-
 {% block js %}
     {{ parent() }}
     <script>
@@ -70,7 +12,7 @@
     </script>
     <script src="{{ BASE_URL }}/vendor/tigress/form-builder/public/javascript/forms/answers_index_database.js"></script>
 {% endblock %}
-{% block title %}{{ trans('forms', translations_aid_250620) }} - {{ trans('overview', translations_aid_250620) }}{% endblock %}
+{% block title %}{{ __('Forms') }} - {{ __('Overview') }}{% endblock %}
 {% block breadcrumb %}
     <div class="row mb-2">
         <div class="col-md-12">
@@ -78,9 +20,8 @@
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ BASE_URL }}/"><i class="fa fa-home"></i></a></li>
                     <li class="breadcrumb-item"><a
-                                href="{{ BASE_URL }}/forms">{{ trans('forms', translations_aid_250620) }}</a></li>
-                    <li class="breadcrumb-item active">{{ trans('overview', translations_aid_250620) }}
-                        - {{ form.name }}</li>
+                                href="{{ BASE_URL }}/forms">{{ __('Forms') }}</a></li>
+                    <li class="breadcrumb-item active">{{ __('Overview') }} - {{ form.name }}</li>
                 </ol>
             </nav>
         </div>
@@ -90,7 +31,7 @@
     <div class="container">
         <div class="row mb-2{% if fields|length > 8 %} break-out90{% endif %}">
             <div class="col-sm-12">
-                <h3>{{ trans('overview', translations_aid_250620) }} - {{ form.name }}</h3>
+                <h3>{{ __('Overview') }} - {{ form.name }}</h3>
             </div>
         </div>
         <div class="row mb-2{% if fields|length > 8 %} break-out90{% endif %}">
@@ -102,13 +43,9 @@
                                 <thead>
                                 <tr>
                                     {% for key, field in fields %}
-                                        {% if key == 'created' %}
-                                            <th>{{ trans('created', translations_aid_250620) }}</th>
-                                        {% else %}
-                                            <th>{{ key }}</th>
-                                        {% endif %}
+                                        <th>{{ key }}</th>
                                     {% endfor %}
-                                    <th class="text-center">{{ trans('actions', translations_aid_250620) }}</th>
+                                    <th class="text-center">{{ __('Actions') }}</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -116,15 +53,18 @@
                                     <tr>
                                         {% for key, field in fields %}
                                             {% if key == 'created' %}
-                                                <td>{{ answer.created|date(trans('date_time', translations_aid_250620)) }}</td>
+                                                <td>{{ answer.created|date(__('date_time_format')) }}</td>
                                             {% elseif attribute(answer, key) starts with '/public/files' %}
-                                                <td><a href="{{ BASE_URL ~ attribute(answer, key) }}" target="_blank">{{ trans('file', translations_aid_250620) }}</a></td>
+                                                <td><a href="{{ BASE_URL ~ attribute(answer, key) }}"
+                                                       target="_blank">{{ __('File') }}</a></td>
                                             {% else %}
                                                 <td>{{ attribute(answer, key) }}</td>
                                             {% endif %}
                                         {% endfor %}
                                         <td class="text-center">
-                                            <a data-bs-toggle="tooltip" title="{{ trans('view', translations_aid_250620) }}" href="/forms/{{ form.id }}/answers/view/{{ answer.id }}" class="btn btn-sm btn-info"><i class="fa fa-eye"></i></a>
+                                            <a data-bs-toggle="tooltip" title="{{ __('View') }}"
+                                               href="/forms/{{ form.id }}/answers/view/{{ answer.id }}"
+                                               class="btn btn-sm btn-info"><i class="fa fa-eye"></i></a>
                                         </td>
                                     </tr>
                                 {% endfor %}

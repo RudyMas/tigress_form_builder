@@ -1,135 +1,18 @@
-{% set translations_eqm_250612 = {
-    'nl': {
-        'add': 'Toevoegen',
-        'attention': 'Opgelet',
-        'attention_message': 'Weet je zeker dat je de wijzigingen wilt opslaan?',
-        'cancel': 'Annuleren',
-        'close': 'Sluiten',
-        'confirm_add_extra_section': 'Bevestig toevoegen extra sectie',
-        'confirm_add_question': 'Bevestig toevoegen vraag',
-        'confirm_add_question_message': 'Weet je zeker dat je een nieuwe vraag wilt toevoegen?',
-        'confirm_delete_section': 'Bevestig verwijderen sectie',
-        'confirm_delete_section_message': 'Weet je zeker dat je deze sectie-tabel wilt verwijderen?',
-        'confirm_delete_question': 'Bevestig verwijderen vraag',
-        'confirm_delete_question_message': 'Weet je zeker dat je deze vraag wilt verwijderen?',
-        'delete': 'Verwijderen',
-        'description_extra_section': 'Beschrijving om weer te geven in de extra sectie:',
-        'name_extra_section': 'Naam van de extra sectie:',
-        'no': 'Nee',
-        'yes': 'Ja',
-    },
-    'fr': {
-        'add': 'Ajouter',
-        'attention': 'Attention',
-        'attention_message': 'Êtes-vous sûr de vouloir enregistrer les modifications ?',
-        'cancel': 'Annuler',
-        'close': 'Fermer',
-        'confirm_add_extra_section': 'Confirmer l\'ajout d\'une section',
-        'confirm_add_question': 'Confirmer l\'ajout d\'une question',
-        'confirm_add_question_message': 'Êtes-vous sûr de vouloir ajouter une nouvelle question ?',
-        'confirm_delete_section': 'Confirmer la suppression d\'une section',
-        'confirm_delete_section_message': 'Êtes-vous sûr de vouloir supprimer cette table de section ?',
-        'confirm_delete_question': 'Confirmer la suppression d\'une question',
-        'confirm_delete_question_message': 'Êtes-vous sûr de vouloir supprimer cette question ?',
-        'delete': 'Supprimer',
-        'description_extra_section': 'Description à afficher dans la section supplémentaire :',
-        'name_extra_section': 'Nom de la section supplémentaire :',
-        'no': 'Non',
-        'yes': 'Oui',
-    },
-    'en': {
-        'add': 'Add',
-        'attention': 'Attention',
-        'attention_message': 'Are you sure you want to save the changes?',
-        'cancel': 'Cancel',
-        'close': 'Close',
-        'confirm_add_extra_section': 'Confirm adding a section',
-        'confirm_add_question': 'Confirm adding a question',
-        'confirm_add_question_message': 'Are you sure you want to add a new question?',
-        'confirm_delete_section': 'Confirm removing a section',
-        'confirm_delete_section_message': 'Are you sure you want to delete this section table?',
-        'confirm_delete_question': 'Confirm removing a question',
-        'confirm_delete_question_message': 'Are you sure you want to delete this question?',
-        'delete': 'Delete',
-        'description_extra_section': 'Description to show in the extra section:',
-        'name_extra_section': 'Name of the extra section:',
-        'no': 'No',
-        'yes': 'Yes',
-    },
-    'de': {
-        'add': 'Hinzufügen',
-        'attention': 'Achtung',
-        'attention_message': 'Sind Sie sicher, dass Sie die Änderungen speichern möchten?',
-        'cancel': 'Abbrechen',
-        'close': 'Schließen',
-        'confirm_add_extra_section': 'Bestätigen Sie das Hinzufügen einer Sektion',
-        'confirm_add_question': 'Bestätigen Sie das Hinzufügen einer Frage',
-        'confirm_add_question_message': 'Sind Sie sicher, dass Sie eine neue Frage hinzufügen möchten?',
-        'confirm_delete_section': 'Bestätigen Sie das Entfernen einer Sektion',
-        'confirm_delete_section_message': 'Sind Sie sicher, dass Sie diese Sektionstabelle löschen möchten?',
-        'confirm_delete_question': 'Bestätigen Sie das Entfernen einer Frage',
-        'confirm_delete_question_message': 'Sind Sie sicher, dass Sie diese Frage löschen möchten?',
-        'delete': 'Löschen',
-        'description_extra_section': 'Beschreibung, die in der zusätzlichen Sektion angezeigt werden soll:',
-        'name_extra_section': 'Name der zusätzlichen Sektion:',
-        'no': 'Nein',
-        'yes': 'Ja',
-    },
-    'es': {
-        'add': 'Añadir',
-        'attention': 'Atención',
-        'attention_message': '¿Estás seguro de que quieres guardar los cambios?',
-        'cancel': 'Cancelar',
-        'close': 'Cerrar',
-        'confirm_add_extra_section': 'Confirmar añadir una sección',
-        'confirm_add_question': 'Confirmar añadir una pregunta',
-        'confirm_add_question_message': '¿Estás seguro de que quieres añadir una nueva pregunta?',
-        'confirm_delete_section': 'Confirmar eliminar una sección',
-        'confirm_delete_section_message': '¿Estás seguro de que quieres eliminar esta tabla de sección?',
-        'confirm_delete_question': 'Confirmar eliminar una pregunta',
-        'confirm_delete_question_message': '¿Estás seguro de que quieres eliminar esta pregunta?',
-        'delete': 'Eliminar',
-        'description_extra_section': 'Descripción para mostrar en la sección extra:',
-        'name_extra_section': 'Nombre de la sección extra:',
-        'no': 'No',
-        'yes': 'Sí',
-    },
-    'it': {
-        'add': 'Aggiungi',
-        'attention': 'Attenzione',
-        'attention_message': 'Sei sicuro di voler salvare le modifiche?',
-        'cancel': 'Annulla',
-        'close': 'Chiudi',
-        'confirm_add_extra_section': 'Conferma aggiunta sezione',
-        'confirm_add_question': 'Conferma aggiunta domanda',
-        'confirm_add_question_message': 'Sei sicuro di voler aggiungere una nuova domanda?',
-        'confirm_delete_section': 'Conferma rimozione sezione',
-        'confirm_delete_section_message': 'Sei sicuro di voler eliminare questa tabella di sezione?',
-        'confirm_delete_question': 'Conferma rimozione domanda',
-        'confirm_delete_question_message': 'Sei sicuro di voler eliminare questa domanda?',
-        'delete': 'Elimina',
-        'description_extra_section': 'Descrizione da mostrare nella sezione extra:',
-        'name_extra_section': 'Nome della sezione extra:',
-        'no': 'No',
-        'yes': 'Sì',
-    }
-} %}
-
 <!-- Modal: Bevestiging, sectie-tabel verwijderen -->
 <div class="modal fade" id="confirm-delete-section-modal" tabindex="-1" aria-labelledby="confirmDeleteLabel"
      aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">{{ trans('confirm_delete_section', translations_eqm_250612) }}</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{{ trans('close', translations_eqm_250612) }}"></button>
+                <h5 class="modal-title">{{ __('Confirm removing a section') }}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{{ __('Close') }}"></button>
             </div>
             <div class="modal-body">
-                {{ trans('confirm_delete_section_message', translations_eqm_250612) }}
+                {{ __('Are you sure you want to delete this section table?') }}
             </div>
             <div class="modal-footer">
-                <a href="#" class="btn btn-danger" id="confirm-delete-section-btn">{{ trans('delete', translations_eqm_250612) }}</a>
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ trans('cancel', translations_eqm_250612) }}</button>
+                <a href="#" class="btn btn-danger" id="confirm-delete-section-btn">{{ __('Delete') }}</a>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('Cancel') }}</button>
             </div>
         </div>
     </div>
@@ -142,24 +25,24 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">{{ trans('confirm_add_extra_section', translations_eqm_250612) }}</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{{ trans('close', translations_eqm_250612) }}"></button>
+                    <h5 class="modal-title">{{ __('Confirm adding a section') }}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{{ __('Close') }}"></button>
                 </div>
                 <div class="modal-body">
                     <div class="row mb-2 form-group">
                         <div class="col-sm-12">
-                            <label for="name" class="form-label"><b>{{ trans('name_extra_section', translations_eqm_250612) }}</b></label>
+                            <label for="name" class="form-label"><b>{{ __('Name of the extra section:') }}</b></label>
                             <input type="text" class="form-control" id="name" name="name" required>
                         </div>
                         <div class="col-sm-12 mt-2">
-                            <label for="description" class="form-label"><b>{{ trans('description_extra_section', translations_eqm_250612) }}</b></label>
+                            <label for="description" class="form-label"><b>{{ __('Description to show in the extra section:') }}</b></label>
                             <textarea class="form-control auto-grow" id="description" name="description" rows="1"></textarea>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-success" id="confirm-add-extra-section-btn">{{ trans('add', translations_eqm_250612) }}</button>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ trans('cancel', translations_eqm_250612) }}</button>
+                    <button type="submit" class="btn btn-success" id="confirm-add-extra-section-btn">{{ __('Add') }}</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('Cancel') }}</button>
                 </div>
             </div>
         </div>
@@ -171,15 +54,15 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">{{ trans('confirm_delete_question', translations_eqm_250612) }}</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{{ trans('close', translations_eqm_250612) }}"></button>
+                <h5 class="modal-title">{{ __('Confirm removing a question') }}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{{ __('Close') }}"></button>
             </div>
             <div class="modal-body">
-                {{ trans('confirm_delete_question_message', translations_eqm_250612) }}
+                {{ __('Are you sure you want to delete this question?') }}
             </div>
             <div class="modal-footer">
-                <a href="#" class="btn btn-danger" id="confirm-delete-question-btn">{{ trans('delete', translations_eqm_250612) }}</a>
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ trans('cancel', translations_eqm_250612) }}</button>
+                <a href="#" class="btn btn-danger" id="confirm-delete-question-btn">{{ __('Delete') }}</a>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('Cancel') }}</button>
             </div>
         </div>
     </div>
@@ -191,15 +74,15 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">{{ trans('confirm_add_question', translations_eqm_250612) }}</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{{ trans('close', translations_eqm_250612) }}"></button>
+                <h5 class="modal-title">{{ __('Confirm adding a question') }}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{{ __('Close') }}"></button>
             </div>
             <div class="modal-body">
-                {{ trans('confirm_add_question_message', translations_eqm_250612) }}
+                {{ __('Are you sure you want to add a new question?') }}
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-success" id="confirm-add-question-btn">{{ trans('add', translations_eqm_250612) }}</button>
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ trans('cancel', translations_eqm_250612) }}</button>
+                <button type="button" class="btn btn-success" id="confirm-add-question-btn">{{ __('Add') }}</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('Cancel') }}</button>
             </div>
         </div>
     </div>
@@ -211,15 +94,15 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">{{ trans('attention', translations_eqm_250612) }}</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{{ trans('close', translations_eqm_250612) }}"></button>
+                    <h5 class="modal-title">{{ __('Attention') }}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{{ __('Close') }}"></button>
                 </div>
                 <div class="modal-body">
-                    {{ trans('attention_message', translations_eqm_250612) }}
+                    {{ __('Are you sure you want to save the changes?') }}
                 </div>
                 <div class="modal-footer">
-                    <a href="#" id="submit-all" class="btn btn-success success">{{ trans('yes', translations_eqm_250612) }}</a>
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">{{ trans('no', translations_eqm_250612) }}</button>
+                    <a href="#" id="submit-all" class="btn btn-success success">{{ __('Yes') }}</a>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">{{ __('No') }}</button>
                 </div>
                 <div class="row">
                     <div class="form-actions col-md-12">

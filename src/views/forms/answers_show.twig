@@ -1,43 +1,9 @@
 {% extends 'base.twig' %}
-
-{% set translations_as_250618 = {
-    'nl': {
-        'forms': 'Formulieren',
-        'answers': 'Antwoorden',
-        'overview': 'Overzicht',
-    },
-    'fr': {
-        'forms': 'Formulaires',
-        'answers': 'Réponses',
-        'overview': 'Aperçu',
-    },
-    'de': {
-        'forms': 'Formulare',
-        'answers': 'Antworten',
-        'overview': 'Übersicht',
-    },
-    'es': {
-        'forms': 'Formularios',
-        'answers': 'Respuestas',
-        'overview': 'Resumen',
-    },
-    'it': {
-        'forms': 'Moduli',
-        'answers': 'Risposte',
-        'overview': 'Panoramica',
-    },
-    'en': {
-        'forms': 'Forms',
-        'answers': 'Answers',
-        'overview': 'Overview',
-    }
-} %}
-
 {% block css %}
     {{ parent() }}
     <link rel="stylesheet" href="{{ BASE_URL }}/vendor/tigress/form-builder/public/css/forms/answers_show.css">
 {% endblock %}
-{% block title %}{{ trans('forms', translations_as_250618) }} - {{ trans('overview', translations_as_250618) }} {{ trans('answers', translations_as_250618) }}{% endblock %}
+{% block title %}{{ __('Forms') }} - {{ __('Overview') }} {{ __('Answers') }}{% endblock %}
 {% block breadcrumb %}
     <div class="row mb-2">
         <div class="col-md-12">
@@ -45,11 +11,11 @@
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ BASE_URL }}/"><i class="fa fa-home"></i></a></li>
                     <li class="breadcrumb-item"><a
-                                href="{{ BASE_URL }}/forms">{{ trans('forms', translations_as_250618) }}</a></li>
+                                href="{{ BASE_URL }}/forms">{{ __('Forms') }}</a></li>
                     <li class="breadcrumb-item"><a
-                                href="{{ BASE_URL }}/forms/{{ form.id }}/answers">{{ trans('overview', translations_as_250618) }}
+                                href="{{ BASE_URL }}/forms/{{ form.id }}/answers">{{ __('Overview') }}
                             - {{ form.name }}</a></li>
-                    <li class="breadcrumb-item active">{{ trans('answers', translations_as_250618) }}</li>
+                    <li class="breadcrumb-item active">{{ __('Answers') }}</li>
                 </ol>
             </nav>
         </div>
@@ -59,7 +25,7 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-12">
-                <h1>{{ trans('answers', translations_as_250618) }}: {{ form.name }}</h1>
+                <h1>{{ __('Answers') }}: {{ form.name }}</h1>
             </div>
         </div>
         <div class="row mb-2">

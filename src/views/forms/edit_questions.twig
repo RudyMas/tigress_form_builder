@@ -1,5 +1,4 @@
 {% extends 'base.twig' %}
-
 {% set lang = WEBSITE.html_lang[:2] %}
 {% set fieldLabel = {
     'nl': 'name_nl',
@@ -8,131 +7,8 @@
     'de': 'name_de',
     'es': 'name_es',
     'it': 'name_it',
+    'sv': 'name_sv',
 }[lang]|default('name_en') %}
-
-{% set translations_eq_250612 = {
-    'nl': {
-        'add_question': 'Toevoegen vraag',
-        'add_section': 'Toevoegen sectie',
-        'answer': 'Antwoord',
-        'answer_extra': '(Keuzelijst / Keuzerondje)',
-        'cancel': 'Annuleren',
-        'db_field': 'Database veld',
-        'delete_section': 'Verwijderen sectie-tabel',
-        'delete_question': 'Verwijderen vraag',
-        'disabled': 'Uitgeschakeld',
-        'field_type': 'Veldtype',
-        'forms': 'Formulieren',
-        'html_tag_attributes': 'HTML-tag attributen',
-        'length': 'Lengte',
-        'make_choice': 'Maak je keuze',
-        'order': 'Volgorde',
-        'question': 'Vraag',
-        'required': 'Verplicht',
-        'update': 'Bijwerken',
-    },
-    'fr': {
-        'add_question': 'Ajouter une question',
-        'add_section': 'Ajouter une section',
-        'answer': 'Réponse',
-        'answer_extra': '(Liste de sélection / Bouton radio)',
-        'cancel': 'Annuler',
-        'db_field': 'Champ de base de données',
-        'delete_section': 'Supprimer la section-table',
-        'delete_question': 'Supprimer la question',
-        'disabled': 'Désactivé',
-        'field_type': 'Type de champ',
-        'forms': 'Formulaires',
-        'html_tag_attributes': 'Attributs de la balise HTML',
-        'length': 'Longueur',
-        'make_choice': 'Faites votre choix',
-        'order': 'Ordre',
-        'question': 'Question',
-        'required': 'Requis',
-        'update': 'Pour ajuster',
-    },
-    'en': {
-        'add_question': 'Add question',
-        'add_section': 'Add section',
-        'answer': 'Answer',
-        'answer_extra': '(Selection list / Radio button)',
-        'cancel': 'Cancel',
-        'db_field': 'Database field',
-        'delete_section': 'Delete section-table',
-        'delete_question': 'Delete question',
-        'disabled': 'Disabled',
-        'field_type': 'Field type',
-        'forms': 'Forms',
-        'html_tag_attributes': 'HTML-tag attributes',
-        'length': 'Length',
-        'make_choice': 'Make your choice',
-        'order': 'Order',
-        'question': 'Question',
-        'required': 'Required',
-        'update': 'Update',
-    },
-    'de': {
-        'add_question': 'Frage hinzufügen',
-        'add_section': 'Abschnitt hinzufügen',
-        'answer': 'Antwort',
-        'answer_extra': '(Auswahlliste / Optionsfeld)',
-        'cancel': 'Abbrechen',
-        'db_field': 'Datenbankfeld',
-        'delete_section': 'Abschnittstabelle löschen',
-        'delete_question': 'Frage löschen',
-        'disabled': 'Deaktiviert',
-        'field_type': 'Feldtyp',
-        'forms': 'Formulare',
-        'html_tag_attributes': 'HTML-Tag-Attribute',
-        'length': 'Länge',
-        'make_choice': 'Treffen Sie Ihre Wahl',
-        'order': 'Reihenfolge',
-        'question': 'Frage',
-        'required': 'Erforderlich',
-        'update': 'Aktualisieren',
-    },
-    'es': {
-        'add_question': 'Agregar pregunta',
-        'add_section': 'Agregar sección',
-        'answer': 'Respuesta',
-        'answer_extra': '(Lista de selección / Botón de opción)',
-        'cancel': 'Cancelar',
-        'db_field': 'Campo de base de datos',
-        'delete_section': 'Eliminar sección-tabla',
-        'delete_question': 'Eliminar pregunta',
-        'disabled': 'Deshabilitado',
-        'field_type': 'Tipo de campo',
-        'forms': 'Formularios',
-        'html_tag_attributes': 'Atributos de etiqueta HTML',
-        'length': 'Longitud',
-        'make_choice': 'Hacer su elección',
-        'order': 'Orden',
-        'question': 'Pregunta',
-        'required': 'Requerido',
-        'update': 'Actualizar',
-    },
-    'it': {
-        'add_question': 'Aggiungi domanda',
-        'add_section': 'Aggiungi sezione',
-        'answer': 'Risposta',
-        'answer_extra': '(Elenco di selezione / Pulsante radio)',
-        'cancel': 'Annulla',
-        'db_field': 'Campo del database',
-        'delete_section': 'Elimina tabella sezione',
-        'delete_question': 'Elimina domanda',
-        'disabled': 'Disabilitato',
-        'field_type': 'Tipo di campo',
-        'forms': 'Moduli',
-        'html_tag_attributes': 'Attributi del tag HTML',
-        'length': 'Lunghezza',
-        'make_choice': 'Fai la tua scelta',
-        'order': 'Ordine',
-        'question': 'Domanda',
-        'required': 'Obbligatorio',
-        'update': 'Aggiorna',
-    },
-} %}
-
 {% block js %}
     {{ parent() }}
     <script>
@@ -143,10 +19,13 @@
             delete: '{{ rights.delete }}',
             formId: '{{ form.id }}',
         }
+        let language = {
+            translations: {{ translations|json_encode|raw }},
+        }
     </script>
     <script src="{{ BASE_URL }}/vendor/tigress/form-builder/public/javascript/forms/edit_questions.js"></script>
 {% endblock %}
-{% block title %}{{ trans('forms', translations_eq_250612) }} - {{ form.name }}{% endblock %}
+{% block title %}{{ __('Forms') }} - {{ form.name }}{% endblock %}
 {% block breadcrumb %}
     <div class="row mb-2">
         <div class="col-sm-12">
@@ -154,7 +33,7 @@
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ BASE_URL }}/"><i class="fa fa-home"></i></a></li>
                     <li class="breadcrumb-item active"><a
-                                href="{{ BASE_URL }}/forms">{{ trans('forms', translations_eq_250612) }}</a></li>
+                                href="{{ BASE_URL }}/forms">{{ __('Forms') }}</a></li>
                     <li class="breadcrumb-item active">{{ form.name }}</li>
                 </ol>
             </nav>
@@ -165,7 +44,7 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-12">
-                <h3>{{ trans('forms', translations_eq_250612) }} - {{ form.name }}</h3>
+                <h3>{{ __('Forms') }} - {{ form.name }}</h3>
             </div>
         </div>
         <div class="row mb-2">
@@ -204,7 +83,7 @@
                                                             &nbsp;<a href="#" class="btn btn-danger btn-delete-section"
                                                                      data-url="{{ BASE_URL }}/forms/delete/section/{{ form.id }}/{{ formsSection.id }}"
                                                                      data-toggle="tooltip"
-                                                                     title="{{ trans('delete_section', translations_eq_250612) }} {{ formsSection.sort }}">
+                                                                     title="{{ __('Delete section-table') }} {{ formsSection.sort }}">
                                                                 <i class="fa-solid fa-trash"></i>
                                                             </a>
                                                         </td>
@@ -228,23 +107,23 @@
                                         <thead>
                                         <tr>
                                             <th style="width: 8.33%"
-                                                class="text-center">{{ trans('order', translations_eq_250612) }}</th>
+                                                class="text-center">{{ __('Order') }}</th>
                                             <th style="width: 16.66%"
-                                                class="text-center">{{ trans('question', translations_eq_250612) }}</th>
+                                                class="text-center">{{ __('Question') }}</th>
                                             <th style="width: 8.33%"
-                                                class="text-center">{{ trans('field_type', translations_eq_250612) }}</th>
+                                                class="text-center">{{ __('Field type') }}</th>
                                             <th style="width: 8.33%"
-                                                class="text-center">{{ trans('length', translations_eq_250612) }}</th>
+                                                class="text-center">{{ __('Length') }}</th>
                                             <th style="width: 8.33%"
-                                                class="text-center">{{ trans('required', translations_eq_250612) }}
-                                                / {{ trans('disabled', translations_eq_250612) }}</th>
+                                                class="text-center">{{ __('Required') }}
+                                                / {{ __('Disabled') }}</th>
                                             <th style="width: 16.66%"
-                                                class="text-center">{{ trans('answer', translations_eq_250612) }}
-                                                <br>{{ trans('answer_extra', translations_eq_250612) }}</th>
+                                                class="text-center">{{ __('Answer') }}
+                                                <br>{{ __('(Selection list / Radio button)') }}</th>
                                             <th style="width: 16.66%"
-                                                class="text-center">{{ trans('html_tag_attributes', translations_eq_250612) }}</th>
+                                                class="text-center">{{ __('HTML-tag attributes') }}</th>
                                             <th style="width: 8.33%"
-                                                class="text-center">{{ trans('db_field', translations_eq_250612) }}</th>
+                                                class="text-center">{{ __('Database field') }}</th>
                                             <th style="width: 8.33%"></th>
                                         </tr>
                                         </thead>
@@ -270,7 +149,7 @@
                                                     <td class="text-middle">
                                                         <select name="formsQuestions[{{ formsQuestion.id }}][field_type_id]"
                                                                 class="form-select" form="form-all" required>
-                                                            <option value="">{{ trans('make_choice', translations_eq_250612) }}</option>
+                                                            <option value="">{{ __('Make a Choice') }}</option>
                                                             {% for FieldType in formBuilderFieldTypes %}
                                                                 <option value="{{ FieldType.id }}"{% if formsQuestion.field_type_id == FieldType.id %} selected{% endif %}>
                                                                     {{ attribute(FieldType, fieldLabel) }}
@@ -320,7 +199,7 @@
                                                         <a href="#" class="btn btn-danger btn-delete-question"
                                                            data-url="{{ BASE_URL }}/forms/delete/question/{{ form.id }}/{{ formsQuestion.id }}"
                                                            data-toggle="tooltip"
-                                                           title="{{ trans('delete_question', translations_eq_250612) }}">
+                                                           title="{{ __('Delete question') }}">
                                                             <i class="fa-solid fa-trash"></i>
                                                         </a>
                                                     </td>
@@ -353,7 +232,7 @@
                                                                     class="form-select"
                                                                     form="form-table1-{{ formsSection.sort }}"
                                                                     required>
-                                                                <option value="">{{ trans('make_choice', translations_eq_250612) }}</option>
+                                                                <option value="">{{ __('Make a Choice') }}</option>
                                                                 {% for FieldType in formBuilderFieldTypes %}
                                                                     <option value="{{ FieldType.id }}">
                                                                         {{ attribute(FieldType, fieldLabel) }}
@@ -398,7 +277,7 @@
                                                             <button type="button"
                                                                     class="btn btn-success trigger-add-question-modal"
                                                                     data-toggle="tooltip"
-                                                                    title="{{ trans('add_question', translations_eq_250612) }}"
+                                                                    title="{{ __('Add question') }}"
                                                                     data-count="{{ formsSection.sort }}">
                                                                 <i class="fa-solid fa-plus"></i>
                                                             </button>
@@ -417,18 +296,19 @@
                 <div class="row">
                     <div class="col-sm-6 mb-3">
                         {% if rights.write %}
-                            <input type="button" name="btn" value="{{ trans('update', translations_eq_250612) }}"
-                                   data-toggle="modal"
-                                   data-target="#confirm-submit" class="btn btn-success submitFrm" form="form-all"/>
+                            <button type="button" class="btn btn-success submitFrm" form="form-all"
+                                    data-toggle="modal"
+                                    data-target="#confirm-submit"><i class="fa-solid fa-save"></i> {{ __('Update') }}
+                            </button>
                         {% endif %}
                         <a class="btn btn-danger"
-                           href="{{ BASE_URL }}/forms">{{ trans('cancel', translations_eq_250612) }}</a>
+                           href="{{ BASE_URL }}/forms"><i class="fa-solid fa-times"></i> {{ __('Cancel') }}</a>
                     </div>
                     <div class="col-sm-6 mb-3 text-end">
                         {% if rights.write %}
                             <button type="button" class="btn btn-success trigger-add-section-modal"
                                     data-bs-toggle="modal" data-bs-target="#confirm-add-extra-section-modal">
-                                <i class="fa-solid fa-plus"></i> {{ trans('add_section', translations_eq_250612) }}
+                                <i class="fa-solid fa-plus"></i> {{ __('Add section') }}
                             </button>
                         {% endif %}
                     </div>

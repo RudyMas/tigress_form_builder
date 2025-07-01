@@ -1,32 +1,4 @@
 {% extends 'datatable.twig' %}
-
-{% set translations_ai_250613 = {
-    'nl': {
-        'forms': 'Formulieren',
-        'overview': 'Overzicht',
-    },
-    'fr': {
-        'forms': 'Formulaires',
-        'overview': 'Aperçu',
-    },
-    'de': {
-        'forms': 'Formulare',
-        'overview': 'Übersicht',
-    },
-    'es': {
-        'forms': 'Formularios',
-        'overview': 'Resumen',
-    },
-    'it': {
-        'forms': 'Moduli',
-        'overview': 'Panoramica',
-    },
-    'en': {
-        'forms': 'Forms',
-        'overview': 'Overview',
-    },
-} %}
-
 {% block js %}
     {{ parent() }}
     <script>
@@ -37,18 +9,21 @@
             read: '{{ rights.read }}',
             delete: '{{ rights.delete }}',
         }
+        let language = {
+            translations: {{ translations|json_encode|raw }},
+        }
     </script>
     <script src="{{ BASE_URL }}/vendor/tigress/form-builder/public/javascript/forms/answers_index.js"></script>
 {% endblock %}
-{% block title %}{{ trans('forms', translations_ai_250613) }} - {{ trans('overview', translations_ai_250613) }}{% endblock %}
+{% block title %}{{ __('Forms') }} - {{ __('Overview') }}{% endblock %}
 {% block breadcrumb %}
     <div class="row mb-2">
         <div class="col-md-12">
             <nav aria-label="breadcrumb" data-bs-theme="dark">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ BASE_URL }}/"><i class="fa fa-home"></i></a></li>
-                    <li class="breadcrumb-item"><a href="{{ BASE_URL }}/forms">{{ trans('forms', translations_ai_250613) }}</a></li>
-                    <li class="breadcrumb-item active">{{ trans('overview', translations_ai_250613) }} - {{ form.name }}</li>
+                    <li class="breadcrumb-item"><a href="{{ BASE_URL }}/forms">{{ __('Forms') }}</a></li>
+                    <li class="breadcrumb-item active">{{ __('Overview') }} - {{ form.name }}</li>
                 </ol>
             </nav>
         </div>
@@ -58,7 +33,7 @@
     <div class="container">
         <div class="row mb-2">
             <div class="col-sm-12">
-                <h3>{{ trans('overview', translations_ai_250613) }} - {{ form.name }}</h3>
+                <h3>{{ __('Overview') }} - {{ form.name }}</h3>
             </div>
         </div>
         <div class="row mb-2">

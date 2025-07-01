@@ -6,7 +6,6 @@ use Repository\FormsRepo;
 use Repository\FormsSectionsRepo;
 use Repository\FormsQuestionsRepo;
 use Repository\FormBuilderFieldTypesRepo;
-use Tigress\Core;
 use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
 use Twig\Error\SyntaxError;
@@ -17,20 +16,18 @@ use Twig\Error\SyntaxError;
  * @author Rudy Mas <rudy.mas@go-next.be>
  * @copyright 2025 GO! Next (https://www.go-next.be)
  * @license Proprietary
- * @version 2025.06.18.0
+ * @version 2025.07.01.0
  * @package Controller\forms
  */
 class FormController
 {
-    private string $translationFile = SYSTEM_ROOT . '/vendor/tigress/form-builder/translations/translations.json';
-
     /**
      * @throws LoaderError
      */
     public function __construct()
     {
         TWIG->addPath('vendor/tigress/form-builder/src/views');
-        TWIG->addGlobal('translations', json_decode(file_get_contents($this->translationFile), true));
+        TRANSLATIONS->load(SYSTEM_ROOT . '/vendor/tigress/form-builder/translations/translations.json');
     }
 
     /**
@@ -90,14 +87,7 @@ class FormController
      */
     public function closed(): void
     {
-        $message = match (substr(CONFIG->website->html_lang, 0, 2)) {
-            'nl' => 'Het formulier is reeds gesloten of niet herkend.<br>Gelieve de beheerder van het formulier te contacteren.',
-            'fr' => 'Le formulaire est déjà fermé ou non reconnu.<br>Veuillez contacter l\'administrateur du formulaire.',
-            'de' => 'Das Formular ist bereits geschlossen oder nicht erkannt.<br>Bitte kontaktieren Sie den Formularadministrator.',
-            'es' => 'El formulario ya está cerrado o no se reconoce.<br>Por favor, póngase en contacto con el administrador del formulario.',
-            'it' => 'Il modulo è già chiuso o non riconosciuto.<br>Si prega di contattare l\'amministratore del modulo.',
-            default => 'The form is already closed or not recognized.<br>Please contact the form administrator.',
-        };
+        $message = __('The form is already closed or not recognized.<br>Please contact the form administrator.');
 
         TWIG->render('forms/message.twig', [
             'message' => $message,
@@ -115,14 +105,7 @@ class FormController
      */
     public function success(): void
     {
-        $message = match (substr(CONFIG->website->html_lang, 0, 2)) {
-            'nl' => 'Het formulier is succesvol opgeslagen.<br>Je hoeft verder niets te doen – je kunt nu uw browser sluiten.',
-            'fr' => 'Le formulaire a été enregistré avec succès.<br>Vous n\'avez rien d\'autre à faire – vous pouvez maintenant fermer votre navigateur.',
-            'de' => 'Das Formular wurde erfolgreich gespeichert.<br>Sie müssen nichts weiter tun – Sie können jetzt Ihren Browser schließen.',
-            'es' => 'El formulario se ha guardado correctamente.<br>No necesita hacer nada más: ahora puede cerrar su navegador.',
-            'it' => 'Il modulo è stato salvato con successo.<br>Non devi fare altro – puoi ora chiudere il tuo browser.',
-            default => 'The form has been successfully saved.<br>You do not need to do anything further – you may now close your browser.',
-        };
+        $message = __('The form has been successfully saved.<br>You do not need to do anything further – you may now close your browser.');
 
         TWIG->render('forms/message.twig', [
             'message' => $message,

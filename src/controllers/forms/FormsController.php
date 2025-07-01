@@ -22,20 +22,18 @@ use Twig\Error\SyntaxError;
  * @author Rudy Mas <rudy.mas@go-next.be>
  * @copyright 2025 GO! Next (https://www.go-next.be)
  * @license Proprietary
- * @version 2025.06.18.0
+ * @version 2025.07.01.0
  * @package Controller\forms
  */
 class FormsController extends Controller
 {
-    private string $translationFile = SYSTEM_ROOT . '/vendor/tigress/form-builder/translations/translations.json';
-
     /**
      * @throws LoaderError
      */
     public function __construct()
     {
         TWIG->addPath('vendor/tigress/form-builder/src/views');
-        TWIG->addGlobal('translations', json_decode(file_get_contents($this->translationFile), true));
+        TRANSLATIONS->load(SYSTEM_ROOT . '/vendor/tigress/form-builder/translations/translations.json');
     }
 
     /**
@@ -73,24 +71,10 @@ class FormsController extends Controller
         $forms = new FormsRepo();
         if ($args['id'] == 0) {
             $forms->new();
-            $actionButton = match (substr(CONFIG->website->html_lang, 0, 2)) {
-                'nl' => 'Toevoegen',
-                'fr' => 'Ajouter',
-                'de' => 'Bearbeiten',
-                'es' => 'Editar',
-                'it' => 'Aggiungi',
-                default => 'Add',
-            };
+            $actionButton = __('Add');
         } else {
             $forms->loadById($args['id']);
-            $actionButton = match (substr(CONFIG->website->html_lang, 0, 2)) {
-                'nl' => 'Aanpassen',
-                'fr' => 'Modifier',
-                'de' => 'Aktualisieren',
-                'es' => 'Actualizar',
-                'it' => 'Aggiorna',
-                default => 'Update',
-            };
+            $actionButton = __('Update');
         }
 
         $tiles = new FormBuilderTilesRepo();
@@ -179,7 +163,7 @@ class FormsController extends Controller
 
                 Core::dump($formsAnswers);
             } else {
-                $_SESSION['error'] = 'De antwoorden voor dit formulier zijn niet beschikbaar.';
+                $_SESSION['error'] = __('The answers for this form are not available.');
                 TWIG->redirect('/forms/' . $form->id . '/answers/');
             }
         } else {
@@ -281,7 +265,7 @@ class FormsController extends Controller
                     'answers' => $formsAnswers,
                 ]);
             } else {
-                $_SESSION['error'] = 'De antwoorden voor dit formulier zijn niet beschikbaar.';
+                $_SESSION['error'] = __('The answers for this form are not available.');
                 TWIG->redirect('/forms');
             }
         } else {

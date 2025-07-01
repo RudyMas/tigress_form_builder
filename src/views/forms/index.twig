@@ -10,20 +10,19 @@
             delete: '{{ rights.delete }}',
         }
         let language = {
-            base: {{ base_trans|json_encode|raw }},
-            local: {{ translations|json_encode|raw }},
+            translations: {{ translations|json_encode|raw }},
         }
     </script>
     <script src="{{ BASE_URL }}/vendor/tigress/form-builder/public/javascript/forms/index.js"></script>
 {% endblock %}
-{% block title %}{{ trans('forms', translations) }}{% endblock %}
+{% block title %}{{ __('Forms') }}{% endblock %}
 {% block breadcrumb %}
     <div class="row mb-2">
         <div class="col-md-12">
             <nav aria-label="breadcrumb" data-bs-theme="dark">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ BASE_URL }}/"><i class="fa fa-home"></i></a></li>
-                    <li class="breadcrumb-item active">{{ trans('forms', translations) }}</li>
+                    <li class="breadcrumb-item active">{{ __('Forms') }}</li>
                 </ol>
             </nav>
         </div>
@@ -33,17 +32,17 @@
     <div class="container">
         <div class="row mb-2">
             <div class="col-sm-8">
-                <h3>{{ trans('forms', translations) }}</h3>
+                <h3>{{ __('Forms') }}</h3>
             </div>
             <div class="col-sm-4 text-end">
                 {% if _GET.show == 'archive' %}
-                    <a href="{{ BASE_URL }}/forms" class="btn btn-warning"><i class="fa fa-archive"></i> {{ trans('archive', base_trans) }}</a>
+                    <a href="{{ BASE_URL }}/forms" class="btn btn-warning"><i class="fa fa-archive"></i> {{ __('Archive') }}</a>
                 {% else %}
-                    <a href="{{ BASE_URL }}/forms?show=archive" class="btn btn-outline-warning"><i class="fa fa-archive"></i> {{ trans('archive', base_trans) }}</a>
+                    <a href="{{ BASE_URL }}/forms?show=archive" class="btn btn-outline-warning"><i class="fa fa-archive"></i> {{ __('Archive') }}</a>
                 {% endif %}
                 {% if rights.write %}
                     <a href="{{ BASE_URL }}/forms/edit/0" class="btn btn-success"><i class="fa-solid fa-plus"></i>
-                        {{ trans('add', base_trans) }}</a>
+                        {{ __('Add') }}</a>
                 {% endif %}
             </div>
         </div>
@@ -66,15 +65,15 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="ModalFormsDeleteLabel">{{ trans('archive_form', translations) }}</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{{ trans('close', base_trans) }}"></button>
+                        <h5 class="modal-title" id="ModalFormsDeleteLabel">{{ __('Archive Form') }}</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{{ __('Close') }}"></button>
                     </div>
                     <div class="modal-body">
-                        <p id="modalContent">{{ trans('archive_question', translations) }}</p>
+                        <p id="modalContent">{{ __('Are you sure you want to archive the form?') }}</p>
                     </div>
                     <div class="modal-footer">
-                        <button id="DeleteForm" name="DeleteForm" value="" type="submit" class="btn btn-success">{{ trans('yes', base_trans) }}</button>
-                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">{{ trans('no', base_trans) }}</button>
+                        <button id="DeleteForm" name="DeleteForm" value="" type="submit" class="btn btn-success">{{ __('Yes') }}</button>
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">{{ __('No') }}</button>
                     </div>
                 </div>
             </div>
@@ -87,15 +86,15 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="ModalFormsDeleteLabel">{{ trans('restore_form', restore_form) }}</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{{ trans('close', base_trans) }}"></button>
+                        <h5 class="modal-title" id="ModalFormsDeleteLabel">{{ __('Restore Form') }}</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{{ __('Close') }}"></button>
                     </div>
                     <div class="modal-body">
-                        <p id="modalContent">{{ trans('restore_question', restore_form) }}</p>
+                        <p id="modalContent">{{ __('Are you sure you want to restore the form?') }}</p>
                     </div>
                     <div class="modal-footer">
-                        <button id="RestoreForm" name="RestoreForm" value="" type="submit" class="btn btn-success">{{ trans('yes', base_trans) }}</button>
-                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">{{ trans('no', base_trans) }}</button>
+                        <button id="RestoreForm" name="RestoreForm" value="" type="submit" class="btn btn-success">{{ __('Yes') }}</button>
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">{{ __('No') }}</button>
                     </div>
                 </div>
             </div>

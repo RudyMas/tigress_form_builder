@@ -1,100 +1,12 @@
 {% extends 'base.twig' %}
-
-{% set translations_e_250612 = {
-    'nl': {
-        'cancel': 'Annuleren',
-        'choose_screen_type': 'Kies type scherm',
-        'db_table': 'Database tabel',
-        'desktop': 'Desktop',
-        'form_name': 'Naam van het formulier',
-        'form_reference': 'Formulier referentie (voor URL)',
-        'form_reference_placeholder': 'Formulier referentie',
-        'forms': 'Formulieren',
-        'link_tile': 'Gelinkt aan tegel',
-        'mobile': 'Mobiel',
-        'not_linked': 'Enkel een formulier, niet gelinkt',
-        'screen_type': 'Type scherm',
-    },
-    'fr': {
-        'cancel': 'Annuler',
-        'choose_screen_type': 'Choisir le type d\'écran',
-        'db_table': 'Table de base de données',
-        'desktop': 'Bureau',
-        'form_name': 'Nom du formulaire',
-        'form_reference': 'Référence du formulaire (pour l\'URL)',
-        'form_reference_placeholder': 'Référence du formulaire',
-        'forms': 'Formulaires',
-        'link_tile': 'Lien vers la tuile',
-        'mobile': 'Mobile',
-        'not_linked': 'Juste un formulaire, pas lié',
-        'screen_type': 'Type d\'écran',
-    },
-    'en': {
-        'cancel': 'Cancel',
-        'choose_screen_type': 'Choose screen type',
-        'db_table': 'Database table',
-        'desktop': 'Desktop',
-        'form_name': 'Name of the form',
-        'form_reference': 'Form reference (for URL)',
-        'form_reference_placeholder': 'Form reference',
-        'forms': 'Forms',
-        'link_tile': 'Link to tile',
-        'mobile': 'Mobile',
-        'not_linked': 'Just a form, not linked',
-        'screen_type': 'Screen type',
-    },
-    'de': {
-        'cancel': 'Abbrechen',
-        'choose_screen_type': 'Bildschirmtyp wählen',
-        'db_table': 'Datenbanktabelle',
-        'desktop': 'Desktop',
-        'form_name': 'Name des Formulars',
-        'form_reference': 'Formularreferenz (für URL)',
-        'form_reference_placeholder': 'Formularreferenz',
-        'forms': 'Formulare',
-        'link_tile': 'Verknüpft mit Kachel',
-        'mobile': 'Mobil',
-        'not_linked': 'Nur ein Formular, nicht verknüpft',
-        'screen_type': 'Bildschirmtyp',
-    },
-    'es': {
-        'cancel': 'Cancelar',
-        'choose_screen_type': 'Elegir tipo de pantalla',
-        'db_table': 'Tabla de base de datos',
-        'desktop': 'Escritorio',
-        'form_name': 'Nombre del formulario',
-        'form_reference': 'Referencia del formulario (para URL)',
-        'form_reference_placeholder': 'Referencia del formulario',
-        'forms': 'Formularios',
-        'link_tile': 'Enlazar a la baldosa',
-        'mobile': 'Móvil',
-        'not_linked': 'Solo un formulario, no vinculado',
-        'screen_type': 'Tipo de pantalla',
-    },
-    'it': {
-        'cancel': 'Annulla',
-        'choose_screen_type': 'Scegli il tipo di schermo',
-        'db_table': 'Tabella del database',
-        'desktop': 'Desktop',
-        'form_name': 'Nome del modulo',
-        'form_reference': 'Riferimento del modulo (per URL)',
-        'form_reference_placeholder': 'Riferimento del modulo',
-        'forms': 'Moduli',
-        'link_tile': 'Collegamento alla piastrella',
-        'mobile': 'Mobile',
-        'not_linked': 'Solo un modulo, non collegato',
-        'screen_type': 'Tipo di schermo',
-    }
-} %}
-
-{% block title %}{{ trans('forms', translations_e_250612)}} - {{ actionButton }}{% endblock %}
+{% block title %}{{ __('Forms') }} - {{ actionButton }}{% endblock %}
 {% block breadcrumb %}
     <div class="row mb-2">
         <div class="col-sm-12">
             <nav aria-label="breadcrumb" data-bs-theme="dark">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ BASE_URL }}/"><i class="fa fa-home"></i></a></li>
-                    <li class="breadcrumb-item"><a href="{{ BASE_URL }}/forms">{{ trans('forms', translations_e_250612)}}</a></li>
+                    <li class="breadcrumb-item"><a href="{{ BASE_URL }}/forms">{{ __('Forms') }}</a></li>
                     <li class="breadcrumb-item active">{{ actionButton }}</li>
                 </ol>
             </nav>
@@ -105,7 +17,7 @@
     <div class="container">
         <div class="row mb-2">
             <div class="col-sm-12">
-                <h3>{{ trans('forms', translations_e_250612) }} - {{ actionButton }}</h3>
+                <h3>{{ __('Forms') }} - {{ actionButton }}</h3>
             </div>
         </div>
         <div class="row mb-2">
@@ -116,29 +28,29 @@
                         <div class="row mb-2">
                             <div class="col-sm-12">
                                 <input type="hidden" name="id" value="{{ form.id }}">
-                                <label for="name" class="form-label"><b>{{ trans('form_name', translations_e_250612) }}</b></label>
+                                <label for="name" class="form-label"><b>{{ __('Name of the form') }}</b></label>
                                 <input type="text" class="form-control" id="name" name="name"
-                                       placeholder="{{ trans('form_name', translations_e_250612) }}" value="{{ form.name }}" required>
+                                       placeholder="{{ __('Name of the form') }}" value="{{ form.name }}" required>
                             </div>
                         </div>
                         <div class="row mb-2">
                             <div class="col-sm-3">
-                                <label for="type_id" class="form-label"><b>{{ trans('screen_type', translations_e_250612) }}</b></label>
+                                <label for="type_id" class="form-label"><b>{{ __('Screen type') }}</b></label>
                                 <select class="form-control" id="type_id" name="type_id" required>
-                                    <option value="">{{ trans('choose_screen_type', translations_e_250612) }}</option>
-                                    <option value="1" {% if form.type_id == 1 %}selected{% endif %}>{{ trans('mobile', translations_e_250612) }}</option>
-                                    <option value="2" {% if form.type_id == 2 %}selected{% endif %}>{{ trans('desktop', translations_e_250612) }}</option>
+                                    <option value="">{{ __('Choose screen type') }}</option>
+                                    <option value="1" {% if form.type_id == 1 %}selected{% endif %}>{{ __('Mobile') }}</option>
+                                    <option value="2" {% if form.type_id == 2 %}selected{% endif %}>{{ __('Desktop') }}</option>
                                 </select>
                             </div>
                             <div class="col-sm-3">
-                                <label for="form_reference" class="form-label"><b>{{ trans('form_reference', translations_e_250612) }}</b></label>
+                                <label for="form_reference" class="form-label"><b>{{ __('Form reference (for URL)') }}</b></label>
                                 <input type="text" class="form-control" id="form_reference" name="form_reference"
-                                       placeholder="{{ trans('form_reference_placeholder', translations_e_250612) }}" value="{{ form.form_reference }}">
+                                       placeholder="{{ __('Form reference') }}" value="{{ form.form_reference }}">
                             </div>
                             <div class="col-sm-3">
-                                <label for="tile_id" class="form-label"><b>{{ trans('link_tile', translations_e_250612) }}</b></label>
+                                <label for="tile_id" class="form-label"><b>{{ __('Linked to tile') }}</b></label>
                                 <select class="form-control" id="tile_id" name="tile_id" required>
-                                    <option value="0">{{ trans('not_linked', translations_e_250612) }}</option>
+                                    <option value="0">{{ __('Just a form, not linked') }}</option>
                                     {% for tile in tiles %}
                                         <option value="{{ tile.id }}" {% if form.tile_id == tile.id %}selected{% endif %}>
                                             {{ tile.tile_name }}
@@ -147,7 +59,7 @@
                                 </select>
                             </div>
                             <div class="col-sm-3">
-                                <label for="db_table" class="form-label"><b>{{ trans('db_table', translations_e_250612) }}</b></label>
+                                <label for="db_table" class="form-label"><b>{{ __('Database table') }}</b></label>
                                 <input type="text" class="form-control" id="db_table" name="db_table" value="{{ form.db_table }}">
                             </div>
                         </div>
@@ -158,7 +70,7 @@
                                 {{ actionButton }}
                             </button>
                             <a href="javascript:history.back()" class="btn btn-danger"><i class="fa fa-times"></i>
-                                {{ trans('cancel', translations_e_250612) }}</a>
+                                {{ __('Cancel') }}</a>
                         </div>
                     </div>
                 </form>

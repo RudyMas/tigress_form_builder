@@ -13,11 +13,16 @@ use Tigress\Repository;
  * @author Rudy Mas <rudy.mas@go-next.be>
  * @copyright 2025 GO! Next (https://www.go-next.be)
  * @license Proprietary
- * @version 2025.06.19.0
+ * @version 2025.07.01.0
  * @package Controller\forms
  */
 class FormCrudController extends Controller
 {
+    public function __construct()
+    {
+        TRANSLATIONS->load(SYSTEM_ROOT . '/vendor/tigress/form-builder/translations/translations.json');
+    }
+
     /**
      * Save the form answers.
      *
@@ -41,14 +46,7 @@ class FormCrudController extends Controller
                     }
                 }
             } else {
-                $error = match (substr(CONFIG->website->html_lang, 0, 2)) {
-                    'nl' => 'STOP! De klasse ' . $repoName . ' bestaat niet.',
-                    'fr' => 'STOP! La classe ' . $repoName . ' n\'existe pas.',
-                    'de' => 'STOP! Die Klasse ' . $repoName . ' existiert nicht.',
-                    'es' => '¡ALTO! La clase ' . $repoName . ' no existe.',
-                    'it' => 'STOP! La classe ' . $repoName . ' non esiste.',
-                    default => 'STOP! The class ' . $repoName . ' does not exist.',
-                };
+                $error = __('STOP! The class ') . $repoName . __(' does not exist.');
                 die($error);
             }
         } else {
@@ -112,25 +110,11 @@ class FormCrudController extends Controller
             $formAnswers->forms_question_id = (int)$key;
 
             if (empty($name)) {
-                $formAnswers->answer = match(substr(CONFIG->website->html_lang, 0, 2)) {
-                    'nl' => 'Geen bestand ingezonden',
-                    'fr' => 'Aucun fichier soumis',
-                    'de' => 'Keine Datei eingereicht',
-                    'es' => 'Ningún archivo enviado',
-                    'it' => 'Nessun file inviato',
-                    default => 'No file submitted',
-                };
+                $formAnswers->answer = __('No file submitted');
                 $formsAnswers->save($formAnswers);
                 return;
             } elseif (!isset($error) || $error !== UPLOAD_ERR_OK) {
-                $formAnswers->answer = match(substr(CONFIG->website->html_lang, 0, 2)) {
-                    'nl' => 'ERROR: uploaden van het bestand mislukte',
-                    'fr' => 'ERREUR : l\'envoi du fichier a échoué',
-                    'de' => 'FEHLER: Datei-Upload fehlgeschlagen',
-                    'es' => 'ERROR: la carga del archivo falló',
-                    'it' => 'ERRORE: caricamento del file non riuscito',
-                    default => 'ERROR: file upload failed',
-                };
+                $formAnswers->answer = __('ERROR: file upload failed');
                 $formsAnswers->save($formAnswers);
                 return;
             }
@@ -138,14 +122,7 @@ class FormCrudController extends Controller
             if (move_uploaded_file($tmpPath, $destination)) {
                 $formAnswers->answer = '/public/files/forms/' . $safeName;
             } else {
-                $formAnswers->answer = match(substr(CONFIG->website->html_lang, 0, 2)) {
-                    'nl' => 'ERROR: verplaatsen van het bestand is mislukt',
-                    'fr' => 'ERREUR : le déplacement du fichier a échoué',
-                    'de' => 'FEHLER: Verschieben der Datei fehlgeschlagen',
-                    'es' => 'ERROR: mover el archivo falló',
-                    'it' => 'ERRORE: spostamento del file non riuscito',
-                    default => 'ERROR: moving the file failed',
-                };
+                $formAnswers->answer = __('ERROR: moving the file failed');
             }
 
             $formsAnswers->save($formAnswers);
@@ -170,14 +147,7 @@ class FormCrudController extends Controller
         $totalFiles = $isMultiple ? count($_FILES[$key]['name']) : 1;
 
         if ($totalFiles > 1) {
-            $error = match (substr(CONFIG->website->html_lang, 0, 2)) {
-                'nl' => 'STOP! Meerdere bestandsuploads worden nog niet ondersteund voor database formulieren.',
-                'fr' => 'STOP! Les téléchargements de plusieurs fichiers ne sont pas encore pris en charge pour les formulaires de base de données.',
-                'de' => 'STOP! Mehrfache Datei-Uploads werden für Datenbankformulare noch nicht unterstützt.',
-                'es' => '¡ALTO! Las cargas de múltiples archivos aún no son compatibles con los formularios de base de datos.',
-                'it' => 'STOP! Gli upload multipli di file non sono ancora supportati per i moduli del database.',
-                default => 'STOP! Multiple file uploads are not supported for database forms yet.',
-            };
+            $error = __('STOP! Multiple file uploads are not supported for database forms yet.');
             die($error);
         }
 
@@ -196,25 +166,11 @@ class FormCrudController extends Controller
             $formAnswers = $formsAnswers->current();
 
             if (empty($name)) {
-                $formAnswers->$key = match(substr(CONFIG->website->html_lang, 0, 2)) {
-                    'nl' => 'Geen bestand ingezonden',
-                    'fr' => 'Aucun fichier soumis',
-                    'de' => 'Keine Datei eingereicht',
-                    'es' => 'Ningún archivo enviado',
-                    'it' => 'Nessun file inviato',
-                    default => 'No file submitted',
-                };
+                $formAnswers->$key = __('No file submitted');
                 $formsAnswers->save($formAnswers);
                 return;
             } elseif (!isset($error) || $error !== UPLOAD_ERR_OK) {
-                $formAnswers->$key = match(substr(CONFIG->website->html_lang, 0, 2)) {
-                    'nl' => 'ERROR: uploaden van het bestand mislukte',
-                    'fr' => 'ERREUR : l\'envoi du fichier a échoué',
-                    'de' => 'FEHLER: Datei-Upload fehlgeschlagen',
-                    'es' => 'ERROR: la carga del archivo falló',
-                    'it' => 'ERRORE: caricamento del file non riuscito',
-                    default => 'ERROR: file upload failed',
-                };
+                $formsAnswers->$key = __('ERROR: file upload failed');
                 $formsAnswers->save($formAnswers);
                 return;
             }
@@ -222,14 +178,7 @@ class FormCrudController extends Controller
             if (move_uploaded_file($tmpPath, $destination)) {
                 $formAnswers->$key = '/public/files/forms/' . $safeName;
             } else {
-                $formAnswers->$key = match(substr(CONFIG->website->html_lang, 0, 2)) {
-                    'nl' => 'ERROR: verplaatsen van het bestand is mislukt',
-                    'fr' => 'ERREUR : le déplacement du fichier a échoué',
-                    'de' => 'FEHLER: Verschieben der Datei fehlgeschlagen',
-                    'es' => 'ERROR: mover el archivo falló',
-                    'it' => 'ERRORE: spostamento del file non riuscito',
-                    default => 'ERROR: moving the file failed',
-                };
+                $formsAnswers->$key = __('ERROR: moving the file failed');
             }
 
             $formsAnswers->save($formAnswers);

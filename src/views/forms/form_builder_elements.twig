@@ -1,31 +1,4 @@
-{# Form Builder Template version 2025.06.18 #}
-
-{% set translations_fbe_250612 = {
-    'nl': {
-        'make_choice': 'Maak je keuze',
-        'phone_format': 'Formaat: +<landcode>-<zone>-<nummer>',
-    },
-    'fr': {
-        'make_choice': 'Faites votre choix',
-        'phone_format': 'Format : +<code pays>-<zone>-<numéro>',
-    },
-    'de': {
-        'make_choice': 'Treffen Sie Ihre Wahl',
-        'phone_format': 'Format: +<Ländervorwahl>-<Vorwahl>-<Telefonnummer>',
-    },
-    'es': {
-        'make_choice': 'Haga su elección',
-        'phone_format': 'Formato: +<código de país>-<código de área>-<número de teléfono>',
-    },
-    'it': {
-        'make_choice': 'Fai la tua scelta',
-        'phone_format': 'Formato: +<prefisso nazionale>-<prefisso locale>-<numero di telefono>',
-    },
-    'en': {
-        'make_choice': 'Make your choice',
-        'phone_format': 'Format: +<country code>–<area code>–<telephone number>',
-    }
-} %}
+{# Form Builder Template version 2025.07.01 #}
 
 {% if mobile %}
     {% set col = 12 %}
@@ -61,7 +34,7 @@
         <textarea class="form-control auto-grow" id="{{ data.id }}" name="{{ name }}"{{ extraAttributes }} {{ extra_input|raw }}></textarea>
     {% elseif data.field_type_id in [5] %}
         {% if data.extra_info is empty %}
-            {% set extra_info = trans('phone_format', translations_fbe_250612) %}
+            {% set extra_info = __('Format: +<country code>–<area code>–<telephone number>') %}
         {% endif %}
         {% if data.extra_input is empty %}
             {% set extra_input = 'pattern="\\+\\d{1,4}-\\d{1,5}-\\d{4,10}"' %}
@@ -71,7 +44,7 @@
     {% elseif data.field_type_id in [7] %}
         <label for="{{ data.id }}" class="form-label">{{ data.question }}{% if data.required %} <span style="color: red">*</span>{% endif %}</label>
         <select class="form-select" id="{{ data.id }}" name="{{ name }}"{{ extraAttributes }} {{ data.extra_input|raw }}>
-            <option value="">{{ trans('make_choice', translations_fbe_250612) }}</option>
+            <option value="">{{ __('Make a Choice') }}</option>
             {% for optie in data.extra_info|split('\n') %}
                 <option value="{{ optie|trim }}">{{ optie|trim }}</option>
             {% endfor %}
