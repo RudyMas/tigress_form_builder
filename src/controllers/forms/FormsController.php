@@ -22,7 +22,7 @@ use Twig\Error\SyntaxError;
  * @author Rudy Mas <rudy.mas@go-next.be>
  * @copyright 2025 GO! Next (https://www.go-next.be)
  * @license Proprietary
- * @version 2025.09.02.0
+ * @version 2025.09.02.1
  * @package Controller\forms
  */
 class FormsController extends Controller
@@ -178,7 +178,7 @@ class FormsController extends Controller
 
                     foreach ($formsQuestions as $formsQuestion) {
                         $answer = new stdClass();
-                        $answer->answer = $formsAnswer->{$formsQuestion->db_field};
+                        $answer->answer = $formsAnswer->{$formsQuestion->db_field} ?? '';
                         $answer->question__question = $formsQuestion->question;
                         $answer->question__field_type_id = $formsQuestion->field_type_id;
                         $answer->section__id = $formsSection->id;
