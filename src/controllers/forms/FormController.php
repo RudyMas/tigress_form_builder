@@ -16,7 +16,7 @@ use Twig\Error\SyntaxError;
  * @author Rudy Mas <rudy.mas@go-next.be>
  * @copyright 2025 GO! Next (https://www.go-next.be)
  * @license Proprietary
- * @version 2025.07.01.0
+ * @version 2025.09.23.0
  * @package Controller\forms
  */
 class FormController
@@ -48,7 +48,7 @@ class FormController
         ]);
 
         if ($forms->isEmpty()) {
-            TWIG->redirect('/form/closed');
+            TWIG->redirect('/form/closed?ref=' . $args['form_reference']);
         }
 
         $form = $forms->current();
@@ -92,6 +92,7 @@ class FormController
         TWIG->render('forms/message.twig', [
             'message' => $message,
             'loadMenu' => 'forms/form_menu.twig',
+            'urlForm' => '/form/' . $_GET['ref'],
         ]);
     }
 
@@ -110,6 +111,7 @@ class FormController
         TWIG->render('forms/message.twig', [
             'message' => $message,
             'loadMenu' => 'forms/form_menu.twig',
+            'urlForm' => '/form/' . $_GET['ref'],
         ]);
     }
 }

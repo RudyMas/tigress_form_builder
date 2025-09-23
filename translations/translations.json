@@ -1,5 +1,6 @@
 {
   "nl": {
+    "Add another": "Nog één toevoegen",
     "Add question": "Toevoegen vraag",
     "Add section": "Toevoegen sectie",
     "Answers": "Antwoorden",
@@ -63,6 +64,7 @@
     "(Selection list / Radio button)": "(Selectielijst / Keuzerondje)"
   },
   "fr": {
+    "Add another": "Ajouter un autre",
     "Add question": "Ajouter une question",
     "Add section": "Ajouter une section",
     "Answers": "Réponses",
@@ -126,6 +128,7 @@
     "(Selection list / Radio button)": "(Liste de sélection / Bouton radio)"
   },
   "de": {
+    "Add another": "Fügen Sie einen weiteren hinzu",
     "Add question": "Frage hinzufügen",
     "Add section": "Abschnitt hinzufügen",
     "Answers": "Antworten",
@@ -189,6 +192,7 @@
     "(Selection list / Radio button)": "(Auswahlliste / Optionsfeld)"
   },
   "es": {
+    "Add another": "Añadir otro",
     "Add question": "Añadir pregunta",
     "Add section": "Añadir sección",
     "Answers": "Respuestas",
@@ -252,6 +256,7 @@
     "(Selection list / Radio button)": "(Lista de selección / Botón de opción)"
   },
   "it": {
+    "Add another": "Aggiungi un altro",
     "Add question": "Aggiungi domanda",
     "Add section": "Aggiungi sezione",
     "Answers": "Risposte",
@@ -315,6 +320,7 @@
     "(Selection list / Radio button)": "(Elenco di selezione / Pulsante radio)"
   },
   "sv": {
+    "Add another": "Lägg till en till",
     "Add question": "Lägg till fråga",
     "Add section": "Lägg till sektion",
     "Answers": "Svar",
