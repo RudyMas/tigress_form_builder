@@ -83,11 +83,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 stateSave: true,
                 order: [[0, 'desc']],
                 language: tigress.languageOption,
-            });
-
-            // Tooltip initialiseren bij elke redraw
-            tableForms.on('draw', function () {
-                initTooltips();
+                drawCallback: function () {
+                    initTooltips();
+                }
             });
 
             const modalDelete = document.getElementById('ModalFormsDelete');

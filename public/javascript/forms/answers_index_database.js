@@ -1,3 +1,4 @@
+// Changes in this file also need to be applied to the files in Tigress Form Viewer
 document.addEventListener('DOMContentLoaded', function () {
     window.tigress = window.tigress || {};
 
@@ -11,10 +12,8 @@ document.addEventListener('DOMContentLoaded', function () {
         stateSave: true,
         order: [[1, 'desc']],
         language: tigress.languageOption,
-    });
-
-    // Tooltip initialiseren bij elke redraw
-    tableAnswers.on('draw', function () {
-        initTooltips();
+        drawCallback: function (settings) {
+            initTooltips();
+        }
     });
 });
