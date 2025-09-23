@@ -1,4 +1,4 @@
-{# Form Builder Template version 2025.07.01 #}
+{# Form Builder Template version 2025.09.23 #}
 
 {% if mobile %}
     {% set col = 12 %}
@@ -24,13 +24,13 @@
 
 <div class="col-sm-{{ col }} mt-4">
     {% if data.field_type_id in [1,3,4,6,8,9,10,16,17,18,19] %}
-        <label for="{{ data.id }}" class="form-label">{{ data.question }}{% if data.required %} <span style="color: red">*</span>{% endif %}</label>
+        <label for="{{ data.id }}" class="form-label">{{ strip_dangerous_tags(data.question)|raw|nl2br }}{% if data.required %} <span style="color: red">*</span>{% endif %}</label>
         <input type="{{ formBuilderFieldTypes.getInputType(data.field_type_id) }}" class="form-control" id="{{ data.id }}" name="{{ name }}"{{ extraAttributes }} {{ data.extra_input|raw }}>
     {% elseif data.field_type_id in [2] %}
         {% if data.extra_input is empty %}
             {% set extra_input = 'rows="1"' %}
         {% endif %}
-        <label for="{{ data.id }}" class="form-label">{{ data.question }}{% if data.required %} <span style="color: red">*</span>{% endif %}</label>
+        <label for="{{ data.id }}" class="form-label">{{ strip_dangerous_tags(data.question)|raw|nl2br }}{% if data.required %} <span style="color: red">*</span>{% endif %}</label>
         <textarea class="form-control auto-grow" id="{{ data.id }}" name="{{ name }}"{{ extraAttributes }} {{ extra_input|raw }}></textarea>
     {% elseif data.field_type_id in [5] %}
         {% if data.extra_info is empty %}
@@ -39,10 +39,10 @@
         {% if data.extra_input is empty %}
             {% set extra_input = 'pattern="\\+\\d{1,4}-\\d{1,5}-\\d{4,10}"' %}
         {% endif %}
-        <label for="{{ data.id }}" class="form-label">{{ data.question }}{% if data.required %} <span style="color: red">*</span>{% endif %}<br><small>{{ extra_info }}</small></label>
+        <label for="{{ data.id }}" class="form-label">{{ strip_dangerous_tags(data.question)|raw|nl2br }}{% if data.required %} <span style="color: red">*</span>{% endif %}<br><small>{{ extra_info }}</small></label>
         <input type="tel" class="form-control" id="{{ data.id }}" name="{{ name }}"{{ extraAttributes }} {{ extra_input|raw }}>
     {% elseif data.field_type_id in [7] %}
-        <label for="{{ data.id }}" class="form-label">{{ data.question }}{% if data.required %} <span style="color: red">*</span>{% endif %}</label>
+        <label for="{{ data.id }}" class="form-label">{{ strip_dangerous_tags(data.question)|raw|nl2br }}{% if data.required %} <span style="color: red">*</span>{% endif %}</label>
         <select class="form-select" id="{{ data.id }}" name="{{ name }}"{{ extraAttributes }} {{ data.extra_input|raw }}>
             <option value="">{{ __('Make a Choice') }}</option>
             {% for optie in data.extra_info|split('\n') %}
@@ -52,10 +52,10 @@
     {% elseif data.field_type_id in [11] %}
         <div class="form-check">
             <input type="checkbox" class="form-check-input" id="{{ data.id }}" name="{{ name }}"{{ extraAttributes }} {{ data.extra_input|raw }}>
-            <label class="form-check-label" for="{{ data.id }}">{{ data.question }}{% if data.required %} <span style="color: red">*</span>{% endif %}</label>
+            <label class="form-check-label" for="{{ data.id }}">{{ strip_dangerous_tags(data.question)|raw|nl2br }}{% if data.required %} <span style="color: red">*</span>{% endif %}</label>
         </div>
     {% elseif data.field_type_id in [12] %}
-        <label class="form-label">{{ data.question }}{% if data.required %} <span style="color: red">*</span>{% endif %}</label>
+        <label class="form-label">{{ strip_dangerous_tags(data.question)|raw|nl2br }}{% if data.required %} <span style="color: red">*</span>{% endif %}</label>
         {% for option in data.extra_info|split('\n') %}
             <div class="form-check">
                 <input type="radio" class="form-check-input" id="{{ data.id }}_{{ option|trim }}" name="{{ name }}" value="{{ option|trim }}"{{ extraAttributes }} {{ data.extra_input|raw }}>
@@ -63,13 +63,13 @@
             </div>
         {% endfor %}
     {% elseif data.field_type_id in [13] %}
-        <label for="{{ data.id }}" class="form-label">{{ data.question }}{% if data.required %} <span style="color: red">*</span>{% endif %}</label>
+        <label for="{{ data.id }}" class="form-label">{{ strip_dangerous_tags(data.question)|raw|nl2br }}{% if data.required %} <span style="color: red">*</span>{% endif %}</label>
         <input type="file" class="form-control" id="{{ data.id }}" name="{{ name }}[]"{{ extraAttributes }} {{ data.extra_input|raw }}>
     {% elseif data.field_type_id in [14] %}
-        <label for="{{ data.id }}" class="form-label">{{ data.question }}{% if data.required %} <span style="color: red">*</span>{% endif %}</label>
+        <label for="{{ data.id }}" class="form-label">{{ strip_dangerous_tags(data.question)|raw|nl2br }}{% if data.required %} <span style="color: red">*</span>{% endif %}</label>
         <input type="color" class="form-control form-control-color" id="{{ data.id }}" name="{{ name }}" value="#000000"{{ extraAttributes }} {{ data.extra_input|raw }}>
     {% elseif data.field_type_id in [15] %}
-        <label for="{{ data.id }}" class="form-label">{{ data.question }}{% if data.required %} <span style="color: red">*</span>{% endif %}:
+        <label for="{{ data.id }}" class="form-label">{{ strip_dangerous_tags(data.question)|raw|nl2br }}{% if data.required %} <span style="color: red">*</span>{% endif %}:
             <i>
                 <output id="volumeOutput-{{ data.id }}"></output>
             </i>
