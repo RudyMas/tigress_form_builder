@@ -38,29 +38,27 @@
                                 <label for="type_id" class="form-label"><b>{{ __('Screen type') }}</b></label>
                                 <select class="form-control" id="type_id" name="type_id" required>
                                     <option value="">{{ __('Choose screen type') }}</option>
-                                    <option value="1" {% if form.type_id == 1 %}selected{% endif %}>{{ __('Mobile') }}</option>
-                                    <option value="2" {% if form.type_id == 2 %}selected{% endif %}>{{ __('Desktop') }}</option>
+                                    <option value="1"
+                                            {% if form.type_id == 1 %}selected{% endif %}>{{ __('Mobile') }}</option>
+                                    <option value="2"
+                                            {% if form.type_id == 2 %}selected{% endif %}>{{ __('Desktop') }}</option>
                                 </select>
                             </div>
                             <div class="col-sm-3">
-                                <label for="form_reference" class="form-label"><b>{{ __('Form reference (for URL)') }}</b></label>
+                                <label for="form_reference"
+                                       class="form-label"><b>{{ __('Form reference (for URL)') }}</b></label>
                                 <input type="text" class="form-control" id="form_reference" name="form_reference"
                                        placeholder="{{ __('Form reference') }}" value="{{ form.form_reference }}">
                             </div>
                             <div class="col-sm-3">
-                                <label for="tile_id" class="form-label"><b>{{ __('Linked to tile') }}</b></label>
-                                <select class="form-control" id="tile_id" name="tile_id" required>
-                                    <option value="0">{{ __('Just a form, not linked') }}</option>
-                                    {% for tile in tiles %}
-                                        <option value="{{ tile.id }}" {% if form.tile_id == tile.id %}selected{% endif %}>
-                                            {{ tile.tile_name }}
-                                        </option>
-                                    {% endfor %}
-                                </select>
-                            </div>
-                            <div class="col-sm-3">
                                 <label for="db_table" class="form-label"><b>{{ __('Database table') }}</b></label>
-                                <input type="text" class="form-control" id="db_table" name="db_table" value="{{ form.db_table }}">
+                                <input type="text" class="form-control" id="db_table" name="db_table"
+                                       value="{{ form.db_table }}">
+                            </div>
+                        </div>
+                        <div class="row mt-3 mb-2">
+                            <div class="col-sm-6">
+                                {{ add_slider('repeat_button', form.repeat_button, '<b>' ~ __('Show repeat button') ~ '</b>')|raw }}
                             </div>
                         </div>
                     </fieldset>
