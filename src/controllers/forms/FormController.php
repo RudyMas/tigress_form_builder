@@ -16,7 +16,7 @@ use Twig\Error\SyntaxError;
  * @author Rudy Mas <rudy.mas@go-next.be>
  * @copyright 2025 GO! Next (https://www.go-next.be)
  * @license Proprietary
- * @version 2025.09.23.0
+ * @version 2025.09.25.0
  * @package Controller\forms
  */
 class FormController
@@ -106,11 +106,18 @@ class FormController
      */
     public function success(): void
     {
-        $message = __('The form has been successfully saved.<br>You do not need to do anything further – you may now close your browser.');
+        if ($_GET['ref'] == 'null') {
+            $message = __('The form has been successfully saved.<br>You do not need to do anything further – you may now close your browser.');
+            $showButton = false;
+        } else {
+            $message = __('The form has been successfully saved.<br>Press the button below to return to the form.');
+            $showButton = true;
+        }
 
         TWIG->render('forms/message.twig', [
             'message' => $message,
             'loadMenu' => 'forms/form_menu.twig',
+            'showButton' => $showButton,
             'urlForm' => '/form/' . $_GET['ref'],
         ]);
     }

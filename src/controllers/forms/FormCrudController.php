@@ -13,7 +13,7 @@ use Tigress\Repository;
  * @author Rudy Mas <rudy.mas@go-next.be>
  * @copyright 2025 GO! Next (https://www.go-next.be)
  * @license Proprietary
- * @version 2025.09.23.0
+ * @version 2025.09.25.0
  * @package Controller\forms
  */
 class FormCrudController extends Controller
@@ -69,7 +69,9 @@ class FormCrudController extends Controller
             }
         }
 
-        TWIG->redirect('/form/success?ref=' . $args['form_reference']);
+        ($_POST['repeat_button']) ? $ref = '/form/success?ref=' . $args['form_reference'] : $ref = '/form/success?ref=null';
+
+        TWIG->redirect($ref);
     }
 
     /**
