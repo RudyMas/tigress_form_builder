@@ -65,6 +65,12 @@
       "method": "deleteQuestion"
     },
     {
+      "request": "POST",
+      "path": "/forms/duplicate",
+      "controller": "forms\\FormsCrudController",
+      "method": "duplicateForm"
+    },
+    {
       "request": "GET",
       "path": "/forms/edit/{id}",
       "controller": "forms\\FormsController",

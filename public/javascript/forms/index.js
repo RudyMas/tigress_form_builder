@@ -68,6 +68,7 @@ document.addEventListener('DOMContentLoaded', function () {
                             if (variables.write && variables.show !== 'archive') {
                                 output += ` <a data-bs-toggle="tooltip" title="${__('Question List')}" href="/forms/questions/${row.id}" class="btn btn-sm btn-warning"><i class="fa-solid fa-clipboard-question"></i></a>`;
                                 output += ` <a data-bs-toggle="tooltip" title="${__('Edit')}" href="/forms/edit/${row.id}" class="btn btn-sm btn-success"><i class="fa fa-pencil"></i></a>`;
+                                output += ` <button title="${__('Duplicate')}" type="button" class="btn btn-sm btn-primary open-modal" data-bs-toggle="modal" data-bs-target="#ModalFormsDuplicate" data-id="${row.id}"><i class="fa-solid fa-clone" aria-hidden="true"></i></button>`;
                             }
                             if (variables.delete) {
                                 if (variables.show === 'archive') {
@@ -87,17 +88,23 @@ document.addEventListener('DOMContentLoaded', function () {
                     initTooltips();
                 }
             });
-
-            const modalDelete = document.getElementById('ModalFormsDelete');
-            modalDelete.addEventListener('show.bs.modal', function (event) {
-                const button = event.relatedTarget;
-                modalDelete.querySelector('#DeleteForm').value = button.getAttribute('data-id');
-            });
-
-            const modalRestore = document.getElementById('ModalFormsRestore');
-            modalRestore.addEventListener('show.bs.modal', function (event) {
-                const button = event.relatedTarget;
-                modalRestore.querySelector('#RestoreForm').value = button.getAttribute('data-id');
-            });
         })
+
+    const modalDelete = document.getElementById('ModalFormsDelete');
+    modalDelete.addEventListener('show.bs.modal', function (event) {
+        const button = event.relatedTarget;
+        modalDelete.querySelector('#DeleteForm').value = button.getAttribute('data-id');
+    });
+
+    const modalRestore = document.getElementById('ModalFormsRestore');
+    modalRestore.addEventListener('show.bs.modal', function (event) {
+        const button = event.relatedTarget;
+        modalRestore.querySelector('#RestoreForm').value = button.getAttribute('data-id');
+    });
+
+    const modalDuplicate = document.getElementById('ModalFormsDuplicate');
+    modalDuplicate.addEventListener('show.bs.modal', function (event) {
+        const button = event.relatedTarget;
+        modalDuplicate.querySelector('[name="form_id"]').value = button.getAttribute('data-id');
+    });
 });

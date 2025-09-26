@@ -18,7 +18,7 @@ use Twig\Error\SyntaxError;
  * @author Rudy Mas <rudy.mas@go-next.be>
  * @copyright 2025 GO! Next (https://www.go-next.be)
  * @license Proprietary
- * @version 2025.07.01.0
+ * @version 2025.09.26.0
  * @package Controller\forms
  */
 class FormsCrudController extends Controller
@@ -37,7 +37,8 @@ class FormsCrudController extends Controller
      *
      * @return void
      */
-    #[NoReturn] public function deleteForm(): void
+    #[NoReturn]
+    public function deleteForm(): void
     {
         SECURITY->checkAccess();
         $this->checkRights();
@@ -54,7 +55,8 @@ class FormsCrudController extends Controller
      * @param array $args
      * @return void
      */
-    #[NoReturn] public function deleteSection(array $args): void
+    #[NoReturn]
+    public function deleteSection(array $args): void
     {
         SECURITY->checkAccess();
         $this->checkRights();
@@ -72,7 +74,8 @@ class FormsCrudController extends Controller
      * @param array $args
      * @return void
      */
-    #[NoReturn] public function deleteQuestion(array $args): void
+    #[NoReturn]
+    public function deleteQuestion(array $args): void
     {
         SECURITY->checkAccess();
         $this->checkRights();
@@ -82,6 +85,69 @@ class FormsCrudController extends Controller
 
         $_SESSION['success'] = __('The question was successfully deleted.');
         TWIG->redirect('/forms/questions/' . $args['form_id']);
+    }
+
+    /**
+     * Duplicate a form.
+     *
+     * @return void
+     */
+    #[NoReturn]
+    public function duplicateForm(): void
+    {
+        SECURITY->checkAccess();
+        $this->checkRights();
+
+        $forms = new FormsRepo();
+        $forms->loadById((int)$_POST['form_id']);
+        $oldForm = $forms->current();
+        $forms->reset();
+        $forms->new();
+        $newForm = $forms->current();
+        $newForm->form_reference = $_POST['form_reference'];
+        $newForm->name = $_POST['name'];
+        $newForm->type_id = $oldForm->type_id;
+        $newForm->repeat_button = (int)$_POST['repeat_button'];
+        $newForm->db_table = $_POST['db_table'];
+        $forms->save($newForm);
+
+        $formsSections = new FormsSectionsRepo();
+        $formsSections->loadByWhere(['form_id' => $oldForm->id]);
+        $oldFormsSections = clone $formsSections;
+        foreach ($oldFormsSections as $formSection) {
+            $formsSections->reset();
+            $formsSections->new();
+            $newFormSection = $formsSections->current();
+            $newFormSection->form_id = $newForm->id;
+            $newFormSection->name = $formSection->name;
+            $newFormSection->description = $formSection->description;
+            $newFormSection->sort = $formSection->sort;
+            $formsSections->save($newFormSection);
+
+            $formsQuestions = new FormsQuestionsRepo();
+            $formsQuestions->reset();
+            $formsQuestions->loadByWhere(['forms_section_id' => $formSection->id]);
+            $oldFormsQuestions = clone $formsQuestions;
+            foreach ($oldFormsQuestions as $formQuestion) {
+                $formsQuestions->reset();
+                $formsQuestions->new();
+                $newFormQuestion = $formsQuestions->current();
+                $newFormQuestion->forms_section_id = $newFormSection->id;
+                $newFormQuestion->question = $formQuestion->question;
+                $newFormQuestion->field_type_id = $formQuestion->field_type_id;
+                $newFormQuestion->length = $formQuestion->length;
+                $newFormQuestion->required = $formQuestion->required;
+                $newFormQuestion->disabled = $formQuestion->disabled;
+                $newFormQuestion->extra_info = $formQuestion->extra_info;
+                $newFormQuestion->extra_input = $formQuestion->extra_input;
+                $newFormQuestion->sort = $formQuestion->sort;
+                $newFormQuestion->db_field = $formQuestion->db_field;
+                $formsQuestions->save($newFormQuestion);
+            }
+        }
+
+        $_SESSION['success'] = __('The form was successfully duplicated.');
+        TWIG->redirect('/forms');
     }
 
     /**
@@ -151,7 +217,8 @@ class FormsCrudController extends Controller
      *
      * @return void
      */
-    #[NoReturn] public function restoreForm(): void
+    #[NoReturn]
+    public function restoreForm(): void
     {
         SECURITY->checkAccess();
         $this->checkRights();
@@ -167,7 +234,8 @@ class FormsCrudController extends Controller
      *
      * @return void
      */
-    #[NoReturn] public function saveForm(): void
+    #[NoReturn]
+    public function saveForm(): void
     {
         SECURITY->checkAccess();
 
@@ -190,7 +258,8 @@ class FormsCrudController extends Controller
      *
      * @return void
      */
-    #[NoReturn] public function saveVraag(): void
+    #[NoReturn]
+    public function saveVraag(): void
     {
         SECURITY->checkAccess();
 
@@ -218,7 +287,8 @@ class FormsCrudController extends Controller
      * @param array $args
      * @return void
      */
-    #[NoReturn] public function saveQuestions(array $args): void
+    #[NoReturn]
+    public function saveQuestions(array $args): void
     {
         SECURITY->checkAccess();
 
@@ -250,7 +320,8 @@ class FormsCrudController extends Controller
      * @param array $args
      * @return void
      */
-    #[NoReturn] public function addSection(array $args): void
+    #[NoReturn]
+    public function addSection(array $args): void
     {
         SECURITY->checkAccess();
 
@@ -274,7 +345,8 @@ class FormsCrudController extends Controller
      * @param array $args
      * @return void
      */
-    #[NoReturn] public function addQuestion(array $args): void
+    #[NoReturn]
+    public function addQuestion(array $args): void
     {
         SECURITY->checkAccess();
 

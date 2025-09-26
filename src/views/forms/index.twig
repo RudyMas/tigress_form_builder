@@ -100,4 +100,53 @@
             </div>
         </div>
     </form>
+
+    {# Model to Duplicate From #}
+    <form action="{{ BASE_URL }}/forms/duplicate" method="post" enctype="multipart/form-data">
+        <div class="modal fade" id="ModalFormsDuplicate" tabindex="-1" aria-labelledby="ModalFormsDuplicateLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="ModalFormsDuplicateLabel">{{ __('Duplicate Form') }}</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{{ __('Close') }}"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p id="modalContent">{{ __('Are you sure you want to duplicate the form?') }}</p>
+                        <div class="row mb-2">
+                            <div class="col-sm-12">
+                                <input type="hidden" name="form_id" value="{{ form.id }}">
+                                <label for="name" class="form-label"><b>{{ __('Name of the form') }}</b></label>
+                                <input type="text" class="form-control" id="name" name="name"
+                                       placeholder="{{ __('Name of the form') }}" value="" required>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-sm-12">
+                                <label for="form_reference"
+                                       class="form-label"><b>{{ __('Form reference (for URL)') }}</b></label>
+                                <input type="text" class="form-control" id="form_reference" name="form_reference"
+                                       placeholder="{{ __('Form reference') }}" value="" required>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-sm-12">
+                                <label for="db_table" class="form-label"><b>{{ __('Database table') }} ({{ __('Optional') }})</b></label>
+                                <input type="text" class="form-control" id="db_table" name="db_table"
+                                       value="">
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-sm-12">
+                                {{ add_slider('repeat_button', null, '<b>' ~ __('Show repeat button') ~ '</b>')|raw }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="DuplicateForm" name="DuplicateForm" value="" type="submit" class="btn btn-success">{{ __('Duplicate') }}</button>
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">{{ __('Cancel') }}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
 {% endblock %}
