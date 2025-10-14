@@ -18,7 +18,7 @@ use Twig\Error\SyntaxError;
  * @author Rudy Mas <rudy.mas@go-next.be>
  * @copyright 2025 GO! Next (https://www.go-next.be)
  * @license Proprietary
- * @version 2025.09.26.0
+ * @version 2025.10.14.0
  * @package Controller\forms
  */
 class FormsCrudController extends Controller
@@ -112,7 +112,12 @@ class FormsCrudController extends Controller
         $forms->save($newForm);
 
         $formsSections = new FormsSectionsRepo();
-        $formsSections->loadByWhere(['form_id' => $oldForm->id]);
+        $formsSections->loadByWhere(
+            [
+                'form_id' => $oldForm->id,
+                'active' => 1
+            ]
+        );
         $oldFormsSections = clone $formsSections;
         foreach ($oldFormsSections as $formSection) {
             $formsSections->reset();
@@ -126,7 +131,12 @@ class FormsCrudController extends Controller
 
             $formsQuestions = new FormsQuestionsRepo();
             $formsQuestions->reset();
-            $formsQuestions->loadByWhere(['forms_section_id' => $formSection->id]);
+            $formsQuestions->loadByWhere(
+                [
+                    'forms_section_id' => $formSection->id,
+                    'active' => 1
+                ]
+            );
             $oldFormsQuestions = clone $formsQuestions;
             foreach ($oldFormsQuestions as $formQuestion) {
                 $formsQuestions->reset();
