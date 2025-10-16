@@ -38,10 +38,12 @@ class FormsAnswersRepo extends Repository
                 JOIN forms as f ON f.id = fs.form_id
                 LEFT JOIN users ON users.id = fa.created_user_id
                 WHERE f.id = :id
+                  AND fa.active = :active
                 GROUP BY fa.uniq_code, fa.created
                 ORDER BY fa.created DESC";
         $keyBindings = [
             'id' => $id,
+            'active' => 1,
         ];
         return $this->getByQuery($sql, $keyBindings);
     }
