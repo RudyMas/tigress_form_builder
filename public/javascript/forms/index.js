@@ -83,7 +83,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 ],
                 stateSave: true,
                 order: [[0, 'desc']],
-                language: tigress.languageOption,
+                language: tigress.languageDatatables,
                 drawCallback: function () {
                     initTooltips();
                 }
