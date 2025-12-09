@@ -57,8 +57,11 @@
                             </div>
                         </div>
                         <div class="row mt-3 mb-2">
-                            <div class="col-sm-6">
+                            <div class="col-sm-3">
                                 {{ add_slider('repeat_button', form.repeat_button, '<b>' ~ __('Show repeat button') ~ '</b>')|raw }}
+                            </div>
+                            <div class="col-sm-3">
+                                {{ add_slider('external_access', form.external_access, '<b>' ~ __('Activate external access') ~ '</b>')|raw }}
                             </div>
                         </div>
                     </fieldset>

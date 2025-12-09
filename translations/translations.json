@@ -1,5 +1,6 @@
 {
   "nl": {
+    "Activate external access": "Externe toegang activeren",
     "Add another": "Nog één toevoegen",
     "Add question": "Toevoegen vraag",
     "Add section": "Toevoegen sectie",
@@ -68,6 +69,7 @@
     "(Selection list / Radio button)": "(Selectielijst / Keuzerondje)"
   },
   "fr": {
+    "Activate external access": "Activer l'accès externe",
     "Add another": "Ajouter un autre",
     "Add question": "Ajouter une question",
     "Add section": "Ajouter une section",
@@ -136,6 +138,7 @@
     "(Selection list / Radio button)": "(Liste de sélection / Bouton radio)"
   },
   "de": {
+    "Activate external access": "Externen Zugriff aktivieren",
     "Add another": "Fügen Sie einen weiteren hinzu",
     "Add question": "Frage hinzufügen",
     "Add section": "Abschnitt hinzufügen",
@@ -204,6 +207,7 @@
     "(Selection list / Radio button)": "(Auswahlliste / Optionsfeld)"
   },
   "es": {
+    "Activate external access": "Activar acceso externo",
     "Add another": "Añadir otro",
     "Add question": "Añadir pregunta",
     "Add section": "Añadir sección",
@@ -272,6 +276,7 @@
     "(Selection list / Radio button)": "(Lista de selección / Botón de opción)"
   },
   "it": {
+    "Activate external access": "Attiva accesso esterno",
     "Add another": "Aggiungi un altro",
     "Add question": "Aggiungi domanda",
     "Add section": "Aggiungi sezione",
@@ -340,6 +345,7 @@
     "(Selection list / Radio button)": "(Elenco di selezione / Pulsante radio)"
   },
   "sv": {
+    "Activate external access": "Aktivera extern åtkomst",
     "Add another": "Lägg till en till",
     "Add question": "Lägg till fråga",
     "Add section": "Lägg till sektion",

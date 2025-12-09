@@ -3,7 +3,6 @@
 namespace Controller\forms;
 
 use chillerlan\QRCode\Common\EccLevel;
-use Repository\FormBuilderTilesRepo;
 use Repository\FormsAnswersRepo;
 use Repository\FormsRepo;
 use Repository\FormsSectionsRepo;
@@ -22,7 +21,7 @@ use Twig\Error\SyntaxError;
  * @author Rudy Mas <rudy.mas@go-next.be>
  * @copyright 2025 GO! Next (https://www.go-next.be)
  * @license Proprietary
- * @version 2025.09.02.1
+ * @version 2025.12.09.0
  * @package Controller\forms
  */
 class FormsController extends Controller
@@ -77,23 +76,9 @@ class FormsController extends Controller
             $actionButton = __('Update');
         }
 
-        $tiles = new FormBuilderTilesRepo();
-        $tiles->setData([
-            [
-                'id' => 1,
-                'tile_name' => 'Voorstel tot aankoop (VTA)',
-            ],
-            [
-                'id' => 2,
-                'tile_name' => 'nog te bepalen ...',
-            ],
-        ]);
-        $tiles->load();
-
         TWIG->render('forms/edit.twig', [
             'actionButton' => $actionButton,
             'form' => $forms->current(),
-            'tiles' => $tiles,
         ]);
     }
 

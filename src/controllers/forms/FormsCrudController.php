@@ -18,7 +18,7 @@ use Twig\Error\SyntaxError;
  * @author Rudy Mas <rudy.mas@go-next.be>
  * @copyright 2025 GO! Next (https://www.go-next.be)
  * @license Proprietary
- * @version 2025.10.14.0
+ * @version 2025.12.09.0
  * @package Controller\forms
  */
 class FormsCrudController extends Controller
