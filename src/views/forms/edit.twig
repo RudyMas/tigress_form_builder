@@ -1,4 +1,8 @@
 {% extends 'base.twig' %}
+{% block js %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ BASE_URL }}/vendor/tigress/form-builder/public/javascript/forms/edit.js"></script>
+{% endblock %}
 {% block title %}{{ __('Forms') }} - {{ actionButton }}{% endblock %}
 {% block breadcrumb %}
     <div class="row mb-2">
@@ -62,6 +66,13 @@
                             </div>
                             <div class="col-sm-3">
                                 {{ add_slider('external_access', form.external_access, '<b>' ~ __('Activate external access') ~ '</b>')|raw }}
+                            </div>
+                            <div class="col-sm-3" id="show_hide_external" style="display: none">
+                                <label for="form_reference_external" class="form-label"><b>{{ __('Form External QR-code') }}</b></label>
+                                <input type="text" class="form-control" id="form_reference_external"
+                                       name="form_reference_external"
+                                       placeholder="{{ __('Form reference for external access') }}"
+                                       value="{{ form.form_reference_external }}">
                             </div>
                         </div>
                     </fieldset>

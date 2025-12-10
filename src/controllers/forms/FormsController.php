@@ -21,7 +21,7 @@ use Twig\Error\SyntaxError;
  * @author Rudy Mas <rudy.mas@go-next.be>
  * @copyright 2025 GO! Next (https://www.go-next.be)
  * @license Proprietary
- * @version 2025.12.09.0
+ * @version 2025.12.10.0
  * @package Controller\forms
  */
 class FormsController extends Controller
@@ -76,9 +76,15 @@ class FormsController extends Controller
             $actionButton = __('Update');
         }
 
+        $form = $forms->current();
+
+        if (empty($form->form_reference_external)) {
+            $form->form_reference_external = uniqid('form_ext_');
+        }
+
         TWIG->render('forms/edit.twig', [
             'actionButton' => $actionButton,
-            'form' => $forms->current(),
+            'form' => $form,
         ]);
     }
 

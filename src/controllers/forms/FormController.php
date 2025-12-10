@@ -9,7 +9,6 @@ use Repository\FormsQuestionsRepo;
 use Repository\FormBuilderFieldTypesRepo;
 use Repository\FormViewerFormAccessRepo;
 use Service\FormViewerService;
-use Tigress\Core;
 use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
 use Twig\Error\SyntaxError;
@@ -20,7 +19,7 @@ use Twig\Error\SyntaxError;
  * @author Rudy Mas <rudy.mas@go-next.be>
  * @copyright 2025 GO! Next (https://www.go-next.be)
  * @license Proprietary
- * @version 2025.09.25.0
+ * @version 2025.12.10.0
  * @package Controller\forms
  */
 class FormController
@@ -114,9 +113,14 @@ class FormController
         $forms = new FormsRepo();
         $forms->loadByWhere([
             'form_reference_external' => $args['form_reference_external'],
+            'external_access' => 1,
             'active' => 1,
         ]);
         $form = $forms->current();
+
+        if ($forms->isEmpty()) {
+            TWIG->redirect('/form/closed?ref=null');
+        }
 
         TWIG->render('forms/index_form_external.twig', [
             'form' => $form,
