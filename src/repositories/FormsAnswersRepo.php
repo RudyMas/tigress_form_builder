@@ -31,7 +31,7 @@ class FormsAnswersRepo extends Repository
      */
     public function getAnswersByFormId(mixed $id): array
     {
-        $sql = "SELECT fa.uniq_code, fa.forms_question_id, fa.created_user_id, fa.created, users.last_name, users.first_name
+        $sql = "SELECT f.id, fa.uniq_code, fa.forms_question_id, fa.created_user_id, fa.created, users.last_name, users.first_name
                 FROM forms_answers as fa
                 JOIN forms_questions as fq ON fq.id = fa.forms_question_id
                 JOIN forms_sections as fs ON fs.id = fq.forms_section_id

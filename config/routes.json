@@ -8,6 +8,18 @@
     },
     {
       "request": "GET",
+      "path": "/form/get/answers/{form_reference_external}",
+      "controller": "forms\\FormCrudController",
+      "method": "getAnswers"
+    },
+    {
+      "request": "GET",
+      "path": "/form/external/{form_reference_external}",
+      "controller": "forms\\FormController",
+      "method": "showExternal"
+    },
+    {
+      "request": "GET",
       "path": "/form/success",
       "controller": "forms\\FormController",
       "method": "success"
@@ -23,6 +35,12 @@
       "path": "/form/{form_reference}",
       "controller": "forms\\FormCrudController",
       "method": "saveForm"
+    },
+    {
+      "request": "GET",
+      "path": "/form/view/answer/{form_id}/{uniq_code}",
+      "controller": "forms\\FormController",
+      "method": "viewAnswer"
     },
     {
       "request": "GET",

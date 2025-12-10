@@ -4,6 +4,7 @@ namespace Controller\forms;
 
 use JetBrains\PhpStorm\NoReturn;
 use Repository\FormsAnswersRepo;
+use Repository\FormsRepo;
 use Tigress\Controller;
 use Tigress\Repository;
 
@@ -21,6 +22,20 @@ class FormCrudController extends Controller
     public function __construct()
     {
         TRANSLATIONS->load(SYSTEM_ROOT . '/vendor/tigress/form-builder/translations/translations.json');
+    }
+
+    public function getAnswers(array $args): void
+    {
+        $forms = new FormsRepo();
+        $forms->loadByWhere([
+            'form_reference_external' => $args['form_reference_external'],
+        ]);
+        $form = $forms->current();
+
+        $formsAnswers = new FormsAnswersRepo();
+        $data = $formsAnswers->getAnswersByFormId($form->id);
+
+        TWIG->render(null, $data, 'DT');
     }
 
     /**
