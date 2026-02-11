@@ -15,6 +15,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 [10, 25, 50, 'Alle']
             ],
             responsive: true,
+            scrollX: true,
             columns: [
                 {
                     title: __('ID'),
