@@ -14,10 +14,10 @@
   "minimum-stability": "stable",
   "require": {
     "php": ">=8.5",
-    "tigress/manipulator": "^2025"
+    "tigress/manipulator": ">=2026"
   },
   "require-dev": {
-    "tigress/core": "^2025"
+    "tigress/core": "*"
   },
   "autoload": {
     "psr-4": {
