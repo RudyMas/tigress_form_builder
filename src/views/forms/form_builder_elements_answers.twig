@@ -1,4 +1,4 @@
-{# Form Builder Template version 2025.07.01 #}
+{# Form Builder Template version 2026.08.27 #}
 <div style="margin-left: 12px">
     {% if data.question__field_type_id in [1,2,3,5,7,10,17,20] %}
         {{ data.answer|raw|nl2br }}
@@ -19,9 +19,9 @@
     {% elseif data.question__field_type_id in [12] %}
         {% for option in data.question__extra_info|split('\n') %}
             {% if option|trim == data.answer|trim %}
-                <i class="fa-regular fa-circle-dot"></i> {{ option }}<br>
+                &#9673; {{ option }}<br>
             {% else %}
-                <i class="fa-regular fa-circle"></i> {{ option }}<br>
+                &#9675; {{ option }}<br>
             {% endif %}
         {% endfor %}
     {% elseif data.question__field_type_id in [13] %}
