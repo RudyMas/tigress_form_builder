@@ -13,7 +13,7 @@ use Tigress\Repository;
  *
  * @author Rudy Mas <rudy.mas@go-next.be>
  * @copyright 2025 GO! Next (https://www.go-next.be)
- * @license Proprietary
+ * @license Apache License 2.0 (https://www.apache.org/licenses/LICENSE-2.0)
  * @version 2025.09.25.0
  * @package Controller\forms
  */
