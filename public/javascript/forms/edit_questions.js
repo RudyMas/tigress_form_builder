@@ -55,8 +55,13 @@ document.addEventListener('DOMContentLoaded', function () {
                         formats: {bold: {inline: 'b'}, italic: {inline: 'i'}},
                         forced_root_block: 'div',
                         content_style: 'img { max-width: 100%; height: auto; }',
+                        // Store same-site image URLs from the site root, independent of the editor route.
+                        relative_urls: false,
+                        remove_script_host: true,
                         images_upload_url: variables.baseUrl + '/public/scripts/tinymce_upload_image.php?folder=forms',
-                        image_list: variables.baseUrl + '/public/scripts/tinymce_list_images.php?folder=forms',
+                        // Open the image dialog without depending on the optional image-list endpoint.
+                        // That endpoint may fail before the first upload creates the forms folder.
+                        image_list: false,
                         images_file_types: 'jpg,jpeg,png',
                         automatic_uploads: true,
                         paste_data_images: true,

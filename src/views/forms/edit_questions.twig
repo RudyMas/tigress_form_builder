@@ -143,7 +143,8 @@
                                                                form="form-all" min="1" required>
                                                     </td>
                                                     <td class="text-middle">
-                                                        <textarea rows="1" class="form-control auto-grow"
+                                                        <div class="input-group question-editor-field">
+                                                            <textarea rows="1" class="form-control auto-grow"
                                                                   name="formsQuestions[{{ formsQuestion.id }}][question]"
                                                                   form="form-all"
                                                                   required>{{ formsQuestion.question }}</textarea>
@@ -191,12 +192,12 @@
                                                                   name="formsQuestions[{{ formsQuestion.id }}][extra_info]"
                                                                   form="form-all">{{ formsQuestion.extra_info }}</textarea>
                                                     </td>
-                                                    <td>
+                                                    <td class="text-middle">
                                                         <textarea rows="1" class="form-control auto-grow"
                                                                   name="formsQuestions[{{ formsQuestion.id }}][extra_input]"
                                                                   form="form-all">{{ formsQuestion.extra_input }}</textarea>
                                                     </td>
-                                                    <td>
+                                                    <td class="text-middle">
                                                         <input type="text"
                                                                name="formsQuestions[{{ formsQuestion.id }}][db_field]"
                                                                class="form-control text-center"
@@ -230,15 +231,15 @@
                                                         </div>
                                                         <div class="col-sm-2">
                                                             <div class="input-group question-editor-field">
-<textarea rows="1" class="form-control auto-grow"
+                                                                <textarea rows="1" class="form-control auto-grow"
                                                                       name="question"
                                                                       form="form-table1-{{ formsSection.sort }}"
                                                                       required></textarea>
-                                                            <button type="button" class="btn btn-outline-secondary edit-question-text"
-                                                                    title="{{ __('Edit question') }}" aria-label="{{ __('Edit question') }}">
-                                                                <i class="fa-solid fa-pen" aria-hidden="true"></i>
-                                                            </button>
-                                                        </div>
+                                                                <button type="button" class="btn btn-outline-secondary edit-question-text"
+                                                                        title="{{ __('Edit question') }}" aria-label="{{ __('Edit question') }}">
+                                                                    <i class="fa-solid fa-pen" aria-hidden="true"></i>
+                                                                </button>
+                                                            </div>
                                                         </div>
                                                         <div class="col-sm-1">
                                                             <select name="field_type_id"
@@ -268,19 +269,19 @@
                                                             <input type="checkbox" name="disabled" value="1"
                                                                    form="form-table1-{{ formsSection.sort }}">
                                                         </div>
-                                                        <div class="col-sm-2">
+                                                        <div class="col-sm-2 text-center">
                                                             <textarea rows="1" class="form-control auto-grow"
                                                                       name="extra_info"
                                                                       form="form-table1-{{ formsSection.sort }}"></textarea>
                                                         </div>
-                                                        <div class="col-sm-2">
+                                                        <div class="col-sm-2 text-center">
                                                             <textarea rows="1" class="form-control auto-grow"
                                                                       name="extra_input"
                                                                       form="form-table1-{{ formsSection.sort }}"></textarea>
                                                         </div>
-                                                        <div class="col-sm-1">
+                                                        <div class="col-sm-1 text-center">
                                                             <input type="text" name="db_field"
-                                                                   class="form-control text-center"
+                                                                   class="form-control"
                                                                    form="form-table1-{{ formsSection.sort }}">
                                                         </div>
                                                         <div class="col-sm-1 text-center">

@@ -24,6 +24,7 @@
     "Description to show in the extra section:": "Beschrijving om weer te geven in de extra sectie:",
     "Desktop": "Desktop",
     "Do you want to submit the form?": "Wilt u het formulier indienen?",
+    "Edit question": "Bewerk vraag",
     "ERROR: file upload failed": "ERROR: uploaden van het bestand mislukte",
     "ERROR: moving the file failed": "ERROR: verplaatsen van het bestand is mislukt",
     "Field type": "Veldtype",
@@ -65,6 +66,7 @@
     "The question was successfully saved.": "De vraag is succesvol opgeslagen.",
     "The section was successfully added.": "De sectie is succesvol toegevoegd.",
     "The section was successfully deleted.": "De sectie is succesvol verwijderd.",
+    "The text editor could not be loaded.": "De teksteditor kon niet worden geladen.",
     "You do not have the required permissions to view this page.": "U heeft niet de vereiste rechten om deze pagina te bekijken.",
     "(Selection list / Radio button)": "(Selectielijst / Keuzerondje)"
   },
@@ -93,6 +95,7 @@
     "Description to show in the extra section:": "Description à afficher dans la section supplémentaire :",
     "Desktop": "Ordinateur de bureau",
     "Do you want to submit the form?": "Voulez-vous soumettre le formulaire ?",
+    "Edit question": "Modifier la question",
     "ERROR: file upload failed": "ERREUR : échec du téléchargement du fichier",
     "ERROR: moving the file failed": "ERREUR : échec du déplacement du fichier",
     "Field type": "Type de champ",
@@ -134,6 +137,7 @@
     "The question was successfully saved.": "La question a été enregistrée avec succès.",
     "The section was successfully added.": "La section a été ajoutée avec succès.",
     "The section was successfully deleted.": "La section a été supprimée avec succès.",
+    "The text editor could not be loaded.": "L'éditeur de texte n'a pas pu être chargé.",
     "You do not have the required permissions to view this page.": "Vous n'avez pas les autorisations requises pour voir cette page.",
     "(Selection list / Radio button)": "(Liste de sélection / Bouton radio)"
   },
@@ -162,6 +166,7 @@
     "Description to show in the extra section:": "Beschreibung, die im zusätzlichen Abschnitt angezeigt werden soll:",
     "Desktop": "Desktop-Computer",
     "Do you want to submit the form?": "Möchten Sie das Formular einreichen?",
+    "Edit question": "Frage bearbeiten",
     "ERROR: file upload failed": "FEHLER: Datei-Upload fehlgeschlagen",
     "ERROR: moving the file failed": "FEHLER: Verschieben der Datei fehlgeschlagen",
     "Field type": "Feldtyp",
@@ -203,6 +208,7 @@
     "The question was successfully saved.": "Die Frage wurde erfolgreich gespeichert.",
     "The section was successfully added.": "Der Abschnitt wurde erfolgreich hinzugefügt.",
     "The section was successfully deleted.": "Der Abschnitt wurde erfolgreich gelöscht.",
+    "The text editor could not be loaded.": "Der Texteditor konnte nicht geladen werden.",
     "You do not have the required permissions to view this page.": "Sie haben nicht die erforderlichen Berechtigungen, um diese Seite anzuzeigen.",
     "(Selection list / Radio button)": "(Auswahlliste / Optionsfeld)"
   },
@@ -231,6 +237,7 @@
     "Description to show in the extra section:": "Descripción para mostrar en la sección adicional:",
     "Desktop": "Ordenador de sobremesa",
     "Do you want to submit the form?": "¿Desea enviar el formulario?",
+    "Edit question": "Editar pregunta",
     "ERROR: file upload failed": "ERROR: la carga del archivo falló",
     "ERROR: moving the file failed": "ERROR: mover el archivo falló",
     "Field type": "Tipo de campo",
@@ -272,6 +279,7 @@
     "The question was successfully saved.": "La pregunta fue guardada con éxito.",
     "The section was successfully added.": "La sección fue añadida con éxito.",
     "The section was successfully deleted.": "La sección fue eliminada con éxito.",
+    "The text editor could not be loaded.": "El editor de texto no se pudo cargar.",
     "You do not have the required permissions to view this page.": "No tiene los permisos necesarios para ver esta página.",
     "(Selection list / Radio button)": "(Lista de selección / Botón de opción)"
   },
@@ -300,6 +308,7 @@
     "Description to show in the extra section:": "Descrizione da mostrare nella sezione aggiuntiva:",
     "Desktop": "Computer desktop",
     "Do you want to submit the form?": "Vuoi inviare il modulo?",
+    "Edit question": "Modifica domanda",
     "ERROR: file upload failed": "ERRORE: caricamento del file fallito",
     "ERROR: moving the file failed": "ERRORE: spostamento del file fallito",
     "Field type": "Tipo di campo",
@@ -341,6 +350,7 @@
     "The question was successfully saved.": "La domanda è stata salvata con successo.",
     "The section was successfully added.": "La sezione è stata aggiunta con successo.",
     "The section was successfully deleted.": "La sezione è stata eliminata con successo.",
+    "The text editor could not be loaded.": "L'editor di testo non può essere caricato.",
     "You do not have the required permissions to view this page.": "Non hai i permessi necessari per visualizzare questa pagina.",
     "(Selection list / Radio button)": "(Elenco di selezione / Pulsante radio)"
   },
@@ -369,6 +379,7 @@
     "Description to show in the extra section:": "Beskrivning att visa i den extra sektionen:",
     "Desktop": "Stationär dator",
     "Do you want to submit the form?": "Vill du skicka in formuläret?",
+    "Edit question": "Redigera fråga",
     "ERROR: file upload failed": "FEL: filuppladdning misslyckades",
     "ERROR: moving the file failed": "FEL: flytt av fil misslyckades",
     "Field type": "Fälttyp",
@@ -409,6 +420,7 @@
     "The question was successfully saved.": "Frågan har sparats framgångsrikt.",
     "The section was successfully added.": "Sektionen har lagts till framgångsrikt.",
     "The section was successfully deleted.": "Sektionen har raderats framgångsrikt.",
+    "The text editor could not be loaded.": "Textredigeraren kunde inte laddas.",
     "You do not have the required permissions to view this page.": "Du har inte de nödvändiga behörigheterna för att se denna sida.",
     "(Selection list / Radio button)": "(Vallista / Radioknapp)"
   }
