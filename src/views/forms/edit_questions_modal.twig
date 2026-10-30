@@ -114,3 +114,23 @@
         </div>
     </div>
 </form>
+<!-- Shared rich-text editor for existing and new questions. -->
+<div class="modal fade" id="edit-question-modal" tabindex="-1" aria-labelledby="edit-question-title" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="edit-question-title">{{ __('Edit question') }}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{{ __('Close') }}"></button>
+            </div>
+            <div class="modal-body">
+                <label for="question-rich-text" class="visually-hidden">{{ __('Question') }}</label>
+                <textarea id="question-rich-text" rows="12" class="form-control"></textarea>
+                <p id="question-editor-error" class="alert alert-danger mt-2" role="alert" hidden></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" id="apply-question-text" disabled>{{ __('Apply') }}</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('Cancel') }}</button>
+            </div>
+        </div>
+    </div>
+</div>

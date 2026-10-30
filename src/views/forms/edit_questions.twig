@@ -18,11 +18,13 @@
             read: '{{ rights.read }}',
             delete: '{{ rights.delete }}',
             formId: '{{ form.id }}',
+            baseUrl: {{ BASE_URL|json_encode|raw }},
         }
         let language = {
             translations: {{ translations|json_encode|raw }},
         }
     </script>
+    <script src="{{ BASE_URL }}/node_modules/tinymce/tinymce.min.js"></script>
     <script src="{{ BASE_URL }}/vendor/tigress/form-builder/public/javascript/forms/edit_questions.js"></script>
 {% endblock %}
 {% block title %}{{ __('Forms') }} - {{ form.name }}{% endblock %}
@@ -145,6 +147,11 @@
                                                                   name="formsQuestions[{{ formsQuestion.id }}][question]"
                                                                   form="form-all"
                                                                   required>{{ formsQuestion.question }}</textarea>
+                                                            <button type="button" class="btn btn-outline-secondary edit-question-text"
+                                                                    title="{{ __('Edit question') }}" aria-label="{{ __('Edit question') }}">
+                                                                <i class="fa-solid fa-pen" aria-hidden="true"></i>
+                                                            </button>
+                                                        </div>
                                                     </td>
                                                     <td class="text-middle">
                                                         <select name="formsQuestions[{{ formsQuestion.id }}][field_type_id]"
@@ -222,10 +229,16 @@
                                                                    required>
                                                         </div>
                                                         <div class="col-sm-2">
-                                                            <textarea rows="1" class="form-control auto-grow"
+                                                            <div class="input-group question-editor-field">
+<textarea rows="1" class="form-control auto-grow"
                                                                       name="question"
                                                                       form="form-table1-{{ formsSection.sort }}"
                                                                       required></textarea>
+                                                            <button type="button" class="btn btn-outline-secondary edit-question-text"
+                                                                    title="{{ __('Edit question') }}" aria-label="{{ __('Edit question') }}">
+                                                                <i class="fa-solid fa-pen" aria-hidden="true"></i>
+                                                            </button>
+                                                        </div>
                                                         </div>
                                                         <div class="col-sm-1">
                                                             <select name="field_type_id"
