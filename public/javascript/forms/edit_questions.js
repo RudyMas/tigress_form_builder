@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         plugins: 'lists image code',
                         toolbar: 'undo redo | bullist numlist bold italic underline | image | removeformat code',
                         // Match the image-safe HTML profile used to render question labels.
-                        valid_elements: 'div,ol,nl,li,b,strong,i,em,u,br,img[src|alt|width|height]',
+                        valid_elements: 'div,ul,ol,li,b,strong,i,em,u,br,img[src|alt|width|height]',
                         formats: {bold: {inline: 'b'}, italic: {inline: 'i'}},
                         forced_root_block: 'div',
                         content_style: 'img { max-width: 100%; height: auto; }',
