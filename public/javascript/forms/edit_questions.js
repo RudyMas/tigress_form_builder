@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         height: 400,
                         menubar: false,
                         plugins: 'image code',
-                        toolbar: 'undo redo | bold italic underline | image | removeformat code',
+                        toolbar: 'undo redo | bullist numlist bold italic underline | image | removeformat code',
                         // Match the image-safe HTML profile used to render question labels.
                         valid_elements: 'div,b,strong,i,em,u,br,img[src|alt|width|height]',
                         formats: {bold: {inline: 'b'}, italic: {inline: 'i'}},
