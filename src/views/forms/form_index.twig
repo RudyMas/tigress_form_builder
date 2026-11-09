@@ -42,7 +42,7 @@
                                 <fieldset>
                                     <legend>{{ formsSection.name }}</legend>
                                     {% if formsSection.description %}
-                                        <p><i>{{ formsSection.description|nl2br }}</i></p>
+                                        <p><i>{{ formsSection.description|raw|nl2br }}</i></p>
                                     {% endif %}
                                     <div class="row mb-2">
                                         {% for data in formsQuestions %}
@@ -94,7 +94,7 @@
                         <fieldset>
                             <legend>{{ formsSections[0].name }}</legend>
                             {% if formsSections[0].description %}
-                                <p>{{ formsSections[0].description|nl2br }}</p>
+                                <p>{{ formsSections[0].description|raw|nl2br }}</p>
                             {% endif %}
                             <div class="row mb-2">
                                 {% for data in formsQuestions %}
