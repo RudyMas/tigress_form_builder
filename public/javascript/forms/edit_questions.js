@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         license_key: 'gpl',
                         height: 400,
                         menubar: false,
-                        plugins: 'image code',
+                        plugins: 'lists image code',
                         toolbar: 'undo redo | bullist numlist bold italic underline | image | removeformat code',
                         // Match the image-safe HTML profile used to render question labels.
                         valid_elements: 'div,b,strong,i,em,u,br,img[src|alt|width|height]',
