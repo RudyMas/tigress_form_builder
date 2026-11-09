@@ -77,9 +77,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
                 const editor = await editorReady;
                 if (!questionSource || !editorModalElement.classList.contains('show')) return;
-                // Preserve line breaks in older questions that contain plain text.
-                const content = questionSource.value.replace(/\r?\n/g, '<br>');
-                editor.setContent(content);
+                editor.setContent(questionSource.value);
                 applyQuestion.disabled = false;
                 editor.focus();
             } catch (error) {
@@ -98,8 +96,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (uploads.some(upload => upload.status === false)) {
                     throw new Error('Image upload failed');
                 }
-                questionSource.value = questionEditor.getContent()
-                    .replace(/<div[^>]*>/g, '').replace(/<\/div>\s*(?=.)/g, '<br>').replace(/<\/div>\s*$/g, '');
+                questionSource.value = questionEditor.getContent();
                 questionSource.dispatchEvent(new Event('input', {bubbles: true}));
                 questionSource.dispatchEvent(new Event('change', {bubbles: true}));
                 applyingQuestion = false;
